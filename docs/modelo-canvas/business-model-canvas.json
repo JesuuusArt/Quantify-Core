@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Quantify Core — Business Model Canvas",
+    "quality_profile": "showcase"
+  },
+  "layout": {
+    "mode": "grid",
+    "cols": 3,
+    "gapX": 80,
+    "gapY": 64,
+    "cellW": 200,
+    "cellH": 70
+  },
+  "components": [
+    { "id": "socios", "type": "external", "label": "Socios Clave", "sublabel": "Universidad Tecnológica de Xicotepec de Juárez", "row": 0, "col": 0, "size": [180, 70] },
+    { "id": "actividades", "type": "backend", "label": "Actividades Clave", "sublabel": "Desarrollo de software e integración de IA", "row": 1, "col": 0, "size": [180, 70] },
+    { "id": "costos", "type": "database", "label": "Estructura de Costos", "sublabel": "Servidores, APIs de IA y marketing", "row": 2, "col": 0, "size": [180, 70] },
+    { "id": "recursos", "type": "cloud", "label": "Recursos Clave", "sublabel": "Equipo, APIs de IA y diseño UX/UI", "row": 0, "col": 1, "size": [180, 70] },
+    { "id": "propuesta", "type": "backend", "label": "Propuesta de Valor", "sublabel": "Seguimiento y refuerzo de hábitos con IA", "row": 1, "col": 1, "size": [190, 80], "tag": "Core" },
+    { "id": "ingresos", "type": "messagebus", "label": "Fuentes de Ingreso", "sublabel": "Suscripción premium", "row": 2, "col": 1, "size": [180, 70] },
+    { "id": "relacion", "type": "frontend", "label": "Relación con Clientes", "sublabel": "Recordatorios y acompañamiento personalizado", "row": 0, "col": 2, "size": [180, 70] },
+    { "id": "canales", "type": "frontend", "label": "Canales", "sublabel": "App web, app móvil y redes sociales", "row": 1, "col": 2, "size": [180, 70] },
+    { "id": "segmentos", "type": "external", "label": "Segmentos de Clientes", "sublabel": "Público general", "row": 2, "col": 2, "size": [180, 70] }
+  ],
+  "connections": [
+    { "id": "socios-actividades", "from": "socios", "to": "actividades", "label": "apoyan", "labelDy": 20 },
+    { "id": "actividades-propuesta", "from": "actividades", "to": "propuesta", "label": "construyen" },
+    { "id": "recursos-propuesta", "from": "recursos", "to": "propuesta", "label": "habilitan", "fromSide": "bottom", "toSide": "top" },
+    { "id": "propuesta-canales", "from": "propuesta", "to": "canales", "label": "se ofrece" },
+    { "id": "canales-segmentos", "from": "canales", "to": "segmentos", "label": "llegan a", "labelDy": 20 },
+    { "id": "relacion-segmentos", "from": "relacion", "to": "segmentos", "label": "acompañan a", "fromSide": "right", "toSide": "right", "via": [[840, 115], [840, 383]], "labelAt": [872, 245] },
+    { "id": "segmentos-ingresos", "from": "segmentos", "to": "ingresos", "label": "generan" },
+    { "id": "actividades-costos", "from": "actividades", "to": "costos" }
+  ],
+  "cards": [
+    { "dot": "violet", "title": "Modelo de negocio", "items": ["Segmento: público general", "Valor: hábitos con IA", "Ingreso: suscripción premium"] },
+    { "dot": "rose", "title": "Problema", "items": ["Falta de constancia al crear hábitos", "Sin seguimiento ni motivación", "Dificultad para medir progreso"] },
+    { "dot": "emerald", "title": "Relación con el proyecto", "items": ["Alineado a requerimientos e historias de usuario", "Reglas de negocio: freemium premium", "Prototipos y arquitectura tecnológica"] }
+  ]
+}
+
