@@ -16,6 +16,20 @@
 
 ---
 
+## 🌐 Sitio del proyecto (GitHub Pages)
+
+<p align="center">
+  <a href="https://jesuuusart.github.io/Quantify-Core/">
+    <img src="https://img.shields.io/badge/🚀%20Ver%20sitio%20del%20proyecto-1E54C9?style=for-the-badge&logo=github&logoColor=white" alt="Sitio del proyecto"/>
+  </a>
+</p>
+
+<p align="center">
+  👉 <a href="https://jesuuusart.github.io/Quantify-Core/"><strong>https://jesuuusart.github.io/Quantify-Core/</strong></a>
+</p>
+
+---
+
 ## 📖 Descripción
 
 **Quantify Core** es una aplicación multiplataforma (web y móvil) diseñada para ayudar a las personas a construir, mantener y mejorar sus hábitos diarios. A través de un seguimiento inteligente y el apoyo de inteligencia artificial, los usuarios pueden:
