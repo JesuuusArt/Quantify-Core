@@ -48,6 +48,7 @@ Analizar el contexto del Proyecto Integrador y representar visualmente su propue
 
 ## 📁 Archivos
 
+- `prompt.txt` — prompt utilizado para generar el modelo con Archify.
 - `business-model-canvas.html` — modelo canvas interactivo (modal por bloque, tema claro/oscuro, paleta de marca).
 - `business-model-canvas.json` — especificación fuente del modelo.
 - `business-model-canvas.visual-check.*` — evidencia de revisión visual automatizada.
