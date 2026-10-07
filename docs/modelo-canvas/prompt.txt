@@ -1,0 +1,17 @@
+Eres un experto en modelos de negocio y visualización de información. Necesito que generes un Business Model Canvas interactivo para mi proyecto integrador llamado "Quantify Core".
+
+Quantify Core es una aplicación web y móvil que ayuda a las personas a crear, seguir y mejorar sus hábitos diarios. Usará inteligencia artificial para recomendar nuevos hábitos según lo que el usuario ya esté haciendo y para reforzar la constancia con recordatorios y estadísticas.
+
+Estos son los datos del modelo de negocio:
+
+- Segmentos de clientes: público general, cualquier persona que quiera mejorar sus hábitos.
+- Propuesta de valor: seguimiento y refuerzo de hábitos con inteligencia artificial.
+- Canales: aplicación web, aplicación móvil (Android e iOS) y redes sociales.
+- Relación con clientes: recordatorios y acompañamiento personalizado.
+- Fuentes de ingreso: suscripción premium (modelo freemium).
+- Recursos clave: equipo de desarrollo, modelos de IA mediante APIs y diseño UX/UI.
+- Actividades clave: desarrollo de software e integración de IA.
+- Socios clave: Universidad Tecnológica de Xicotepec de Juárez.
+- Estructura de costos: servidores, consumo de APIs de IA y marketing.
+
+El resultado debe ser claro, visual e interactivo, de forma que cualquier persona pueda entender rápidamente qué problema resuelve el proyecto, quiénes lo usarán, qué valor ofrece y qué necesita para funcionar.
