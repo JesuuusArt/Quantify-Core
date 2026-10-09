@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quantify Core — Proyecto Integrador</title>
+<style>
+  :root {
+    --azul: #1E54C9;
+    --azul-claro: #4C7FE8;
+    --gris: #2C3036;
+    --gris-texto: #3A404B;
+    --blanco: #FFFFFF;
+    --fondo: #F4F7FE;
+    --borde: #D9E2F5;
+    --sombra: 0 10px 30px rgba(30, 84, 201, 0.10);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--fondo); color: var(--gris); }
+
+  /* ---------- Navegación ---------- */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(44, 48, 54, 0.95); backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 8%;
+  }
+  nav img { height: 38px; border-radius: 8px; vertical-align: middle; margin-right: 10px; }
+  nav .marca { color: var(--blanco); font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; }
+  nav a { color: #C7D3F2; text-decoration: none; margin-left: 22px; font-size: 0.95rem; }
+  nav a:hover { color: var(--blanco); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    background: linear-gradient(135deg, var(--gris) 0%, #1B2436 60%, var(--azul) 140%);
+    color: var(--blanco); text-align: center; padding: 90px 8% 80px;
+  }
+  .hero img { height: 110px; border-radius: 18px; box-shadow: 0 8px 30px rgba(0,0,0,.5); margin-bottom: 22px; }
+  .hero h1 { font-size: 3rem; letter-spacing: 1px; }
+  .hero .slogan { color: #C7D3F2; margin-top: 12px; font-size: 1.15rem; }
+  .hero .etiqueta {
+    display: inline-block; margin-top: 24px; padding: 6px 18px;
+    border: 1px solid var(--azul-claro); border-radius: 999px; color: #C7D3F2; font-size: 0.85rem;
+  }
+
+  /* ---------- Secciones ---------- */
+  section { max-width: 1100px; margin: 0 auto; padding: 64px 24px 8px; }
+  .encabezado-seccion { text-align: center; margin-bottom: 36px; }
+  .encabezado-seccion h2 { color: var(--azul); font-size: 1.9rem; }
+  .encabezado-seccion .linea { width: 60px; height: 4px; background: var(--azul); border-radius: 2px; margin: 12px auto 0; }
+  .encabezado-seccion p { color: #6B7484; margin-top: 12px; }
+
+  .tarjetas { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+  .tarjeta {
+    background: var(--blanco); border: 1px solid var(--borde); border-radius: 14px;
+    padding: 26px; box-shadow: var(--sombra); transition: transform .2s;
+  }
+  .tarjeta:hover { transform: translateY(-4px); }
+  .tarjeta h3 { color: var(--azul); margin-bottom: 8px; }
+  .tarjeta p { color: var(--gris-texto); line-height: 1.6; }
+  .tarjeta .rol { color: #8A93A3; font-size: 0.85rem; margin-top: 6px; }
+
+  .insignias { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 8px; }
+  .insignia { background: var(--azul); color: var(--blanco); border-radius: 999px; padding: 5px 16px; font-size: 0.85rem; }
+
+  /* ---------- Selector de prácticas ---------- */
+  .selector { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 34px; }
+  .practica-btn {
+    background: var(--blanco); border: 2px solid var(--azul); color: var(--azul);
+    border-radius: 999px; padding: 11px 26px; font-size: 0.95rem; cursor: pointer; font-weight: 700;
+    transition: all .2s;
+  }
+  .practica-btn:hover { transform: translateY(-2px); box-shadow: var(--sombra); }
+  .practica-btn.activa { background: var(--azul); color: var(--blanco); }
+
+  /* ---------- Detalle de práctica ---------- */
+  #detalle-practica {
+    display: none; background: var(--blanco); border: 1px solid var(--borde);
+    border-radius: 18px; padding: 40px; box-shadow: var(--sombra);
+  }
+  #detalle-practica h3.titulo { font-size: 1.7rem; color: var(--gris); margin-bottom: 12px; }
+  #detalle-practica h4 { color: var(--azul); margin: 26px 0 10px; font-size: 1.15rem; border-left: 4px solid var(--azul); padding-left: 10px; }
+  #detalle-practica p { line-height: 1.7; color: var(--gris-texto); }
+  #detalle-practica ul { margin-left: 24px; line-height: 1.8; color: var(--gris-texto); }
+  #detalle-practica iframe { width: 100%; height: 72vh; border: 2px solid var(--azul); border-radius: 12px; margin-top: 8px; }
+  .archivos { display: flex; flex-wrap: wrap; gap: 12px; }
+  .archivo {
+    display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+    border: 1px solid var(--borde); border-radius: 10px; padding: 10px 16px;
+    color: var(--azul); font-weight: 600; background: var(--fondo);
+  }
+  .archivo:hover { background: var(--azul); color: var(--blanco); }
+
+  footer { background: var(--gris); color: #AEB6C2; text-align: center; padding: 26px; margin-top: 70px; }
+  footer strong { color: var(--blanco); }
+
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 2.1rem; }
+    nav { flex-direction: column; gap: 6px; }
+    #detalle-practica { padding: 24px; }
+    .tarjetas[style*="repeat(6"] { grid-template-columns: 1fr !important; }
+    .tarjeta[style*="grid-column"] { grid-column: auto !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="marca"><img src="quantifyLogo.jpeg" alt="Logo">Quantify Core</span>
+  <span>
+    <a href="#proyecto">Proyecto</a>
+    <a href="#equipo">Equipo</a>
+    <a href="#practicas">Prácticas</a>
+  </span>
+</nav>
+
+<header class="hero">
+  <img src="quantifyLogo.jpeg" alt="Quantify Core">
+  <h1>Quantify Core</h1>
+  <p class="slogan">El motor inteligente para el seguimiento, análisis y optimización de hábitos impulsado por IA.</p>
+  <span class="etiqueta">Proyecto Integrador · Grupo A · 10° Cuatrimestre</span>
+</header>
+
+<section id="proyecto">
+  <div class="encabezado-seccion">
+    <h2>Sobre el proyecto</h2>
+    <div class="linea"></div>
+  </div>
+  <p style="max-width:800px;margin:0 auto 30px;text-align:center;color:var(--gris-texto);line-height:1.7">
+    <strong>Quantify Core</strong> es una aplicación multiplataforma (web y móvil) que ayuda a las personas a crear,
+    mantener y mejorar sus hábitos diarios. Con seguimiento inteligente e inteligencia artificial, los usuarios
+    registran sus hábitos, visualizan su progreso, reciben recordatorios y obtienen recomendaciones de nuevos hábitos.
+  </p>
+  <div class="tarjetas">
+    <div class="tarjeta"><h3>Seguimiento diario</h3><p>Rachas, estadísticas e historial de cada hábito para mantener la motivación.</p></div>
+    <div class="tarjeta"><h3>IA de recomendaciones</h3><p>Sugerencias personalizadas de hábitos basadas en tu actividad actual.</p></div>
+    <div class="tarjeta"><h3>Multiplataforma</h3><p>Disponible como aplicación web y aplicación móvil.</p></div>
+  </div>
+</section>
+
+<section id="equipo">
+  <div class="encabezado-seccion">
+    <h2>Nuestro equipo</h2>
+    <div class="linea"></div>
+    <p>Universidad Tecnológica de Xicotepec de Juárez</p>
+    <div class="insignias" style="margin-top:14px">
+      <span class="insignia">Grupo A</span><span class="insignia">10° Cuatrimestre</span>
+    </div>
+  </div>
+  <div class="tarjetas" style="grid-template-columns:repeat(6,1fr)">
+    <div class="tarjeta" style="grid-column:span 2"><h3>Al Farias Leyva</h3><p class="rol">Integrante del equipo</p></div>
+    <div class="tarjeta" style="grid-column:span 2"><h3>Francisco García García</h3><p class="rol">Integrante del equipo</p></div>
+    <div class="tarjeta" style="grid-column:span 2"><h3>Ángel de Jesús Baños Telles</h3><p class="rol">Integrante del equipo</p></div>
+    <div class="tarjeta" style="grid-column:3 / span 2;text-align:center"><h3>Jesús Alejandro Artiaga Morales</h3><p class="rol">Integrante del equipo</p></div>
+  </div>
+</section>
+
+<section id="practicas">
+  <div class="encabezado-seccion">
+    <h2>Prácticas y actividades</h2>
+    <div class="linea"></div>
+    <p>Selecciona una actividad para ver su descripción, objetivos, entregables y recursos.</p>
+  </div>
+  <div class="selector" id="selector"></div>
+  <div id="detalle-practica"></div>
+</section>
+
+<footer>
+  <strong>Quantify Core</strong> · Proyecto Integrador · Universidad Tecnológica de Xicotepec de Juárez · 2026
+</footer>
+
+<script>
+const practicas = {
+  "modelo-canvas": {
+    nombre: "Modelo Canvas",
+    descripcion: "Business Model Canvas Interactivo del Proyecto Integrador, generado con Archify y validado con revisión visual automatizada en múltiples viewports.",
+    objetivos: [
+      "Analizar el contexto del proyecto integrador.",
+      "Representar visualmente la propuesta mediante un canvas interactivo con paleta de marca.",
+      "Explicar problema, usuarios, propuesta de valor, canales y recursos necesarios."
+    ],
+    entregables: [
+      "Canvas interactivo en HTML autocontenido (con modal por bloque y tema claro/oscuro).",
+      "Especificación JSON del modelo.",
+      "Reporte de revisión visual automatizada."
+    ],
+    iframe: "docs/modelo-canvas/business-model-canvas.html",
+    tituloIframe: "Modelo Canvas Interactivo",
+    archivos: [
+      { nombre: "Canvas interactivo (HTML)", url: "docs/modelo-canvas/business-model-canvas.html" },
+      { nombre: "Especificación JSON", url: "docs/modelo-canvas/business-model-canvas.json" }
+    ],
+    conclusiones: "El canvas deja claro que Quantify Core monetiza mediante suscripción premium, se apoya en APIs de IA y tiene como público general a cualquier persona interesada en formar hábitos sostenibles."
+  }
+  // Para agregar más actividades, copia esta estructura y añade una nueva clave aquí.
+};
+
+const selector = document.getElementById('selector');
+const detalle = document.getElementById('detalle-practica');
+
+Object.keys(practicas).forEach((clave) => {
+  const btn = document.createElement('button');
+  btn.className = 'practica-btn';
+  btn.textContent = practicas[clave].nombre;
+  btn.onclick = () => mostrarPractica(clave, btn);
+  selector.appendChild(btn);
+});
+
+function mostrarPractica(clave, btn) {
+  document.querySelectorAll('.practica-btn').forEach(b => b.classList.remove('activa'));
+  btn.classList.add('activa');
+  const p = practicas[clave];
+  detalle.style.display = 'block';
+  detalle.innerHTML = `
+    <h3 class="titulo">${p.nombre}</h3>
+    <p>${p.descripcion}</p>
+    <h4>Objetivos</h4>
+    <ul>${p.objetivos.map(o => `<li>${o}</li>`).join('')}</ul>
+    <h4>Entregables</h4>
+    <ul>${p.entregables.map(e => `<li>${e}</li>`).join('')}</ul>
+    ${p.iframe ? `<h4>${p.tituloIframe || 'Vista interactiva'}</h4><iframe src="${p.iframe}" title="${p.nombre}"></iframe>` : ''}
+    <h4>Archivos</h4>
+    <div class="archivos">${p.archivos.map(a => `<a class="archivo" href="${a.url}" target="_blank">📄 ${a.nombre}</a>`).join('')}</div>
+    <h4>Conclusiones</h4>
+    <p>${p.conclusiones}</p>
+  `;
+  detalle.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+
+</body>
+</html>
