@@ -37,105 +37,116 @@
     color: var(--blanco); text-align: center; padding: 90px 8% 80px;
   }
   .hero img { height: 110px; border-radius: 18px; box-shadow: 0 8px 30px rgba(0,0,0,.5); margin-bottom: 22px; }
-  .hero h1 { font-size: 3rem; letter-spacing: 1px; }
-  .hero .slogan { color: #C7D3F2; margin-top: 12px; font-size: 1.15rem; }
-  .hero .etiqueta {
-    display: inline-block; margin-top: 24px; padding: 6px 18px;
-    border: 1px solid var(--azul-claro); border-radius: 999px; color: #C7D3F2; font-size: 0.85rem;
-  }
+  .hero h1 { font-size: 2.8rem; margin-bottom: 14px; font-weight: 800; }
+  .hero p { font-size: 1.25rem; max-width: 680px; margin: 0 auto 28px; color: #D5E1FD; }
+  .insignias { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .insignia { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; }
 
   /* ---------- Secciones ---------- */
-  section { max-width: 1100px; margin: 0 auto; padding: 64px 24px 8px; }
-  .encabezado-seccion { text-align: center; margin-bottom: 36px; }
-  .encabezado-seccion h2 { color: var(--azul); font-size: 1.9rem; }
-  .encabezado-seccion .linea { width: 60px; height: 4px; background: var(--azul); border-radius: 2px; margin: 12px auto 0; }
-  .encabezado-seccion p { color: #6B7484; margin-top: 12px; }
+  section { padding: 70px 8%; }
+  .encabezado-seccion { text-align: center; margin-bottom: 40px; }
+  .encabezado-seccion h2 { font-size: 2rem; color: var(--gris); margin-bottom: 8px; }
+  .encabezado-seccion .linea { width: 60px; height: 4px; background: var(--azul); margin: 0 auto 12px; border-radius: 2px; }
+  .encabezado-seccion p { color: var(--gris-texto); font-size: 1.05rem; }
 
-  .tarjetas { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+  /* ---------- Tarjetas de Presentación ---------- */
+  .tarjetas { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
   .tarjeta {
     background: var(--blanco); border: 1px solid var(--borde); border-radius: 14px;
-    padding: 26px; box-shadow: var(--sombra); transition: transform .2s;
+    padding: 26px; box-shadow: var(--sombra);
   }
-  .tarjeta:hover { transform: translateY(-4px); }
-  .tarjeta h3 { color: var(--azul); margin-bottom: 8px; }
-  .tarjeta p { color: var(--gris-texto); line-height: 1.6; }
-  .tarjeta .rol { color: #8A93A3; font-size: 0.85rem; margin-top: 6px; }
+  .tarjeta h3 { color: var(--azul); font-size: 1.2rem; margin-bottom: 10px; }
+  .tarjeta p { color: var(--gris-texto); line-height: 1.55; }
+  .tarjeta .rol { font-weight: 600; color: var(--gris); font-size: 0.9rem; margin-top: 8px; }
 
-  .insignias { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 8px; }
-  .insignia { background: var(--azul); color: var(--blanco); border-radius: 999px; padding: 5px 16px; font-size: 0.85rem; }
-
-  /* ---------- Selector de prácticas ---------- */
-  .selector { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 34px; }
+  /* ---------- Selector de Prácticas ---------- */
+  .selector {
+    display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px;
+  }
   .practica-btn {
     background: var(--blanco); border: 2px solid var(--azul); color: var(--azul);
-    border-radius: 999px; padding: 11px 26px; font-size: 0.95rem; cursor: pointer; font-weight: 700;
-    transition: all .2s;
+    padding: 10px 22px; border-radius: 25px; font-weight: 600; cursor: pointer;
+    font-size: 0.95rem; transition: all .2s;
   }
-  .practica-btn:hover { transform: translateY(-2px); box-shadow: var(--sombra); }
-  .practica-btn.activa { background: var(--azul); color: var(--blanco); }
+  .practica-btn:hover, .practica-btn.activa {
+    background: var(--azul); color: var(--blanco);
+  }
 
-  /* ---------- Detalle de práctica ---------- */
+  /* ---------- Detalle de Práctica ---------- */
   #detalle-practica {
-    display: none; background: var(--blanco); border: 1px solid var(--borde);
-    border-radius: 18px; padding: 40px; box-shadow: var(--sombra);
+    background: var(--blanco); border: 1px solid var(--borde); border-radius: 16px;
+    padding: 36px; box-shadow: var(--sombra); max-width: 1050px; margin: 0 auto;
+    display: none;
   }
-  #detalle-practica h3.titulo { font-size: 1.7rem; color: var(--gris); margin-bottom: 12px; }
-  #detalle-practica h4 { color: var(--azul); margin: 26px 0 10px; font-size: 1.15rem; border-left: 4px solid var(--azul); padding-left: 10px; }
-  #detalle-practica p { line-height: 1.7; color: var(--gris-texto); }
-  #detalle-practica ul { margin-left: 24px; line-height: 1.8; color: var(--gris-texto); }
-  #detalle-practica iframe { width: 100%; height: 72vh; border: 2px solid var(--azul); border-radius: 12px; margin-top: 8px; }
-  .archivos { display: flex; flex-wrap: wrap; gap: 12px; }
-  .archivo {
-    display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
-    border: 1px solid var(--borde); border-radius: 10px; padding: 10px 16px;
-    color: var(--azul); font-weight: 600; background: var(--fondo);
+  #detalle-practica h3.titulo { color: var(--azul); font-size: 1.7rem; margin-bottom: 12px; }
+  #detalle-practica h4 { color: var(--gris); font-size: 1.15rem; margin-top: 24px; margin-bottom: 8px; }
+  #detalle-practica p, #detalle-practica li { color: var(--gris-texto); line-height: 1.6; }
+  #detalle-practica ul { padding-left: 20px; }
+  #detalle-practica .archivos { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px; }
+  #detalle-practica a.archivo {
+    display: inline-block; background: #EEF3FD; color: var(--azul);
+    border: 1px solid #C7D8F9; padding: 8px 16px; border-radius: 8px;
+    text-decoration: none; font-size: 0.9rem; font-weight: 600;
   }
-  .archivo:hover { background: var(--azul); color: var(--blanco); }
+  #detalle-practica a.archivo:hover { background: var(--azul); color: var(--blanco); }
+  #detalle-practica iframe {
+    width: 100%; height: 600px; border: 1px solid var(--borde); border-radius: 12px;
+    margin-top: 16px; box-shadow: 0 4px 18px rgba(0,0,0,.08);
+  }
 
-  footer { background: var(--gris); color: #AEB6C2; text-align: center; padding: 26px; margin-top: 70px; }
+  /* ---------- Footer ---------- */
+  footer {
+    background: var(--gris); color: #B3BED0; text-align: center;
+    padding: 28px 8%; font-size: 0.9rem;
+  }
   footer strong { color: var(--blanco); }
-
-  @media (max-width: 640px) {
-    .hero h1 { font-size: 2.1rem; }
-    nav { flex-direction: column; gap: 6px; }
-    #detalle-practica { padding: 24px; }
-    .tarjetas[style*="repeat(6"] { grid-template-columns: 1fr !important; }
-    .tarjeta[style*="grid-column"] { grid-column: auto !important; }
-  }
 </style>
 </head>
 <body>
 
 <nav>
-  <span class="marca"><img src="quantifyLogo.jpeg" alt="Logo">Quantify Core</span>
-  <span>
+  <div class="marca">
+    <img src="quantifyLogo.jpeg" alt="Logo Quantify">
+    <span>Quantify Core</span>
+  </div>
+  <div>
     <a href="#proyecto">Proyecto</a>
     <a href="#equipo">Equipo</a>
     <a href="#practicas">Prácticas</a>
-  </span>
+  </div>
 </nav>
 
 <header class="hero">
-  <img src="quantifyLogo.jpeg" alt="Quantify Core">
+  <img src="quantifyLogo.jpeg" alt="Logo Grande Quantify">
   <h1>Quantify Core</h1>
-  <p class="slogan">El motor inteligente para el seguimiento, análisis y optimización de hábitos impulsado por IA.</p>
-  <span class="etiqueta">Proyecto Integrador · Grupo A · 10° Cuatrimestre</span>
+  <p>Motor inteligente para el seguimiento, análisis y optimización de hábitos con IA.</p>
+  <div class="insignias">
+    <span class="insignia">Grupo A</span>
+    <span class="insignia">10° Cuatrimestre</span>
+    <span class="insignia">Proyecto Integrador</span>
+    <span class="insignia">Versión 0.1.0</span>
+  </div>
 </header>
 
 <section id="proyecto">
   <div class="encabezado-seccion">
-    <h2>Sobre el proyecto</h2>
+    <h2>Sobre el Proyecto</h2>
     <div class="linea"></div>
+    <p>¿Qué problema resolvemos y cómo lo hacemos?</p>
   </div>
-  <p style="max-width:800px;margin:0 auto 30px;text-align:center;color:var(--gris-texto);line-height:1.7">
-    <strong>Quantify Core</strong> es una aplicación multiplataforma (web y móvil) que ayuda a las personas a crear,
-    mantener y mejorar sus hábitos diarios. Con seguimiento inteligente e inteligencia artificial, los usuarios
-    registran sus hábitos, visualizan su progreso, reciben recordatorios y obtienen recomendaciones de nuevos hábitos.
-  </p>
   <div class="tarjetas">
-    <div class="tarjeta"><h3>Seguimiento diario</h3><p>Rachas, estadísticas e historial de cada hábito para mantener la motivación.</p></div>
-    <div class="tarjeta"><h3>IA de recomendaciones</h3><p>Sugerencias personalizadas de hábitos basadas en tu actividad actual.</p></div>
-    <div class="tarjeta"><h3>Multiplataforma</h3><p>Disponible como aplicación web y aplicación móvil.</p></div>
+    <div class="tarjeta">
+      <h3>El Problema</h3>
+      <p>La mayoría de las personas abandonan sus hábitos en las primeras tres semanas por falta de motivación, metas poco realistas o ausencia de retroalimentación clara.</p>
+    </div>
+    <div class="tarjeta">
+      <h3>Nuestra Solución</h3>
+      <p>Una plataforma web y móvil que usa IA para sugerir nuevos hábitos, analizar rachas y enviar recordatorios adaptados a las rutinas reales de cada usuario.</p>
+    </div>
+    <div class="tarjeta">
+      <h3>El Diferenciador</h3>
+      <p>No solo registramos lo que hiciste: aprendemos de tu comportamiento para decirte qué paso dar a continuación, combinando analítica y gamificación.</p>
+    </div>
   </div>
 </section>
 
@@ -160,7 +171,7 @@
   <div class="encabezado-seccion">
     <h2>Prácticas y actividades</h2>
     <div class="linea"></div>
-    <p>Selecciona una actividad para ver su descripción, objetivos, entregables y recursos.</p>
+    <p>Selecciona una actividad para ver su descripción, objetivos, entregables y recursos interactivos.</p>
   </div>
   <div class="selector" id="selector"></div>
   <div id="detalle-practica"></div>
@@ -172,6 +183,30 @@
 
 <script>
 const practicas = {
+  "practica-05": {
+    nombre: "Práctica 05: Diagrama de Roles",
+    descripcion: "Diseño y especificación formal del Diagrama de Roles de Usuario, descripción detallada de cada rol y al menos cinco (5) funcionalidades principales (features) de Quantify Core, con matriz analítica de permisos inspirada en el caso de estudio de MecaGest.",
+    objetivos: [
+      "Diseñar un diagrama interactivo de roles de usuario con estética moderna y paleta oficial (#2C3036, #1E54C9).",
+      "Definir con precisión el rol, propósito y alcance de cada actor (Usuario Final, Sistema/IA, Administración).",
+      "Identificar y mapear las 5 principales funcionalidades nucleares de la plataforma.",
+      "Especificar la trazabilidad metodológica con el caso de estudio de referencia MecaGest."
+    ],
+    entregables: [
+      "Diagrama interactivo en HTML con siluetas semánticas vectoriales, animaciones scroll y tema oscuro/claro.",
+      "Sección interactiva con las 5 principales funcionalidades (features) de la plataforma.",
+      "Matriz analítica de permisos para 9 acciones operativas.",
+      "Especificación técnica de Historia de Usuario (HU-QC-05) con criterios de aceptación Gherkin."
+    ],
+    iframe: "docs/practica-05/diagrama-roles-quantify.html",
+    tituloIframe: "Diagrama Interactivo de Roles (Práctica 05)",
+    archivos: [
+      { nombre: "Diagrama de Roles (HTML Interactivo)", url: "docs/practica-05/diagrama-roles-quantify.html" },
+      { nombre: "Documento General (README.md)", url: "docs/practica-05/README.md" },
+      { nombre: "Historia de Usuario IA (HU-QC-05)", url: "docs/practica-05/HU-Recomendaciones-IA.md" }
+    ],
+    conclusiones: "Se delimitaron con precisión las responsabilidades del Usuario Final en la app móvil, el procesamiento autónomo del Sistema e IA y la supervisión técnica de Administración, garantizando un ecosistema robusto y alineado con los requerimientos académicos."
+  },
   "modelo-canvas": {
     nombre: "Modelo Canvas",
     descripcion: "Business Model Canvas Interactivo del Proyecto Integrador, generado con Archify y validado con revisión visual automatizada en múltiples viewports.",
@@ -193,21 +228,26 @@ const practicas = {
     ],
     conclusiones: "El canvas deja claro que Quantify Core monetiza mediante suscripción premium, se apoya en APIs de IA y tiene como público general a cualquier persona interesada en formar hábitos sostenibles."
   }
-  // Para agregar más actividades, copia esta estructura y añade una nueva clave aquí.
 };
 
 const selector = document.getElementById('selector');
 const detalle = document.getElementById('detalle-practica');
 
-Object.keys(practicas).forEach((clave) => {
+Object.keys(practicas).forEach((clave, idx) => {
   const btn = document.createElement('button');
   btn.className = 'practica-btn';
   btn.textContent = practicas[clave].nombre;
   btn.onclick = () => mostrarPractica(clave, btn);
   selector.appendChild(btn);
+
+  // Seleccionar automáticamente Práctica 05 por defecto
+  if (idx === 0) {
+    btn.classList.add('activa');
+    mostrarPractica(clave, btn, false);
+  }
 });
 
-function mostrarPractica(clave, btn) {
+function mostrarPractica(clave, btn, scroll = true) {
   document.querySelectorAll('.practica-btn').forEach(b => b.classList.remove('activa'));
   btn.classList.add('activa');
   const p = practicas[clave];
@@ -225,9 +265,10 @@ function mostrarPractica(clave, btn) {
     <h4>Conclusiones</h4>
     <p>${p.conclusiones}</p>
   `;
-  detalle.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (scroll) {
+    detalle.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 }
 </script>
-
 </body>
 </html>
