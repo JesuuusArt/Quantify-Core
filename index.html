@@ -152,7 +152,7 @@
 
 <section id="equipo">
   <div class="encabezado-seccion">
-    <h2>Nuestro equipo</h2>
+    <h2>Organigrama de la empresa</h2>
     <div class="linea"></div>
     <p>Universidad Tecnológica de Xicotepec de Juárez</p>
     <div class="insignias" style="margin-top:14px">
@@ -261,7 +261,7 @@ function mostrarPractica(clave, btn, scroll = true) {
     <ul>${p.entregables.map(e => `<li>${e}</li>`).join('')}</ul>
     ${p.iframe ? `<h4>${p.tituloIframe || 'Vista interactiva'}</h4><iframe src="${p.iframe}" title="${p.nombre}"></iframe>` : ''}
     <h4>Archivos</h4>
-    <div class="archivos">${p.archivos.map(a => `<a class="archivo" href="${a.url}" target="_blank">📄 ${a.nombre}</a>`).join('')}</div>
+    <div class="archivos">${p.archivos.map(a => `<a class="archivo" href="${a.url}" target="_blank">${a.nombre}</a>`).join('')}</div>
     <h4>Conclusiones</h4>
     <p>${p.conclusiones}</p>
   `;
