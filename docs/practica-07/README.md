@@ -4,6 +4,26 @@
 **Universidad:** Universidad Tecnológica de Xicotepec de Juárez<br>
 **Cuatrimestre:** 10° · **Grupo:** A
 
+Prototipo interactivo de **Quantify Core** para explorar cómo un usuario gestiona su rutina y cómo un administrador supervisa la operación. La práctica conecta los sketches mediante acciones, validaciones, retornos y confirmaciones, con una misma lógica para móvil y PWA.
+
+| Roles | Sketches | Formatos | Implementación |
+|---|---|---|---|
+| Usuario y Administrador | 24 pantallas: 15 de usuario y 9 de administración | Móvil y PWA | HTML, CSS y JavaScript puros |
+
+## Vista general del prototipo
+
+![Sketch U06, Hoy / Mis hábitos, en formato PWA: inventario de pantallas a la izquierda, rutina del usuario al centro y conexiones de navegación a la derecha.](./assets/prototipo-hoy.png)
+
+*Captura real del sketch U06 — Hoy / Mis hábitos, con datos de demostración. Los gráficos conservan recuadros de referencia para representar una interfaz en etapa de sketch.*
+
+La vista se organiza en tres áreas:
+
+- **Izquierda · Inventario de sketches:** permite localizar las pantallas del rol seleccionado y abrirlas para su revisión.
+- **Centro · Prototipo navegable:** presenta el sketch y sus controles. En esta pantalla se consulta el avance diario, se abren los hábitos y se inicia su creación.
+- **Derecha · Conexiones y reglas:** explica las acciones disponibles, sus destinos y las condiciones que mantienen al usuario en el mismo sketch.
+
+Los selectores superiores permiten cambiar de rol o de formato. **Ver navegación** abre el mapa de transiciones; **Zonas clicables** resalta los controles interactivos.
+
 ## 1. Objetivo
 
 Representar y probar la navegación entre los sketches de Quantify Core mediante un prototipo interactivo. Se definen las pantallas, las acciones que las conectan, sus condiciones y las respuestas del sistema para dos roles: **Usuario** y **Administrador**.
@@ -24,7 +44,7 @@ python3 -m http.server 8765 --bind 127.0.0.1 --directory docs
 
 Después visitar `http://127.0.0.1:8765/practica-07/`.
 
-**Ruta prevista en GitHub Pages:** `https://jesuuusart.github.io/Quantify-Core/practica-07/`. Los archivos están preparados para servirse desde `docs`; crear estos archivos en una rama local no los publica. No se modificó la portada de otras prácticas ni se hizo commit, push o despliegue.
+**Ruta de publicación en GitHub Pages:** [Quantify Core · Práctica 07](https://jesuuusart.github.io/Quantify-Core/practica-07/). Los archivos están preparados para servirse desde `docs`. La disponibilidad de esta dirección depende de que GitHub Pages publique la rama que contiene la práctica.
 
 ### Cómo recorrerlo
 
@@ -132,7 +152,7 @@ La navegación global de cada rol permite volver a sus módulos principales. El 
 
 ## 7. Reglas de negocio propuestas
 
-Estas reglas concretan el diseño de esta práctica. El umbral de IA se unifica en **80%** para evitar la discrepancia entre el 75% y el 80% mencionados en la documentación previa; esos documentos anteriores no se modificaron.
+Estas **13 reglas** concretan las decisiones del prototipo y permiten revisar tanto los recorridos correctos como sus alternativas. Para las recomendaciones de IA se establece una confianza mínima del **80%**, que el administrador puede elevar.
 
 | Regla | Comportamiento |
 |---|---|
@@ -168,6 +188,7 @@ No incluye backend, autenticación real, envío de correos, notificaciones del d
 | [app.js](./app.js) | Pantallas, navegación y lógica de simulación. |
 | [navegacion.html](./navegacion.html) | Diagrama general independiente generado con Archify. |
 | [navegacion.archify.json](./navegacion.archify.json) | Especificación editable del diagrama general. |
+| [assets/prototipo-hoy.png](./assets/prototipo-hoy.png) | Captura real de la vista principal en formato PWA, incluida en este README. |
 | [tests/prototipo.test.cjs](./tests/prototipo.test.cjs) | Pruebas de lógica con Node.js, sin dependencias. |
 | [VALIDACION.md](./VALIDACION.md) | Resultados de comprobación y recibo de Archify. |
 
