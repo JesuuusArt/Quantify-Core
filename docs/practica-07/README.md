@@ -1,109 +1,182 @@
 # Práctica 07 — Diagrama de secuencia o navegación de sketches del proyecto integrador
 
-**Proyecto integrador:** Quantify Core  
-**Universidad:** Universidad Tecnológica de Xicotepec de Juárez  
-**Cuatrimestre:** 10°  
-**Grupo:** A
+**Proyecto:** Quantify Core<br>
+**Universidad:** Universidad Tecnológica de Xicotepec de Juárez<br>
+**Cuatrimestre:** 10° · **Grupo:** A
 
-## 1. Introducción
+## 1. Objetivo
 
-Quantify Core es una aplicación web y móvil orientada a la creación, el seguimiento y la mejora de hábitos personales. Su propuesta incluye el registro de avances diarios, la consulta de estadísticas, la configuración de recordatorios y las recomendaciones de hábitos mediante inteligencia artificial.
+Representar y probar la navegación entre los sketches de Quantify Core mediante un prototipo interactivo. Se definen las pantallas, las acciones que las conectan, sus condiciones y las respuestas del sistema para dos roles: **Usuario** y **Administrador**.
 
-Esta práctica plantea la documentación de la secuencia de interacción y la navegación entre los **sketches**, entendidos como bocetos de las pantallas de la aplicación. El propósito es definir cómo se desplaza el usuario por las funciones principales antes de desarrollar las interfaces.
+Se eligió un **diagrama de navegación entre sketches**. El mapa representa pantallas y transiciones de interfaz; no es un diagrama UML de llamadas entre servicios.
 
-## 2. Objetivo
+## 2. Abrir el prototipo
 
-Representar el recorrido del usuario entre los sketches de Quantify Core, identificando las pantallas, las acciones que permiten pasar de una a otra y las respuestas esperadas del sistema, para establecer una navegación clara y coherente con las funcionalidades del proyecto integrador.
+- **[Prototipo interactivo](./index.html):** inventario de sketches, dispositivo de vista previa, conexiones, reglas y mapa interactivo.
+- **[Diagrama general de navegación](./navegacion.html):** síntesis de los recorridos principales generada con Archify.
+- **[Evidencia de validación](./VALIDACION.md):** pruebas realizadas y límites de la revisión.
 
-## 3. Alcance de la práctica
+Puede abrirse `index.html` directamente en un navegador. Para una vista local con un origen estable para el almacenamiento, ejecutar **desde la raíz del repositorio**:
 
-La propuesta de navegación se centra en el usuario final y contempla los siguientes recorridos:
+```sh
+python3 -m http.server 8765 --bind 127.0.0.1 --directory docs
+```
 
-- Acceder a la aplicación mediante el inicio de sesión o el registro de una cuenta.
-- Crear y personalizar un hábito.
-- Registrar el progreso diario de un hábito.
-- Consultar el historial, las rachas y las estadísticas personales.
-- Configurar recordatorios.
-- Consultar, aceptar o descartar recomendaciones de hábitos por IA.
+Después visitar `http://127.0.0.1:8765/practica-07/`.
 
-Las pantallas y transiciones descritas a continuación son una **propuesta de diseño**; no representan funcionalidades implementadas ni sketches terminados.
+**Ruta prevista en GitHub Pages:** `https://jesuuusart.github.io/Quantify-Core/practica-07/`. Los archivos están preparados para servirse desde `docs`; crear estos archivos en una rama local no los publica. No se modificó la portada de otras prácticas ni se hizo commit, push o despliegue.
 
-## 4. Sketches propuestos
+### Cómo recorrerlo
 
-| ID    | Pantalla / Sketch        | Propósito                                                            | Acciones principales                                                                  |
-| ----- | ------------------------ | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| SK-01 | Bienvenida               | Presentar la aplicación y sus opciones de acceso.                    | Iniciar sesión o crear una cuenta.                                                    |
-| SK-02 | Registro                 | Capturar los datos necesarios para crear una cuenta.                 | Enviar datos, corregir errores o volver al acceso.                                    |
-| SK-03 | Inicio de sesión         | Permitir el acceso del usuario a su cuenta.                          | Enviar credenciales o regresar a bienvenida.                                          |
-| SK-04 | Inicio / Mis hábitos     | Mostrar los hábitos y el avance del día.                             | Crear un hábito, abrir su detalle o acceder a estadísticas, recomendaciones y perfil. |
-| SK-05 | Crear / Editar hábito    | Definir el nombre, la categoría, la frecuencia y la meta del hábito. | Guardar cambios o cancelar.                                                           |
-| SK-06 | Detalle del hábito       | Mostrar la información y el progreso de un hábito.                   | Registrar avance, editar el hábito o configurar recordatorios.                        |
-| SK-07 | Historial y estadísticas | Mostrar el progreso, las rachas y la constancia del usuario.         | Consultar periodos y regresar al inicio.                                              |
-| SK-08 | Recordatorios            | Configurar los días y horarios de aviso de un hábito.                | Guardar la configuración o cancelar.                                                  |
-| SK-09 | Recomendaciones por IA   | Presentar sugerencias de hábitos según la actividad del usuario.     | Revisar, aceptar o descartar una sugerencia.                                          |
-| SK-10 | Perfil y ajustes         | Consultar y modificar preferencias de la cuenta.                     | Guardar preferencias o cerrar sesión.                                                 |
+1. Elegir **Usuario** o **Administrador**.
+2. Usar los botones y formularios del dispositivo para probar el flujo, o el inventario lateral para revisar un sketch directamente.
+3. Alternar **Móvil / PWA**: se conserva la pantalla, lo escrito en los formularios y los datos. Cambia la distribución, no las funcionalidades.
+4. Activar **Zonas clicables** para identificar controles interactivos.
+5. Abrir **Ver navegación**: las flechas muestran las salidas del sketch actual. Las tarjetas detallan todas las conexiones del rol, incluidos retornos y condiciones que permanecen en la misma pantalla.
+6. Consultar las reglas en el panel derecho y restablecer los datos con **Restablecer demo** cuando sea necesario.
 
-## 5. Secuencia de navegación propuesta
+El inventario lateral y las tarjetas del mapa son herramientas de revisión: permiten saltar directamente a pantallas protegidas para evaluar su diseño. No simulan una autorización de producción.
 
-### 5.1. Acceso a la aplicación
+### Cuentas de ejemplo
 
-1. El usuario abre la aplicación y visualiza **Bienvenida (SK-01)**.
-2. Si no tiene una cuenta, selecciona la opción de registro y accede a **Registro (SK-02)**.
-3. Al completar el registro, continúa a **Inicio de sesión (SK-03)**.
-4. El usuario ingresa sus credenciales y el sistema valida la información.
-5. Si el acceso es correcto, se muestra **Inicio / Mis hábitos (SK-04)**. Si ocurre un error, permanece en el formulario con un mensaje que le permite corregirlo.
+| Rol | Correo | Contraseña de prueba |
+|---|---|---|
+| Usuario | `alex@quantify.demo` | `Demo2026!` |
+| Administrador | `admin@quantify.demo` | `Demo2026!` |
 
-### 5.2. Creación y personalización de un hábito
+El código de verificación de registro y recuperación es **`123456`**. No se envían correos. Una cuenta creada y una contraseña cambiada durante el recorrido solo existen en memoria durante esa visita; las contraseñas no se escriben en el almacenamiento local.
 
-1. Desde **Inicio / Mis hábitos (SK-04)**, el usuario selecciona crear un hábito.
-2. La aplicación abre **Crear / Editar hábito (SK-05)**.
-3. El usuario captura el nombre, la categoría, la frecuencia y la meta.
-4. Al guardar, el sistema valida los campos y confirma el registro.
-5. La aplicación regresa a **Inicio / Mis hábitos (SK-04)** y muestra el nuevo hábito. Si hay datos inválidos, mantiene el formulario para corregirlos.
+## 3. Dos roles, un recorrido por rol
 
-### 5.3. Registro del progreso diario
+**Usuario:** gestiona sus hábitos, registra avances parciales o completos, consulta rachas y análisis, configura avisos y decide si incorpora recomendaciones.
 
-1. El usuario selecciona un hábito desde **Inicio / Mis hábitos (SK-04)**.
-2. La aplicación muestra **Detalle del hábito (SK-06)**.
-3. El usuario registra su avance del día.
-4. El sistema guarda el registro y actualiza el progreso mostrado.
-5. El usuario puede regresar al inicio o consultar **Historial y estadísticas (SK-07)** para revisar sus resultados.
+**Administrador:** mantiene las plantillas del catálogo, supervisa propuestas de IA, administra el estado de cuentas ficticias y consulta la auditoría. Opera sobre información agregada y no tiene pantallas para consultar o editar rutinas personales.
 
-### 5.4. Configuración de recordatorios
+Cada rol utiliza los mismos sketches en móvil y PWA. **PWA** designa la representación del cliente web adaptable dentro del visor; esta entrega no implementa instalación, manifiesto ni service worker.
 
-1. Desde **Detalle del hábito (SK-06)**, el usuario abre **Recordatorios (SK-08)**.
-2. Selecciona los días y horarios de aviso.
-3. Al guardar, el sistema valida y confirma la configuración.
-4. La aplicación regresa al detalle del hábito. Si el usuario cancela, vuelve sin aplicar cambios.
+## 4. Identidad visual y referencias
 
-### 5.5. Recomendaciones de hábitos por IA
+Los wireframes compartidos por el equipo orientan el acceso, los formularios de hábitos, el progreso diario, el análisis, IA Coach y los ajustes. Se mejoró la jerarquía visual y se agregó el recorrido administrativo.
 
-1. Desde **Inicio / Mis hábitos (SK-04)**, el usuario accede a **Recomendaciones por IA (SK-09)**.
-2. El sistema presenta las sugerencias disponibles y una explicación de cada recomendación.
-3. Si el usuario acepta una sugerencia, se abre **Crear / Editar hábito (SK-05)** con los datos propuestos para revisarlos y personalizarlos.
-4. El hábito se incorpora a la lista únicamente después de que el usuario confirma su creación.
-5. Si descarta la sugerencia, permanece en recomendaciones. Si no hay sugerencias disponibles, se muestra un mensaje informativo y la opción de volver al inicio.
+| Recurso | Aplicación |
+|---|---|
+| Logo del repositorio | `../quantifyLogo.jpeg`, usado en el visor y en la aplicación. |
+| Azul `#1E54C9` | Acciones principales, progreso y selección. |
+| Gris oscuro `#2C3036` | Texto principal, marco móvil y paneles destacados. |
+| Blanco `#FFFFFF` | Tarjetas y superficies. |
+| Fondo `#F1F4F9` | Área de trabajo del visor. |
+| Verde y ámbar | Estados activos, pausados y confirmaciones. |
 
-## 6. Criterios para el diagrama y los sketches
+La interfaz usa tipografías del sistema e iconos SVG locales. No requiere fuentes, librerías ni imágenes de terceros.
 
-- Identificar cada pantalla con el mismo código y nombre utilizados en este documento.
-- Indicar en cada conexión la acción que provoca la navegación, como **Iniciar sesión**, **Guardar**, **Cancelar** o **Ver estadísticas**.
-- Representar las decisiones relevantes: acceso válido o inválido, datos completos o incompletos y aceptación o descarte de recomendaciones.
-- Mostrar las opciones de regreso y cancelación para evitar pantallas sin salida.
-- Distinguir las acciones del usuario de las validaciones y respuestas del sistema.
-- Contemplar estados de carga, ausencia de datos y errores al guardar, conservando la información capturada cuando sea posible.
-- Mantener consistencia en los controles y nombres de las pantallas de las versiones web y móvil.
+## 5. Inventario de sketches
 
-## 7. Entregables previstos
+### Usuario — 15 pantallas
 
-| Entregable                         | Descripción                                                                     | Estado                       |
-| ---------------------------------- | ------------------------------------------------------------------------------- | ---------------------------- |
-| README de la práctica              | Objetivo, alcance, inventario de pantallas y recorridos propuestos.             | Documentado en este archivo. |
-| Sketches de las pantallas          | Bocetos de las interfaces incluidas en el alcance.                              | Pendiente de elaboración.    |
-| Diagrama de secuencia o navegación | Representación visual de las conexiones, acciones y decisiones entre pantallas. | Pendiente de elaboración.    |
+| ID | Sketch | Función |
+|---|---|---|
+| U01 | Bienvenida | Presentar la propuesta y elegir acceso o registro. |
+| U02 | Iniciar sesión | Validar credenciales demo; acceder a registro y recuperación. |
+| U03 | Crear cuenta | Capturar los datos de ejemplo antes de verificar. |
+| U04 | Recuperar acceso | Iniciar la recuperación simulada. |
+| U05 | Verificar código | Resolver el registro o la recuperación según el contexto. |
+| U06 | Hoy / Mis hábitos | Ver hábitos programados y completar o deshacer el día. |
+| U07 | Crear / editar hábito | Configurar nombre, categoría, meta, días y color. |
+| U08 | Detalle del hábito | Registrar avances, revisar racha y acceder a edición. |
+| U09 | Recordatorio | Elegir días y horario de un aviso de ejemplo. |
+| U10 | Análisis y rachas | Consultar resultados calculados e historial. |
+| U11 | IA Coach | Revisar, personalizar o descartar sugerencias. |
+| U12 | Perfil y ajustes | Guardar nombre de ejemplo, consentimiento y preferencias. |
+| U13 | Archivar hábito | Confirmar el retiro de la rutina activa sin borrar historial. |
+| U14 | Centro de avisos | Abrir hábitos asociados y marcar avisos como leídos. |
+| U15 | Nueva contraseña | Finalizar la recuperación verificada. |
 
-## 8. Relación con las funcionalidades del proyecto
+### Administrador — 9 pantallas
 
-Esta práctica retoma las funcionalidades descritas en la [Práctica 05: Roles de usuario y funcionalidades principales](../practica-05/README.md) y las traduce en recorridos de interfaz. La funcionalidad de recomendaciones también cuenta con una [historia de usuario de referencia](../practica-05/HU-Recomendaciones-IA.md).
+| ID | Sketch | Función |
+|---|---|---|
+| A01 | Acceso administrador | Validar la cuenta administrativa demo. |
+| A02 | Resumen operativo | Consultar métricas agregadas ilustrativas y accesos a módulos. |
+| A03 | Catálogo de hábitos | Revisar, crear, editar, pausar o reactivar plantillas. |
+| A04 | Editar plantilla | Validar datos y documentar el motivo de creación o edición. |
+| A05 | Supervisión de IA | Revisar propuestas y pausarlas o reactivarlas con motivo. |
+| A06 | Auditoría | Consultar y filtrar cambios administrativos de la demo. |
+| A07 | Control de accesos | Revisar el estado de cuentas ficticias por código. |
+| A08 | Configuración global | Ajustar límites de IA y registrar el motivo. |
+| A09 | Confirmar cambio de acceso | Suspender o reactivar una cuenta con confirmación. |
 
-La navegación propuesta servirá como base para elaborar los sketches y su diagrama, revisar la continuidad de los flujos y orientar el posterior desarrollo de las interfaces de Quantify Core.
+Las confirmaciones de pausa de plantillas e IA son diálogos dentro del sketch correspondiente. Cancelar no aplica cambios ni crea eventos de auditoría.
+
+## 6. Recorridos principales
+
+| Recorrido | Secuencia | Condición o alternativa |
+|---|---|---|
+| Acceso de usuario | U01 → U02 → U06 | Credenciales incorrectas mantienen U02 con un error. |
+| Registro | U01 → U03 → U05 → U06 | Datos o código incorrectos mantienen el formulario. |
+| Recuperación | U02 → U04 → U05 → U15 → U02 | U15 solo guarda después de verificar el código. |
+| Crear hábito | U06 → U07 → U08 | Guardar valida; cancelar vuelve a U06 sin crear. |
+| Editar hábito | U08 → U07 → U08 | Se conserva el historial anterior al día de ejemplo. |
+| Registrar progreso | U06 → U08 → U08 | El avance parcial actualiza el registro del día. |
+| Recordatorio | U08 → U09 → U08 | Guardar valida; cancelar no modifica. |
+| Revisar resultados | U06 → U10 → U08 | El periodo cambia sin salir de Análisis. |
+| Incorporar IA | U06 → U11 → U07 → U08 | Solo guardar crea el hábito; cancelar no acepta. |
+| Archivar hábito | U08 → U13 → U06 | Cancelar devuelve U08 y conserva el hábito activo. |
+| Catálogo | A01 → A02 → A03 → A04 → A03 | Los cambios requieren datos válidos y motivo. |
+| Supervisión IA | A02 → A05 → diálogo → A05 | Pausa o reactivación confirmada genera auditoría. |
+| Cambiar acceso | A02 → A07 → A09 → A07 | Cuenta actual protegida; motivo obligatorio. |
+| Consultar cambios | A02 → A06 | Filtrado local de eventos sin edición ni borrado. |
+
+La navegación global de cada rol permite volver a sus módulos principales. El mapa integrado contiene el detalle de todas las transiciones definidas en `data.js`.
+
+## 7. Reglas de negocio propuestas
+
+Estas reglas concretan el diseño de esta práctica. El umbral de IA se unifica en **80%** para evitar la discrepancia entre el 75% y el 80% mencionados en la documentación previa; esos documentos anteriores no se modificaron.
+
+| Regla | Comportamiento |
+|---|---|
+| RN01 · Alcance por rol | Usuario opera su rutina. Administración opera catálogo, accesos, auditoría y métricas agregadas. |
+| RN02 · Acceso y verificación | Validación demo de credenciales y código; registro público sin cuentas administrativas. |
+| RN03 · Hábito válido | Nombre de 3 a 60 caracteres, meta entera de 1 a 100000 y al menos un día. Sin nombres activos duplicados, ignorando acentos y mayúsculas. |
+| RN04 · Registro diario único | Avance por hábito y fecha, limitado a la meta. Completar o deshacer actualiza el mismo registro. |
+| RN05 · Rachas y cumplimiento | La racha considera días programados. El porcentaje diario cuenta hábitos activos programados; el análisis conserva metas y frecuencias históricas al editar. |
+| RN06 · Archivo con historial | Confirmación previa; conserva registros, desactiva recordatorios y bloquea nuevas marcas. |
+| RN07 · Avisos voluntarios | Horario válido y días compatibles con la frecuencia. Desactivar avisos no modifica el progreso. |
+| RN08 · IA con consentimiento | Al menos 7 días distintos con registros, consentimiento activo, confianza mínima del 80% y hasta 2 sugerencias pendientes. El administrador puede elevar el umbral o reducir el máximo. |
+| RN09 · Aceptación explícita | Se crea el hábito solo al guardar. Se excluyen hábitos activos y archivados en los últimos 30 días. Descartar oculta la propuesta durante 21 días. |
+| RN10 · Catálogo independiente | Pausar o reactivar exige motivo y confirmación. Las futuras propuestas cambian; los hábitos ya creados permanecen intactos. |
+| RN11 · Auditoría | Cambios administrativos con fecha, actor, entidad, acción y motivo. Sin controles para editar o borrar eventos. |
+| RN12 · Accesos controlados | Suspender o reactivar exige motivo; el administrador actual está protegido. Solo se modifica el estado de cuentas ficticias. |
+| RN13 · Paridad de formatos | Móvil y PWA conservan pantallas, datos, acciones y formularios en curso al alternar el formato. |
+
+Los datos diarios usan la fecha fija **14 de octubre de 2026** para hacer reproducible la demostración. Las rachas y los resultados de usuario se calculan sobre registros locales de ejemplo. Los horarios de auditoría sí corresponden al momento del cambio y se muestran en la zona `America/Mexico_City`.
+
+## 8. Alcance de la simulación
+
+Funciona en el navegador: navegación, formularios, validaciones, creación y edición de hábitos, avances, archivo, análisis, preferencias, filtros, decisiones de IA, gestión de plantillas, estados de cuentas y auditoría. Los datos de ejemplo se conservan en `localStorage` cuando el navegador lo permite.
+
+No incluye backend, autenticación real, envío de correos, notificaciones del dispositivo, sincronización remota ni inferencia real de IA. Las cifras globales del administrador son ilustrativas. La suspensión de una cuenta es un cambio de estado de ejemplo, no una revocación de sesiones reales. La auditoría local puede restablecerse junto con la demo y no tiene las garantías de un registro de producción.
+
+## 9. Archivos entregados
+
+| Archivo | Contenido |
+|---|---|
+| [index.html](./index.html) | Visor, controles de revisión y diálogos. |
+| [styles.css](./styles.css) | Identidad visual y distribución adaptable móvil/PWA. |
+| [data.js](./data.js) | Inventario de 24 sketches, conexiones y 13 reglas. |
+| [app.js](./app.js) | Pantallas, navegación y lógica de simulación. |
+| [navegacion.html](./navegacion.html) | Diagrama general independiente generado con Archify. |
+| [navegacion.archify.json](./navegacion.archify.json) | Especificación editable del diagrama general. |
+| [tests/prototipo.test.cjs](./tests/prototipo.test.cjs) | Pruebas de lógica con Node.js, sin dependencias. |
+| [VALIDACION.md](./VALIDACION.md) | Resultados de comprobación y recibo de Archify. |
+
+El prototipo no requiere instalación ni compilación. Para ejecutar las pruebas de lógica desde la raíz, con Node.js compatible con `node:test`:
+
+```sh
+node --test --test-timeout=10000 docs/practica-07/tests/prototipo.test.cjs
+```
+
+El diagrama de Archify mantiene su interfaz fija en inglés y su atributo `lang` en inglés, conforme al soporte de esa herramienta. Sus contenidos están redactados en español; el prototipo principal está íntegramente en español.
+
+## 10. Relación con las prácticas anteriores
+
+Se retoman las funciones y responsabilidades de la [Práctica 05](../practica-05/README.md) y la [historia de usuario de recomendaciones](../practica-05/HU-Recomendaciones-IA.md). Esta entrega transforma esa base en recorridos visuales verificables y agrega validaciones, cancelaciones y confirmaciones para orientar el posterior desarrollo.

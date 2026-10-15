@@ -1,0 +1,194 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Quantify Core · Recorridos principales",
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    {
+      "id": "usuario",
+      "label": "Usuario · rutina personal"
+    },
+    {
+      "id": "admin",
+      "label": "Administrador · operación global"
+    }
+  ],
+  "mainPath": [
+    "bienvenida",
+    "acceso",
+    "hoy",
+    "crear",
+    "detalle",
+    "analisis"
+  ],
+  "nodes": [
+    {
+      "id": "bienvenida",
+      "lane": "usuario",
+      "col": 0,
+      "type": "frontend",
+      "label": "U01 · Bienvenida",
+      "width": 190
+    },
+    {
+      "id": "acceso",
+      "lane": "usuario",
+      "col": 1,
+      "type": "security",
+      "label": "U02 · Acceso",
+      "width": 190
+    },
+    {
+      "id": "hoy",
+      "lane": "usuario",
+      "col": 2,
+      "type": "frontend",
+      "label": "U06 · Hoy",
+      "width": 190
+    },
+    {
+      "id": "crear",
+      "lane": "usuario",
+      "col": 3,
+      "type": "frontend",
+      "label": "U07 · Crear hábito",
+      "width": 190
+    },
+    {
+      "id": "detalle",
+      "lane": "usuario",
+      "col": 4,
+      "type": "frontend",
+      "label": "U08 · Detalle",
+      "width": 190
+    },
+    {
+      "id": "analisis",
+      "lane": "usuario",
+      "col": 5,
+      "type": "frontend",
+      "label": "U10 · Análisis",
+      "width": 190
+    },
+    {
+      "id": "admin_acceso",
+      "lane": "admin",
+      "col": 0,
+      "type": "security",
+      "label": "A01 · Acceso",
+      "width": 190
+    },
+    {
+      "id": "resumen",
+      "lane": "admin",
+      "col": 1,
+      "type": "frontend",
+      "label": "A02 · Resumen",
+      "width": 190
+    },
+    {
+      "id": "catalogo",
+      "lane": "admin",
+      "col": 2,
+      "type": "frontend",
+      "label": "A03 · Catálogo",
+      "width": 190
+    },
+    {
+      "id": "plantilla",
+      "lane": "admin",
+      "col": 3,
+      "type": "frontend",
+      "label": "A04 · Plantilla",
+      "width": 190
+    },
+    {
+      "id": "supervision",
+      "lane": "admin",
+      "col": 4,
+      "type": "frontend",
+      "label": "A05 · Supervisión IA",
+      "width": 190
+    },
+    {
+      "id": "auditoria",
+      "lane": "admin",
+      "col": 5,
+      "type": "frontend",
+      "label": "A06 · Auditoría",
+      "width": 190
+    }
+  ],
+  "edges": [
+    {
+      "from": "bienvenida",
+      "to": "acceso",
+      "label": "Iniciar sesión"
+    },
+    {
+      "from": "acceso",
+      "to": "hoy",
+      "label": "Acceso válido"
+    },
+    {
+      "from": "hoy",
+      "to": "crear",
+      "label": "Nuevo hábito"
+    },
+    {
+      "from": "crear",
+      "to": "detalle",
+      "label": "Guardar"
+    },
+    {
+      "from": "detalle",
+      "to": "analisis",
+      "label": "Ver análisis"
+    },
+    {
+      "from": "admin_acceso",
+      "to": "resumen",
+      "label": "Acceso válido"
+    },
+    {
+      "from": "resumen",
+      "to": "catalogo",
+      "label": "Ver catálogo"
+    },
+    {
+      "from": "catalogo",
+      "to": "plantilla",
+      "label": "Editar"
+    },
+    {
+      "from": "plantilla",
+      "to": "supervision",
+      "label": "Abrir IA"
+    },
+    {
+      "from": "supervision",
+      "to": "auditoria",
+      "label": "Ver auditoría"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Una navegación, dos formatos",
+      "items": [
+        "Móvil y PWA comparten pantallas, permisos y reglas.",
+        "El mapa completo y sus retornos están en el prototipo."
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Separación de responsabilidades",
+      "items": [
+        "El usuario administra únicamente su rutina.",
+        "Administración consulta métricas agregadas y modifica catálogos."
+      ]
+    }
+  ]
+}
