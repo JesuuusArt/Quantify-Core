@@ -12,9 +12,9 @@ Prototipo interactivo de **Quantify Core** para explorar cómo un usuario gestio
 
 ## Vista general del prototipo
 
-![Sketch U06, Hoy / Mis hábitos, en formato PWA: inventario de pantallas a la izquierda, rutina del usuario al centro y conexiones de navegación a la derecha.](./assets/prototipo-hoy.png)
+![Sketch U06, Hoy / Mis hábitos, en formato móvil: inventario de pantallas a la izquierda, rutina del usuario al centro y conexiones de navegación a la derecha.](./assets/prototipo-hoy.png)
 
-*Captura real del sketch U06 — Hoy / Mis hábitos, con datos de demostración. Los gráficos conservan recuadros de referencia para representar una interfaz en etapa de sketch.*
+*Vista móvil del sketch U06 — Hoy / Mis hábitos, con datos de demostración. Los gráficos conservan recuadros de referencia para representar una interfaz en etapa de sketch.*
 
 La vista se organiza en tres áreas:
 
@@ -188,7 +188,7 @@ No incluye backend, autenticación real, envío de correos, notificaciones del d
 | [app.js](./app.js) | Pantallas, navegación y lógica de simulación. |
 | [navegacion.html](./navegacion.html) | Diagrama general independiente generado con Archify. |
 | [navegacion.archify.json](./navegacion.archify.json) | Especificación editable del diagrama general. |
-| [assets/prototipo-hoy.png](./assets/prototipo-hoy.png) | Captura real de la vista principal en formato PWA, incluida en este README. |
+| [assets/prototipo-hoy.png](./assets/prototipo-hoy.png) | Captura de la vista principal en formato móvil, incluida en este README. |
 | [tests/prototipo.test.cjs](./tests/prototipo.test.cjs) | Pruebas de lógica con Node.js, sin dependencias. |
 | [VALIDACION.md](./VALIDACION.md) | Resultados de comprobación y recibo de Archify. |
 
