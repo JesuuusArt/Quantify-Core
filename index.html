@@ -1121,6 +1121,11 @@
         metaTheme.setAttribute('content', THEME_COLORS[theme]);
 
         try { localStorage.setItem('qc-theme', JSON.stringify(state)); } catch (e) {}
+
+        var previewIframe = document.querySelector('.preview iframe');
+        if (previewIframe && previewIframe.contentWindow) {
+          try { previewIframe.contentWindow.postMessage({ type: 'qc-theme-change', theme: state }, '*'); } catch (e) {}
+        }
       }
 
       paletteBtns.forEach(function (b) {
@@ -1397,6 +1402,13 @@
         panelEl.classList.remove('is-entering');
         void panelEl.offsetWidth; // reinicia la animación de entrada
         panelEl.classList.add('is-entering');
+
+        var frame = panelEl.querySelector('iframe');
+        if (frame) {
+          frame.addEventListener('load', function () {
+            try { frame.contentWindow.postMessage({ type: 'qc-theme-change', theme: state }, '*'); } catch (e) {}
+          });
+        }
       }
 
       function select(index, updateHash) {

@@ -4,52 +4,76 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Diagrama de roles de usuario · Quantify Core</title>
+  <meta name="theme-color" content="#0B0F17">
+  <!-- Pre-render theme initialization -->
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var palette = 'tech';
+      var mode = 'dark';
+      try {
+        var saved = JSON.parse(localStorage.getItem('qc-theme'));
+        if (saved && ['tech', 'cognitive', 'behavioral'].indexOf(saved.palette) !== -1) {
+          palette = saved.palette;
+          mode = saved.mode === 'light' ? 'light' : 'dark';
+        } else if (window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches) {
+          mode = 'light';
+        }
+      } catch (e) {}
+      root.dataset.palette = palette;
+      root.dataset.mode = mode;
+      root.dataset.theme = palette === 'tech' ? 'tech-' + mode : palette;
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
   
   <style>
     /* ==========================================================================
        VARIABLES Y PALETA DE COLORES (Identidad Quantify Core)
        ========================================================================== */
-    :root, [data-theme="dark"] {
-      --bg: #2C3036;
-      --bg-gradient: radial-gradient(circle at 50% 0%, rgba(30, 84, 201, 0.22) 0%, transparent 60%),
-                     radial-gradient(circle at 100% 100%, rgba(76, 127, 232, 0.12) 0%, transparent 50%),
-                     #2C3036;
-      --grid: #3A414B;
+    :root, [data-theme="tech-dark"] {
+      --bg: #0B0F17;
+      --bg-gradient: linear-gradient(160deg, #0B0F17 0%, #0D1524 48%, #111C35 100%);
+      --surface: #161F2E;
+      --surface-2: #1B2639;
+      --surface-glass: rgba(22, 31, 46, 0.75);
+      --border: #283548;
+      --border-strong: #3A4C6E;
       --text: #FFFFFF;
-      --text-muted: #C9CED6;
-      --text-dim: #9AA3AF;
-      --text-faint: #AEB6C2;
-      
-      --brand-blue: #1E54C9;
-      --brand-glow: #4C7FE8;
-      --brand-light: #6C93F0;
-      
-      --panel: rgba(36, 41, 48, 0.85);
-      --panel-solid: #262B32;
-      --panel-border: rgba(76, 127, 232, 0.32);
-      --panel-border-hover: #4C7FE8;
-      --panel-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
-      
+      --text-muted: #B4C0D0;
+      --text-dim: #8A99AD;
+      --text-faint: #6B7A90;
+
+      --brand-blue: #275BC0;
+      --brand-glow: #4A7DE8;
+      --brand-light: #7EA3F0;
+      --primary-soft: rgba(39, 91, 192, 0.16);
+
+      --panel: rgba(22, 31, 46, 0.82);
+      --panel-solid: #161F2E;
+      --panel-border: rgba(58, 76, 110, 0.50);
+      --panel-border-hover: #4A7DE8;
+      --panel-shadow: 0 20px 48px -20px rgba(0, 0, 0, 0.75);
+
       /* Roles temáticos */
       --stu: #38BDF8;      /* Usuario Final - Cyan eléctrico / móvil */
       --stu-glow: rgba(56, 189, 248, 0.38);
-      --stu-bg: rgba(56, 189, 248, 0.08);
-      
+      --stu-bg: rgba(56, 189, 248, 0.10);
+
       --sis: #34D399;      /* Sistema / Backend / IA - Verde esmeralda IA */
       --sis-glow: rgba(52, 211, 153, 0.38);
-      --sis-bg: rgba(52, 211, 153, 0.08);
-      
+      --sis-bg: rgba(52, 211, 153, 0.10);
+
       --adm: #A78BFA;      /* Administración - Púrpura de gobernanza */
       --adm-glow: rgba(167, 139, 250, 0.38);
-      --adm-bg: rgba(167, 139, 250, 0.08);
+      --adm-bg: rgba(167, 139, 250, 0.10);
 
-      --card-bg: rgba(28, 32, 38, 0.95);
-      --table-stripe: rgba(255, 255, 255, 0.02);
-      --table-hover: rgba(30, 84, 201, 0.18);
-      --table-border: rgba(58, 65, 75, 0.7);
+      --card-bg: rgba(27, 38, 57, 0.94);
+      --table-stripe: rgba(255, 255, 255, 0.025);
+      --table-hover: rgba(39, 91, 192, 0.18);
+      --table-border: #283548;
 
       --badge-allowed-bg: rgba(52, 211, 153, 0.15);
       --badge-allowed-text: #34D399;
@@ -63,60 +87,357 @@
       --badge-blocked-text: #F87171;
       --badge-blocked-border: rgba(248, 113, 113, 0.35);
 
-      --font-main: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --g1: rgba(39, 91, 192, 0.55);
+      --g2: rgba(24, 61, 135, 0.65);
+      --g3: rgba(14, 165, 233, 0.30);
+      --spot: rgba(74, 125, 232, 0.12);
+      --grid: rgba(255, 255, 255, 0.045);
+      --frame-bg: #0B0F17;
+
+      --font-main: 'Plus Jakarta Sans', 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
     }
 
-    [data-theme="light"] {
-      --bg: #F4F6FB;
-      --bg-gradient: radial-gradient(circle at 50% 0%, rgba(30, 84, 201, 0.08) 0%, transparent 60%),
-                     #F4F6FB;
-      --grid: #E2E8F0;
-      --text: #1E232B;
-      --text-muted: #4B5565;
-      --text-dim: #6B7280;
-      --text-faint: #9CA3AF;
-      
-      --brand-blue: #1E54C9;
-      --brand-glow: #1E54C9;
-      --brand-light: #3B6FE0;
-      
-      --panel: rgba(255, 255, 255, 0.94);
+    [data-theme="tech-light"] {
+      --bg: #F4F7FD;
+      --bg-gradient: linear-gradient(160deg, #FFFFFF 0%, #F4F7FD 50%, #E6EEFC 100%);
+      --surface: #FFFFFF;
+      --surface-2: #F1F5FC;
+      --surface-glass: rgba(255, 255, 255, 0.88);
+      --border: #DCE4F2;
+      --border-strong: #BFCDE5;
+      --text: #0B0F17;
+      --text-muted: #3D4A5E;
+      --text-dim: #6B7A90;
+      --text-faint: #94A3B8;
+
+      --brand-blue: #275BC0;
+      --brand-glow: #183D87;
+      --brand-light: #275BC0;
+      --primary-soft: rgba(39, 91, 192, 0.08);
+
+      --panel: rgba(255, 255, 255, 0.92);
       --panel-solid: #FFFFFF;
-      --panel-border: rgba(30, 84, 201, 0.22);
-      --panel-border-hover: #1E54C9;
-      --panel-shadow: 0 12px 32px rgba(30, 84, 201, 0.08);
+      --panel-border: rgba(39, 91, 192, 0.24);
+      --panel-border-hover: #275BC0;
+      --panel-shadow: 0 16px 36px -16px rgba(24, 61, 135, 0.25);
 
       --stu: #0284C7;
       --stu-glow: rgba(2, 132, 199, 0.25);
-      --stu-bg: rgba(2, 132, 199, 0.06);
+      --stu-bg: rgba(2, 132, 199, 0.08);
 
       --sis: #059669;
       --sis-glow: rgba(5, 150, 105, 0.25);
-      --sis-bg: rgba(5, 150, 105, 0.06);
+      --sis-bg: rgba(5, 150, 105, 0.08);
 
       --adm: #7C3AED;
       --adm-glow: rgba(124, 58, 237, 0.25);
-      --adm-bg: rgba(124, 58, 237, 0.06);
+      --adm-bg: rgba(124, 58, 237, 0.08);
 
       --card-bg: #FFFFFF;
-      --table-stripe: rgba(30, 84, 201, 0.02);
-      --table-hover: rgba(30, 84, 201, 0.07);
-      --table-border: #E2E8F0;
+      --table-stripe: rgba(39, 91, 192, 0.03);
+      --table-hover: rgba(39, 91, 192, 0.09);
+      --table-border: #DCE4F2;
 
-      --badge-allowed-bg: rgba(5, 150, 105, 0.1);
+      --badge-allowed-bg: rgba(5, 150, 105, 0.12);
       --badge-allowed-text: #047857;
-      --badge-allowed-border: rgba(5, 150, 105, 0.3);
+      --badge-allowed-border: rgba(5, 150, 105, 0.35);
 
-      --badge-prop-bg: rgba(124, 58, 237, 0.1);
+      --badge-prop-bg: rgba(124, 58, 237, 0.12);
       --badge-prop-text: #6D28D9;
-      --badge-prop-border: rgba(124, 58, 237, 0.3);
+      --badge-prop-border: rgba(124, 58, 237, 0.35);
 
-      --badge-blocked-bg: rgba(239, 68, 68, 0.1);
+      --badge-blocked-bg: rgba(239, 68, 68, 0.12);
       --badge-blocked-text: #DC2626;
-      --badge-blocked-border: rgba(239, 68, 68, 0.3);
+      --badge-blocked-border: rgba(239, 68, 68, 0.35);
+
+      --g1: rgba(39, 91, 192, 0.22);
+      --g2: rgba(74, 125, 232, 0.20);
+      --g3: rgba(14, 165, 233, 0.16);
+      --spot: rgba(39, 91, 192, 0.08);
+      --grid: rgba(11, 15, 23, 0.05);
+      --frame-bg: #FFFFFF;
     }
 
+    [data-theme="cognitive"] {
+      --bg: #090C10;
+      --bg-gradient: linear-gradient(150deg, #090C10 0%, #0E1122 50%, #16123A 100%);
+      --surface: #131924;
+      --surface-2: #192131;
+      --surface-glass: rgba(19, 25, 36, 0.75);
+      --border: #232E40;
+      --border-strong: #3B3F72;
+      --text: #F8FAFC;
+      --text-muted: #B6C2D4;
+      --text-dim: #94A3B8;
+      --text-faint: #64748B;
+
+      --brand-blue: #275BC0;
+      --brand-glow: #6366F1;
+      --brand-light: #A5ABFB;
+      --primary-soft: rgba(99, 102, 241, 0.16);
+
+      --panel: rgba(19, 25, 36, 0.82);
+      --panel-solid: #131924;
+      --panel-border: rgba(59, 63, 114, 0.6);
+      --panel-border-hover: #6366F1;
+      --panel-shadow: 0 20px 48px -20px rgba(0, 0, 0, 0.8);
+
+      --stu: #06B6D4;
+      --stu-glow: rgba(6, 182, 212, 0.38);
+      --stu-bg: rgba(6, 182, 212, 0.10);
+
+      --sis: #34D399;
+      --sis-glow: rgba(52, 211, 153, 0.38);
+      --sis-bg: rgba(52, 211, 153, 0.10);
+
+      --adm: #C084FC;
+      --adm-glow: rgba(192, 132, 252, 0.38);
+      --adm-bg: rgba(192, 132, 252, 0.10);
+
+      --card-bg: rgba(25, 33, 49, 0.94);
+      --table-stripe: rgba(99, 102, 241, 0.03);
+      --table-hover: rgba(99, 102, 241, 0.18);
+      --table-border: #232E40;
+
+      --badge-allowed-bg: rgba(52, 211, 153, 0.15);
+      --badge-allowed-text: #34D399;
+      --badge-allowed-border: rgba(52, 211, 153, 0.35);
+
+      --badge-prop-bg: rgba(192, 132, 252, 0.15);
+      --badge-prop-text: #E9D5FF;
+      --badge-prop-border: rgba(192, 132, 252, 0.35);
+
+      --badge-blocked-bg: rgba(248, 113, 113, 0.15);
+      --badge-blocked-text: #F87171;
+      --badge-blocked-border: rgba(248, 113, 113, 0.35);
+
+      --g1: rgba(99, 102, 241, 0.50);
+      --g2: rgba(39, 91, 192, 0.55);
+      --g3: rgba(6, 182, 212, 0.30);
+      --spot: rgba(99, 102, 241, 0.14);
+      --grid: rgba(148, 163, 184, 0.05);
+      --frame-bg: #090C10;
+    }
+
+    [data-theme="behavioral"] {
+      --bg: #0E131F;
+      --bg-gradient: linear-gradient(155deg, #0E131F 0%, #0F1A26 50%, #0E2324 100%);
+      --surface: #1A2234;
+      --surface-2: #202A40;
+      --surface-glass: rgba(26, 34, 52, 0.75);
+      --border: #2A3550;
+      --border-strong: #2F6A63;
+      --text: #F9FAFB;
+      --text-muted: #C2CAD6;
+      --text-dim: #9CA3AF;
+      --text-faint: #6B7280;
+
+      --brand-blue: #275BC0;
+      --brand-glow: #10B981;
+      --brand-light: #34D399;
+      --primary-soft: rgba(16, 185, 129, 0.14);
+
+      --panel: rgba(26, 34, 52, 0.82);
+      --panel-solid: #1A2234;
+      --panel-border: rgba(47, 106, 99, 0.55);
+      --panel-border-hover: #10B981;
+      --panel-shadow: 0 20px 48px -20px rgba(0, 0, 0, 0.75);
+
+      --stu: #38BDF8;
+      --stu-glow: rgba(56, 189, 248, 0.38);
+      --stu-bg: rgba(56, 189, 248, 0.10);
+
+      --sis: #10B981;
+      --sis-glow: rgba(16, 185, 129, 0.38);
+      --sis-bg: rgba(16, 185, 129, 0.10);
+
+      --adm: #F59E0B;
+      --adm-glow: rgba(245, 158, 11, 0.38);
+      --adm-bg: rgba(245, 158, 11, 0.10);
+
+      --card-bg: rgba(32, 42, 64, 0.94);
+      --table-stripe: rgba(16, 185, 129, 0.03);
+      --table-hover: rgba(16, 185, 129, 0.16);
+      --table-border: #2A3550;
+
+      --badge-allowed-bg: rgba(16, 185, 129, 0.15);
+      --badge-allowed-text: #34D399;
+      --badge-allowed-border: rgba(16, 185, 129, 0.35);
+
+      --badge-prop-bg: rgba(245, 158, 11, 0.15);
+      --badge-prop-text: #FCD34D;
+      --badge-prop-border: rgba(245, 158, 11, 0.35);
+
+      --badge-blocked-bg: rgba(248, 113, 113, 0.15);
+      --badge-blocked-text: #F87171;
+      --badge-blocked-border: rgba(248, 113, 113, 0.35);
+
+      --g1: rgba(39, 91, 192, 0.50);
+      --g2: rgba(16, 185, 129, 0.36);
+      --g3: rgba(245, 158, 11, 0.22);
+      --spot: rgba(16, 185, 129, 0.11);
+      --grid: rgba(255, 255, 255, 0.04);
+      --frame-bg: #0E131F;
+    }
+
+    /* Fondo dinámico y reactivo */
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+      background: var(--bg);
+      transition: background-color 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .bg__gradient {
+      position: absolute;
+      inset: 0;
+      background: var(--bg-gradient);
+      opacity: 0.95;
+    }
+    .bg__blob {
+      position: absolute;
+      width: 620px;
+      height: 620px;
+      border-radius: 50%;
+      filter: blur(100px);
+      will-change: transform;
+      opacity: 0.65;
+      mix-blend-mode: screen;
+      top: -310px;
+      left: -310px;
+      transition: background 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    [data-mode="light"] .bg__blob {
+      mix-blend-mode: multiply;
+      opacity: 0.45;
+      filter: blur(90px);
+    }
+    .bg__blob--1 { background: var(--g1); }
+    .bg__blob--2 { background: var(--g2); width: 680px; height: 680px; }
+    .bg__blob--3 { background: var(--g3); width: 540px; height: 540px; }
+    .bg__spot {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--mx, 50%) var(--my, 30%), var(--spot) 0%, transparent 45%);
+      pointer-events: none;
+    }
+    .bg__grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, var(--grid) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(circle at 50% 35%, black 45%, transparent 90%);
+      -webkit-mask-image: radial-gradient(circle at 50% 35%, black 45%, transparent 90%);
+    }
+
+    /* Switcher de tema unificado */
+    .theme {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      backdrop-filter: blur(12px);
+    }
+    .theme__group {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .theme__mode {
+      position: relative;
+      margin-left: 2px;
+      padding-left: 6px;
+      border-left: 1px solid var(--border);
+      transition: opacity 0.25s, transform 0.25s;
+    }
+    .theme__mode[aria-hidden="true"] {
+      opacity: 0;
+      pointer-events: none;
+      display: none;
+    }
+    .theme__btn {
+      appearance: none;
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      white-space: nowrap;
+    }
+    .theme__btn:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.06);
+    }
+    [data-mode="light"] .theme__btn:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+    .theme__btn[aria-pressed="true"] {
+      color: #FFFFFF;
+      background: var(--brand-blue);
+      border-color: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 12px rgba(39, 91, 192, 0.35);
+    }
+    [data-mode="light"] .theme__btn[aria-pressed="true"] {
+      color: #FFFFFF;
+    }
+    .theme__dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 6px currentColor;
+    }
+    .theme__dot--tech { color: #4A7DE8; }
+    .theme__dot--cog { color: #A5ABFB; }
+    .theme__dot--beh { color: #34D399; }
+
+    .portal-back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 13px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      min-width: max-content;
+      transition: all 0.2s;
+    }
+    .portal-back-btn:hover {
+      color: var(--text);
+      border-color: var(--brand-glow);
+      transform: translateX(-2px);
+    }
+    @media (max-width: 1200px) {
+      .theme__label { display: none; }
+      .theme__btn { padding: 5px 8px; }
+    }
+    @media (max-width: 900px) {
+      .portal-back-btn span { display: none; }
+      .portal-back-btn { padding: 6px 10px; }
+      .brand-sub { display: none; }
+    }
     /* ==========================================================================
        RESET Y BASE
        ========================================================================== */
@@ -131,8 +452,7 @@
     }
 
     body {
-      background: var(--bg-gradient);
-      background-attachment: fixed;
+      background: transparent;
       color: var(--text);
       font-family: var(--font-main);
       line-height: 1.6;
@@ -172,9 +492,11 @@
       transition: all 0.3s ease;
     }
 
+    [data-mode="light"] .qc-navbar,
+    [data-theme="tech-light"] .qc-navbar,
     [data-theme="light"] .qc-navbar {
-      background: rgba(255, 255, 255, 0.9);
-      border-bottom: 1px solid rgba(30, 84, 201, 0.15);
+      background: rgba(255, 255, 255, 0.92);
+      border-bottom: 1px solid var(--border);
     }
 
     .qc-navbar.scrolled {
@@ -341,8 +663,10 @@
       -webkit-text-fill-color: transparent;
     }
 
+    [data-mode="light"] h1,
+    [data-theme="tech-light"] h1,
     [data-theme="light"] h1 {
-      background: linear-gradient(135deg, #1E232B 30%, var(--brand-blue) 100%);
+      background: linear-gradient(135deg, #0B0F17 30%, var(--brand-blue) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -1239,8 +1563,10 @@
       color: #FFFFFF;
     }
 
+    [data-mode="light"] .dialog-head h2,
+    [data-theme="tech-light"] .dialog-head h2,
     [data-theme="light"] .dialog-head h2 {
-      color: #1E232B;
+      color: #0B0F17;
     }
 
     .dialog-close {
@@ -1291,8 +1617,10 @@
       gap: 8px;
     }
 
+    [data-mode="light"] .dialog-inner h3,
+    [data-theme="tech-light"] .dialog-inner h3,
     [data-theme="light"] .dialog-inner h3 {
-      color: #1E232B;
+      color: #0B0F17;
     }
 
     .dialog-inner ul {
@@ -1389,6 +1717,15 @@
   </style>
 </head>
 <body>
+  <!-- Fondo dinámico unificado idéntico al portal -->
+  <div class="bg" aria-hidden="true">
+    <div class="bg__gradient"></div>
+    <div class="bg__blob bg__blob--1"></div>
+    <div class="bg__blob bg__blob--2"></div>
+    <div class="bg__blob bg__blob--3"></div>
+    <div class="bg__spot"></div>
+    <div class="bg__grid"></div>
+  </div>
 
   <!-- Barra de progreso de scroll -->
   <div id="scroll-progress" role="progressbar" aria-label="Progreso de lectura" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
@@ -1407,20 +1744,38 @@
     </div>
     
     <div class="nav-tools">
-      <button id="themeToggle" class="qc-btn" type="button" aria-pressed="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" id="themeIcon">
-          <circle cx="12" cy="12" r="5"></circle>
-          <line x1="12" y1="1" x2="12" y2="3"></line>
-          <line x1="12" y1="21" x2="12" y2="23"></line>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-          <line x1="1" y1="12" x2="3" y2="12"></line>
-          <line x1="21" y1="12" x2="23" y2="12"></line>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-        </svg>
-        <span id="themeText">Modo Claro</span>
-      </button>
+      <a href="../../index.html" class="portal-back-btn" title="Volver al portal principal de Quantify Core">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>Portal</span>
+      </a>
+
+      <!-- Selector de tema unificado -->
+      <div class="theme" role="group" aria-label="Selector de tema">
+        <div class="theme__group" role="group" aria-label="Paleta de colores">
+          <button class="theme__btn" type="button" id="theme-tech" data-palette-btn="tech" aria-pressed="true" title="Tema Tech (Identidad Central)">
+            <span class="theme__dot theme__dot--tech" aria-hidden="true"></span>
+            <span class="theme__label">Tech</span>
+          </button>
+          <button class="theme__btn" type="button" id="theme-cognitive" data-palette-btn="cognitive" aria-pressed="false" title="Tema Cognitive AI">
+            <span class="theme__dot theme__dot--cog" aria-hidden="true"></span>
+            <span class="theme__label">Cognitive AI</span>
+          </button>
+          <button class="theme__btn" type="button" id="theme-behavioral" data-palette-btn="behavioral" aria-pressed="false" title="Tema Behavioral">
+            <span class="theme__dot theme__dot--beh" aria-hidden="true"></span>
+            <span class="theme__label">Behavioral</span>
+          </button>
+        </div>
+        <div class="theme__group theme__mode" id="themeMode" role="group" aria-label="Modo de la paleta Tech">
+          <button class="theme__btn" type="button" id="mode-dark" data-mode-btn="dark" aria-pressed="true" title="Modo negro / oscuro">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <span class="theme__label">Negro</span>
+          </button>
+          <button class="theme__btn" type="button" id="mode-light" data-mode-btn="light" aria-pressed="false" title="Modo blanco / claro">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <span class="theme__label">Blanco</span>
+          </button>
+        </div>
+      </div>
 
       <button id="resetView" class="qc-btn" type="button" title="Restablecer selección del diagrama">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -2023,8 +2378,7 @@
       const cells = [...document.querySelectorAll("[data-col]")];
       const dialog = document.getElementById("roleDialog");
       const announce = document.getElementById("announce");
-      const themeBtn = document.getElementById("themeToggle");
-      const themeText = document.getElementById("themeText");
+
       const resetBtn = document.getElementById("resetView");
       const root = document.documentElement;
       const scrollBar = document.getElementById("scroll-progress");
@@ -2173,22 +2527,141 @@
         if (returnFocusEl && returnFocusEl.isConnected) returnFocusEl.focus();
       });
 
-      // Modo Oscuro / Claro
-      const isDarkMode = () => root.dataset.theme ? root.dataset.theme === "dark" : true;
-
-      const updateThemeUI = () => {
-        const dark = isDarkMode();
-        themeBtn.setAttribute("aria-pressed", String(dark));
-        themeText.textContent = dark ? "Modo Claro" : "Modo Oscuro";
+      /* ======================================================================
+         SISTEMA DE TEMAS Y FONDOS GRADIENTES UNIFICADOS
+         ====================================================================== */
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var THEME_COLORS = {
+        'tech-dark': '#0B0F17',
+        'tech-light': '#F4F7FD',
+        'cognitive': '#090C10',
+        'behavioral': '#0E131F'
       };
 
-      themeBtn.addEventListener("click", () => {
-        const newTheme = isDarkMode() ? "light" : "dark";
-        root.dataset.theme = newTheme;
-        updateThemeUI();
+      var themeState = {
+        palette: root.dataset.palette || 'tech',
+        mode: root.dataset.mode || 'dark'
+      };
+
+      var paletteBtns = document.querySelectorAll('[data-palette-btn]');
+      var modeBtns = document.querySelectorAll('[data-mode-btn]');
+      var modeGroup = document.getElementById('themeMode');
+      var metaTheme = document.querySelector('meta[name="theme-color"]');
+
+      function applyTheme() {
+        var theme = themeState.palette === 'tech' ? 'tech-' + themeState.mode : themeState.palette;
+        root.dataset.theme = theme;
+        root.dataset.palette = themeState.palette;
+        root.dataset.mode = themeState.mode;
+
+        paletteBtns.forEach(function (b) {
+          b.setAttribute('aria-pressed', String(b.dataset.paletteBtn === themeState.palette));
+        });
+        modeBtns.forEach(function (b) {
+          b.setAttribute('aria-pressed', String(b.dataset.modeBtn === themeState.mode));
+        });
+
+        var isTech = themeState.palette === 'tech';
+        if (modeGroup) {
+          modeGroup.inert = !isTech;
+          modeGroup.setAttribute('aria-hidden', String(!isTech));
+        }
+        if (metaTheme) metaTheme.setAttribute('content', THEME_COLORS[theme] || '#0B0F17');
+
+        try { localStorage.setItem('qc-theme', JSON.stringify(themeState)); } catch (e) {}
+      }
+
+      paletteBtns.forEach(function (b) {
+        b.addEventListener('click', function () {
+          themeState.palette = b.dataset.paletteBtn;
+          applyTheme();
+        });
+      });
+      modeBtns.forEach(function (b) {
+        b.addEventListener('click', function () {
+          themeState.mode = b.dataset.modeBtn;
+          applyTheme();
+        });
       });
 
-      updateThemeUI();
+      // Sincronización en vivo entre pestañas/portal y iframes
+      window.addEventListener('storage', function (e) {
+        if (e.key === 'qc-theme' && e.newValue) {
+          try {
+            var parsed = JSON.parse(e.newValue);
+            if (parsed.palette) {
+              themeState.palette = parsed.palette;
+              themeState.mode = parsed.mode || 'dark';
+              applyTheme();
+            }
+          } catch (err) {}
+        }
+      });
+
+      window.addEventListener('message', function (e) {
+        if (e.data && e.data.type === 'qc-theme-change' && e.data.theme) {
+          themeState.palette = e.data.theme.palette;
+          themeState.mode = e.data.theme.mode;
+          applyTheme();
+        }
+      });
+
+      applyTheme();
+
+      /* ======================================================================
+         ANIMACIÓN DEL FONDO REACTIVA AL MOVIMIENTO DEL MOUSE
+         ====================================================================== */
+      var blobs = document.querySelectorAll('.bg__blob');
+      var layers = [
+        { x: 0.22, y: 0.18, k: 0.22 },
+        { x: 0.82, y: 0.30, k: -0.16 },
+        { x: 0.55, y: 0.85, k: 0.12 }
+      ];
+      var target = { x: 0, y: 0, px: window.innerWidth / 2, py: window.innerHeight * 0.3 };
+      var current = { x: 0, y: 0, px: target.px, py: target.py };
+      var running = true;
+
+      function renderBackground(time) {
+        var w = window.innerWidth;
+        var h = window.innerHeight;
+        var t = (time || 0) / 1000;
+
+        current.x += (target.x - current.x) * 0.06;
+        current.y += (target.y - current.y) * 0.06;
+        current.px += (target.px - current.px) * 0.12;
+        current.py += (target.py - current.py) * 0.12;
+
+        blobs.forEach(function (blob, i) {
+          var l = layers[i];
+          var driftX = reduceMotion ? 0 : Math.sin(t * 0.25 + i * 2.1) * 0.03;
+          var driftY = reduceMotion ? 0 : Math.cos(t * 0.2 + i * 1.7) * 0.03;
+          var x = (l.x + current.x * l.k + driftX) * w;
+          var y = (l.y + current.y * l.k + driftY) * h;
+          blob.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0)';
+        });
+
+        root.style.setProperty('--mx', current.px.toFixed(1) + 'px');
+        root.style.setProperty('--my', current.py.toFixed(1) + 'px');
+
+        if (running && !reduceMotion) requestAnimationFrame(renderBackground);
+      }
+
+      window.addEventListener('pointermove', function (e) {
+        target.x = e.clientX / window.innerWidth - 0.5;
+        target.y = e.clientY / window.innerHeight - 0.5;
+        target.px = e.clientX;
+        target.py = e.clientY;
+        if (reduceMotion) renderBackground(0);
+      }, { passive: true });
+
+      document.addEventListener('visibilitychange', function () {
+        running = !document.hidden;
+        if (running && !reduceMotion) requestAnimationFrame(renderBackground);
+      });
+
+      window.addEventListener('resize', function () { if (reduceMotion) renderBackground(0); });
+      renderBackground(0);
+      if (!reduceMotion) requestAnimationFrame(renderBackground);
 
       document.addEventListener("keydown", e => {
         if (e.key === "Escape" && !dialog.open) {

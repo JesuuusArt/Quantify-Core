@@ -5,32 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="archify 2.17.0-dev.1">
   <title>Quantify Core — Business Model Canvas Diagram</title>
+  <meta name="theme-color" content="#0B0F17">
+  <!-- Pre-render theme synchronization for Quantify Core -->
   <script>
-    // Resolve the theme before first paint so light-preference users don't
-    // see a dark flash. The toolbar script below re-applies with UI state.
     (function () {
       try {
-        var theme = null;
+        var root = document.documentElement;
+        var palette = 'tech';
+        var mode = 'dark';
         try {
-          var param = new URLSearchParams(window.location.search).get('theme');
-          if (param === 'light' || param === 'dark') theme = param;
-          if (new URLSearchParams(window.location.search).get('embed') === '1') {
-            document.documentElement.setAttribute('data-embed', 'true');
-          }
-          if (new URLSearchParams(window.location.search).get('present') === '1') {
-            document.documentElement.setAttribute('data-present', 'true');
+          var saved = JSON.parse(localStorage.getItem('qc-theme'));
+          if (saved && ['tech', 'cognitive', 'behavioral'].indexOf(saved.palette) !== -1) {
+            palette = saved.palette;
+            mode = saved.mode === 'light' ? 'light' : 'dark';
+          } else if (window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches) {
+            mode = 'light';
           }
         } catch (_) {}
-        if (!theme) {
-          try { theme = localStorage.getItem('archify-theme'); } catch (_) {}
+        root.dataset.palette = palette;
+        root.dataset.mode = mode;
+        root.dataset.theme = palette === 'tech' ? 'tech-' + mode : palette;
+        // Archify internal theme compatibility
+        root.setAttribute('data-theme', (palette === 'tech' && mode === 'light') ? 'light' : 'dark');
+
+        if (new URLSearchParams(window.location.search).get('embed') === '1') {
+          root.setAttribute('data-embed', 'true');
         }
-        if (theme !== 'light' && theme !== 'dark') {
-          theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        if (new URLSearchParams(window.location.search).get('present') === '1') {
+          root.setAttribute('data-present', 'true');
         }
-        document.documentElement.setAttribute('data-theme', theme);
       } catch (_) {}
     })();
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
   <style id="archify-fonts">
 /*
 JetBrains Mono variable WOFF2 subsets from Google Fonts service revision v24.
@@ -4973,8 +4982,661 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       svg [data-node-id], svg [data-edge-from], svg [data-detail], svg [data-detail-anchor], svg [data-legend-hit], svg { transition: none !important; }
     }
   </style>
+  <style id="qc-brand">
+  /* Tipografía y Base */
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+    background: transparent !important;
+  }
+  svg, #stage, .viewport {
+    background: transparent !important;
+  }
+
+  /* 1. PALETA TECH (DARK / OBSIDIAN) */
+  :root,
+  [data-theme="tech-dark"],
+  [data-palette="tech"][data-theme="dark"] {
+    --bg: #0B0F17;
+    --bg-gradient: linear-gradient(160deg, #0B0F17 0%, #0D1524 48%, #111C35 100%);
+    --surface: #161F2E;
+    --surface-2: #1B2639;
+    --surface-glass: rgba(22, 31, 46, 0.75);
+    --border: #283548;
+    --border-strong: #3A4C6E;
+    --text: #FFFFFF;
+    --text-muted: #B4C0D0;
+    --text-dim: #8A99AD;
+    --text-faint: #6B7A90;
+
+    --brand-blue: #275BC0;
+    --brand-glow: #4A7DE8;
+    --brand-light: #7EA3F0;
+
+    --g1: rgba(39, 91, 192, 0.55);
+    --g2: rgba(24, 61, 135, 0.65);
+    --g3: rgba(14, 165, 233, 0.30);
+    --spot: rgba(74, 125, 232, 0.12);
+    --grid: rgba(255, 255, 255, 0.045);
+
+    --panel: rgba(22, 31, 46, 0.85);
+    --panel-border: #275BC0;
+    --lane-fill: rgba(39, 91, 192, 0.08);
+    --lane-stroke: #275BC0;
+    --arrow: #7EA3F0;
+    --arrow-emphasis: #4A7DE8;
+    --mask: #0B0F17;
+
+    --frontend-fill: rgba(39, 91, 192, 0.20);
+    --frontend-stroke: #4A7DE8;
+    --backend-fill: rgba(24, 61, 135, 0.32);
+    --backend-stroke: #275BC0;
+    --database-fill: rgba(255, 255, 255, 0.06);
+    --database-stroke: #FFFFFF;
+    --cloud-fill: rgba(39, 91, 192, 0.14);
+    --cloud-stroke: #7EA3F0;
+    --security-fill: rgba(39, 91, 192, 0.20);
+    --security-stroke: #3B6FE0;
+    --messagebus-fill: rgba(255, 255, 255, 0.08);
+    --messagebus-stroke: #DDE5F8;
+    --external-fill: rgba(255, 255, 255, 0.05);
+    --external-stroke: #FFFFFF;
+
+    --toolbar-bg: rgba(22, 31, 46, 0.88);
+    --toolbar-border: #283548;
+    --toolbar-text: #FFFFFF;
+    --toolbar-hover: rgba(39, 91, 192, 0.35);
+    --toolbar-menu-bg: #161F2E;
+  }
+
+  /* 2. PALETA TECH (LIGHT / BLANCO) */
+  [data-theme="tech-light"],
+  [data-palette="tech"][data-theme="light"],
+  [data-palette="tech"][data-mode="light"] {
+    --bg: #F4F7FD;
+    --bg-gradient: linear-gradient(160deg, #FFFFFF 0%, #F4F7FD 50%, #E6EEFC 100%);
+    --surface: #FFFFFF;
+    --surface-2: #F1F5FC;
+    --surface-glass: rgba(255, 255, 255, 0.88);
+    --border: #DCE4F2;
+    --border-strong: #BFCDE5;
+    --text: #0B0F17;
+    --text-muted: #3D4A5E;
+    --text-dim: #6B7A90;
+    --text-faint: #94A3B8;
+
+    --brand-blue: #275BC0;
+    --brand-glow: #183D87;
+    --brand-light: #275BC0;
+
+    --g1: rgba(39, 91, 192, 0.22);
+    --g2: rgba(74, 125, 232, 0.20);
+    --g3: rgba(14, 165, 233, 0.16);
+    --spot: rgba(39, 91, 192, 0.08);
+    --grid: rgba(11, 15, 23, 0.05);
+
+    --panel: #FFFFFF;
+    --panel-border: #275BC0;
+    --lane-fill: rgba(39, 91, 192, 0.04);
+    --lane-stroke: #BFCDE5;
+    --arrow: #275BC0;
+    --arrow-emphasis: #183D87;
+    --mask: #FFFFFF;
+
+    --frontend-fill: rgba(39, 91, 192, 0.08);
+    --frontend-stroke: #275BC0;
+    --backend-fill: rgba(39, 91, 192, 0.14);
+    --backend-stroke: #183D87;
+    --database-fill: rgba(11, 15, 23, 0.05);
+    --database-stroke: #0B0F17;
+    --cloud-fill: rgba(39, 91, 192, 0.07);
+    --cloud-stroke: #4A7DE8;
+    --security-fill: rgba(39, 91, 192, 0.10);
+    --security-stroke: #275BC0;
+    --messagebus-fill: rgba(11, 15, 23, 0.04);
+    --messagebus-stroke: #0B0F17;
+    --external-fill: rgba(11, 15, 23, 0.03);
+    --external-stroke: #0B0F17;
+
+    --toolbar-bg: rgba(255, 255, 255, 0.94);
+    --toolbar-border: #DCE4F2;
+    --toolbar-text: #0B0F17;
+    --toolbar-hover: rgba(39, 91, 192, 0.10);
+    --toolbar-menu-bg: #FFFFFF;
+  }
+
+  /* 3. PALETA COGNITIVE AI */
+  [data-theme="cognitive"],
+  [data-palette="cognitive"] {
+    --bg: #090C10;
+    --bg-gradient: linear-gradient(150deg, #090C10 0%, #0E1122 50%, #16123A 100%);
+    --surface: #131924;
+    --surface-2: #192131;
+    --surface-glass: rgba(19, 25, 36, 0.75);
+    --border: #232E40;
+    --border-strong: #3B3F72;
+    --text: #F8FAFC;
+    --text-muted: #B6C2D4;
+    --text-dim: #94A3B8;
+    --text-faint: #64748B;
+
+    --brand-blue: #275BC0;
+    --brand-glow: #6366F1;
+    --brand-light: #A5ABFB;
+
+    --g1: rgba(99, 102, 241, 0.50);
+    --g2: rgba(39, 91, 192, 0.55);
+    --g3: rgba(6, 182, 212, 0.30);
+    --spot: rgba(99, 102, 241, 0.14);
+    --grid: rgba(148, 163, 184, 0.05);
+
+    --panel: rgba(19, 25, 36, 0.85);
+    --panel-border: #6366F1;
+    --lane-fill: rgba(99, 102, 241, 0.08);
+    --lane-stroke: #6366F1;
+    --arrow: #A5ABFB;
+    --arrow-emphasis: #6366F1;
+    --mask: #090C10;
+
+    --frontend-fill: rgba(99, 102, 241, 0.20);
+    --frontend-stroke: #6366F1;
+    --backend-fill: rgba(39, 91, 192, 0.28);
+    --backend-stroke: #275BC0;
+    --database-fill: rgba(248, 250, 252, 0.06);
+    --database-stroke: #F8FAFC;
+    --cloud-fill: rgba(6, 182, 212, 0.16);
+    --cloud-stroke: #06B6D4;
+    --security-fill: rgba(99, 102, 241, 0.22);
+    --security-stroke: #818CF8;
+    --messagebus-fill: rgba(248, 250, 252, 0.08);
+    --messagebus-stroke: #E0E7FF;
+    --external-fill: rgba(248, 250, 252, 0.05);
+    --external-stroke: #F8FAFC;
+
+    --toolbar-bg: rgba(19, 25, 36, 0.88);
+    --toolbar-border: #232E40;
+    --toolbar-text: #F8FAFC;
+    --toolbar-hover: rgba(99, 102, 241, 0.28);
+    --toolbar-menu-bg: #131924;
+  }
+
+  /* 4. PALETA BEHAVIORAL */
+  [data-theme="behavioral"],
+  [data-palette="behavioral"] {
+    --bg: #0E131F;
+    --bg-gradient: linear-gradient(155deg, #0E131F 0%, #0F1A26 50%, #0E2324 100%);
+    --surface: #1A2234;
+    --surface-2: #202A40;
+    --surface-glass: rgba(26, 34, 52, 0.75);
+    --border: #2A3550;
+    --border-strong: #2F6A63;
+    --text: #F9FAFB;
+    --text-muted: #C2CAD6;
+    --text-dim: #9CA3AF;
+    --text-faint: #6B7280;
+
+    --brand-blue: #275BC0;
+    --brand-glow: #10B981;
+    --brand-light: #34D399;
+
+    --g1: rgba(39, 91, 192, 0.50);
+    --g2: rgba(16, 185, 129, 0.36);
+    --g3: rgba(245, 158, 11, 0.22);
+    --spot: rgba(16, 185, 129, 0.11);
+    --grid: rgba(255, 255, 255, 0.04);
+
+    --panel: rgba(26, 34, 52, 0.85);
+    --panel-border: #10B981;
+    --lane-fill: rgba(16, 185, 129, 0.08);
+    --lane-stroke: #10B981;
+    --arrow: #34D399;
+    --arrow-emphasis: #10B981;
+    --mask: #0E131F;
+
+    --frontend-fill: rgba(16, 185, 129, 0.18);
+    --frontend-stroke: #10B981;
+    --backend-fill: rgba(39, 91, 192, 0.26);
+    --backend-stroke: #275BC0;
+    --database-fill: rgba(249, 250, 251, 0.06);
+    --database-stroke: #F9FAFB;
+    --cloud-fill: rgba(245, 158, 11, 0.16);
+    --cloud-stroke: #F59E0B;
+    --security-fill: rgba(16, 185, 129, 0.20);
+    --security-stroke: #059669;
+    --messagebus-fill: rgba(249, 250, 251, 0.08);
+    --messagebus-stroke: #D1FAE5;
+    --external-fill: rgba(249, 250, 251, 0.05);
+    --external-stroke: #F9FAFB;
+
+    --toolbar-bg: rgba(26, 34, 52, 0.88);
+    --toolbar-border: #2A3550;
+    --toolbar-text: #F9FAFB;
+    --toolbar-hover: rgba(16, 185, 129, 0.25);
+    --toolbar-menu-bg: #1A2234;
+  }
+
+  /* Fondo dinámico y reactivo */
+  .bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    background: var(--bg);
+    transition: background-color 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .bg__gradient {
+    position: absolute;
+    inset: 0;
+    background: var(--bg-gradient);
+    opacity: 0.95;
+  }
+  .bg__blob {
+    position: absolute;
+    width: 620px;
+    height: 620px;
+    border-radius: 50%;
+    filter: blur(100px);
+    will-change: transform;
+    opacity: 0.65;
+    mix-blend-mode: screen;
+    top: -310px;
+    left: -310px;
+    transition: background 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  [data-mode="light"] .bg__blob,
+  [data-theme="tech-light"] .bg__blob {
+    mix-blend-mode: multiply;
+    opacity: 0.45;
+    filter: blur(90px);
+  }
+  .bg__blob--1 { background: var(--g1); }
+  .bg__blob--2 { background: var(--g2); width: 680px; height: 680px; }
+  .bg__blob--3 { background: var(--g3); width: 540px; height: 540px; }
+  .bg__spot {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--mx, 50%) var(--my, 30%), var(--spot) 0%, transparent 45%);
+    pointer-events: none;
+  }
+  .bg__grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, var(--grid) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(circle at 50% 35%, black 45%, transparent 90%);
+    -webkit-mask-image: radial-gradient(circle at 50% 35%, black 45%, transparent 90%);
+  }
+
+  /* Barra de Navegación del Canvas */
+  .qc-canvas-nav {
+    position: fixed;
+    top: 12px;
+    left: 16px;
+    right: 16px;
+    min-height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 6px 14px;
+    background: var(--surface-glass);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    z-index: 500;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  }
+  .qc-canvas-nav__left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    flex-shrink: 1;
+  }
+  .qc-canvas-nav__meta {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .qc-canvas-nav__right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  #qc-nav-logo {
+    height: 36px;
+    width: auto;
+    border-radius: 8px;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+  .qc-canvas-nav__brand {
+    font-size: 0.92rem;
+    font-weight: 800;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+  .qc-canvas-nav__brand .core {
+    color: var(--brand-glow);
+  }
+  .qc-canvas-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    background: rgba(39, 91, 192, 0.18);
+    color: var(--brand-light);
+    border: 1px solid rgba(39, 91, 192, 0.35);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .qc-canvas-nav__sub {
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Ajustar la barra nativa de Archify para que no colisione */
+  .toolbar {
+    top: 76px !important;
+    right: 16px !important;
+  }
+  #btn-theme {
+    display: none !important; /* Reemplazado por el Theme Switcher unificado */
+  }
+
+  /* Switcher de tema unificado */
+  .theme {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    backdrop-filter: blur(12px);
+    flex-shrink: 0;
+  }
+  .theme__group {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    flex-shrink: 0;
+  }
+  .theme__mode {
+    position: relative;
+    margin-left: 2px;
+    padding-left: 5px;
+    border-left: 1px solid var(--border);
+    transition: opacity 0.25s, transform 0.25s;
+    flex-shrink: 0;
+  }
+  .theme__mode[aria-hidden="true"] {
+    opacity: 0;
+    pointer-events: none;
+    display: none;
+  }
+  .theme__btn {
+    appearance: none;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-muted);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .theme__btn:hover {
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.08);
+  }
+  [data-mode="light"] .theme__btn:hover,
+  [data-theme="tech-light"] .theme__btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+  .theme__btn[aria-pressed="true"] {
+    color: #FFFFFF;
+    background: var(--brand-blue);
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 12px rgba(39, 91, 192, 0.35);
+  }
+  .theme__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 6px currentColor;
+    flex-shrink: 0;
+  }
+  .theme__dot--tech { color: #4A7DE8; }
+  .theme__dot--cog { color: #A5ABFB; }
+  .theme__dot--beh { color: #34D399; }
+
+  /* Aislamiento de SVGs dentro de la barra de navegación frente a reglas globales de Archify */
+  .qc-canvas-nav svg {
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    display: inline-block !important;
+    flex-shrink: 0 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .portal-back-btn svg {
+    width: 15px !important;
+    height: 15px !important;
+    min-width: 15px !important;
+    max-width: 15px !important;
+    flex-shrink: 0 !important;
+    display: block !important;
+  }
+  .theme__btn svg {
+    width: 13px !important;
+    height: 13px !important;
+    min-width: 13px !important;
+    max-width: 13px !important;
+    flex-shrink: 0 !important;
+    display: block !important;
+  }
+
+  .portal-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: max-content;
+    transition: all 0.2s;
+  }
+  .portal-back-btn span {
+    display: inline;
+    white-space: nowrap;
+  }
+  .portal-back-btn:hover {
+    color: var(--text);
+    border-color: var(--brand-glow);
+    transform: translateX(-2px);
+  }
+
+  /* Modal de detalles rediseñado */
+  .focus-chip, .semantic-passport, .relationship-lens { display: none !important; }
+  #qc-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(11, 15, 23, 0.78);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 4vh 4vw;
+  }
+  #qc-modal {
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 20px;
+    color: var(--text);
+    max-width: 860px;
+    width: 92vw;
+    max-height: 86vh;
+    overflow-y: auto;
+    padding: 32px 36px;
+    box-shadow: 0 24px 64px -16px rgba(0, 0, 0, 0.75);
+    position: relative;
+    animation: modalIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.96) translateY(12px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  #qc-modal h2 { margin: 0 0 10px; color: var(--text); font-size: 1.6rem; font-weight: 700; }
+  #qc-modal h3 { color: var(--brand-glow); margin: 20px 0 8px; font-size: 1.1rem; }
+  #qc-modal p, #qc-modal li { color: var(--text-muted); line-height: 1.6; font-size: 0.95rem; }
+  #qc-modal ul { padding-left: 20px; margin-top: 6px; }
+  #qc-modal .qc-tag {
+    display: inline-block;
+    background: var(--brand-blue);
+    color: #fff;
+    border-radius: 999px;
+    padding: 3px 14px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  #qc-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--surface-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 6px 14px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  #qc-modal-close:hover {
+    background: var(--brand-blue);
+    color: #FFFFFF;
+    border-color: var(--brand-glow);
+  }
+
+  /* Responsive progresivo: evita desbordes y cortes a cualquier ancho */
+  @media (max-width: 1280px) {
+    .qc-canvas-nav__sub { display: none; }
+  }
+
+  @media (max-width: 1080px) {
+    .qc-canvas-nav__sub { display: none; }
+    .theme__label { display: none; }
+    .theme__btn { padding: 5px 8px; }
+  }
+
+  @media (max-width: 860px) {
+    .qc-canvas-badge { display: none; }
+    .portal-back-btn span { display: none; }
+    .portal-back-btn { padding: 6px 10px; }
+  }
+
+  @media (max-width: 640px) {
+    .qc-canvas-nav {
+      left: 8px;
+      right: 8px;
+      top: 8px;
+      padding: 4px 10px;
+    }
+    .qc-canvas-nav__brand { font-size: 0.82rem; }
+    #qc-nav-logo { height: 28px; }
+    .toolbar { top: 68px !important; right: 8px !important; }
+  }
+</style>
 </head>
 <body>
+  <!-- Fondo dinámico unificado idéntico al portal -->
+  <div class="bg" aria-hidden="true">
+    <div class="bg__gradient"></div>
+    <div class="bg__blob bg__blob--1"></div>
+    <div class="bg__blob bg__blob--2"></div>
+    <div class="bg__blob bg__blob--3"></div>
+    <div class="bg__spot"></div>
+    <div class="bg__grid"></div>
+  </div>
+
+  <!-- Barra de navegación y branding superior para Canvas -->
+  <nav class="qc-canvas-nav" aria-label="Navegación del canvas">
+    <div class="qc-canvas-nav__left">
+      <a href="../../index.html" class="portal-back-btn" title="Volver al portal principal de Quantify Core">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>Portal</span>
+      </a>
+      <img id="qc-nav-logo" src="../../assets/images/productLogo.jpeg" onerror="this.onerror=null;this.src='../quantifyLogo.jpeg';" alt="Quantify Core" />
+      <div class="qc-canvas-nav__meta">
+        <div class="qc-canvas-nav__brand">QUANTIFY <span class="core">CORE</span> <span class="qc-canvas-badge">P04 MODELO CANVAS</span></div>
+        <div class="qc-canvas-nav__sub">Business Model Canvas Interactivo</div>
+      </div>
+    </div>
+    <div class="qc-canvas-nav__right">
+      <!-- Selector de tema unificado -->
+      <div class="theme" role="group" aria-label="Selector de tema">
+        <div class="theme__group" role="group" aria-label="Paleta de colores">
+          <button class="theme__btn" type="button" id="theme-tech" data-palette-btn="tech" aria-pressed="true" title="Tema Tech (Identidad Central)">
+            <span class="theme__dot theme__dot--tech" aria-hidden="true"></span>
+            <span class="theme__label">Tech</span>
+          </button>
+          <button class="theme__btn" type="button" id="theme-cognitive" data-palette-btn="cognitive" aria-pressed="false" title="Tema Cognitive AI">
+            <span class="theme__dot theme__dot--cog" aria-hidden="true"></span>
+            <span class="theme__label">Cognitive AI</span>
+          </button>
+          <button class="theme__btn" type="button" id="theme-behavioral" data-palette-btn="behavioral" aria-pressed="false" title="Tema Behavioral">
+            <span class="theme__dot theme__dot--beh" aria-hidden="true"></span>
+            <span class="theme__label">Behavioral</span>
+          </button>
+        </div>
+        <div class="theme__group theme__mode" id="themeMode" role="group" aria-label="Modo de la paleta Tech">
+          <button class="theme__btn" type="button" id="mode-dark" data-mode-btn="dark" aria-pressed="true" title="Modo negro / oscuro">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <span class="theme__label">Negro</span>
+          </button>
+          <button class="theme__btn" type="button" id="mode-light" data-mode-btn="light" aria-pressed="false" title="Modo blanco / claro">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <span class="theme__label">Blanco</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
   <!-- Toolbar: theme, live visual style, trace motion, presentation stage, and export.
        Motion appears only for trace-enabled artifacts and has no shortcut;
        Keyboard: T toggles theme, S cycles style, F toggles the stage, E opens export. -->
@@ -14992,74 +15654,154 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     });
   </script>
 
-<style id="qc-brand">
-  :root, [data-theme="dark"] {
-    --bg: #2C3036;
-    --grid: #3A414B;
-    --text: #FFFFFF;
-    --text-muted: #C9CED6;
-    --text-dim: #9AA3AF;
-    --text-faint: #AEB6C2;
-    --panel: rgba(30, 84, 201, 0.18);
-    --panel-border: #1E54C9;
-    --lane-fill: rgba(30, 84, 201, 0.10);
-    --lane-stroke: #1E54C9;
-    --arrow: #7EA0F0;
-    --arrow-emphasis: #4C7FE8;
-    --mask: #2C3036;
-    --frontend-fill: rgba(30, 84, 201, 0.22);
-    --frontend-stroke: #4C7FE8;
-    --backend-fill: rgba(30, 84, 201, 0.30);
-    --backend-stroke: #1E54C9;
-    --database-fill: rgba(255, 255, 255, 0.08);
-    --database-stroke: #FFFFFF;
-    --cloud-fill: rgba(30, 84, 201, 0.14);
-    --cloud-stroke: #6C93F0;
-    --security-fill: rgba(30, 84, 201, 0.20);
-    --security-stroke: #3B6FE0;
-    --messagebus-fill: rgba(255, 255, 255, 0.10);
-    --messagebus-stroke: #DDE5F8;
-    --external-fill: rgba(255, 255, 255, 0.07);
-    --external-stroke: #FFFFFF;
-    --toolbar-bg: rgba(44, 48, 54, 0.92);
-    --toolbar-border: #1E54C9;
-    --toolbar-text: #FFFFFF;
-    --toolbar-hover: rgba(30, 84, 201, 0.35);
-    --toolbar-menu-bg: #2C3036;
-  }
-  .focus-chip, .semantic-passport, .relationship-lens { display: none !important; }
-  [data-theme="dark"] body { background: #2C3036; }
-  [data-theme="light"] body { background: #FFFFFF; }
-  [data-theme="light"] {
-    --bg: #FFFFFF; --grid: #E3E8F5; --text: #2C3036; --text-muted: #5A6270; --text-dim: #8A93A3; --text-faint: #6B7484;
-    --panel: #FFFFFF; --panel-border: #1E54C9; --lane-fill: rgba(30,84,201,0.05); --lane-stroke: #C3D2F5;
-    --arrow: #1E54C9; --arrow-emphasis: #1E54C9; --mask: #FFFFFF;
-    --frontend-fill: rgba(30,84,201,0.10); --frontend-stroke: #1E54C9;
-    --backend-fill: rgba(30,84,201,0.16); --backend-stroke: #1E54C9;
-    --database-fill: rgba(44,48,54,0.08); --database-stroke: #2C3036;
-    --cloud-fill: rgba(30,84,201,0.07); --cloud-stroke: #4C7FE8;
-    --security-fill: rgba(30,84,201,0.12); --security-stroke: #3B6FE0;
-    --messagebus-fill: rgba(44,48,54,0.06); --messagebus-stroke: #2C3036;
-    --external-fill: rgba(44,48,54,0.05); --external-stroke: #2C3036;
-    --toolbar-bg: rgba(255,255,255,0.94); --toolbar-border: #1E54C9; --toolbar-text: #2C3036;
-    --toolbar-hover: rgba(30,84,201,0.12); --toolbar-menu-bg: #FFFFFF;
-  }
-  #qc-logo { position: fixed; top: 14px; left: 16px; height: 52px; width: auto; border-radius: 10px; z-index: 900; box-shadow: 0 2px 10px rgba(0,0,0,.4); }
-  #qc-modal-overlay { position: fixed; inset: 0; background: rgba(20,22,26,.72); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 4vh 4vw; }
-  #qc-modal { background: #2C3036; border: 2px solid #1E54C9; border-radius: 14px; color: #FFFFFF; max-width: 960px; width: 92vw; max-height: 88vh; overflow: auto; padding: 28px 32px; box-shadow: 0 20px 60px rgba(0,0,0,.55); }
-  #qc-modal h2 { margin: 0 0 6px; color: #FFFFFF; }
-  #qc-modal h3 { color: #6C93F0; margin: 18px 0 6px; }
-  #qc-modal p, #qc-modal li { color: #DDE3EC; line-height: 1.5; }
-  #qc-modal .qc-tag { display: inline-block; background: #1E54C9; color: #fff; border-radius: 999px; padding: 2px 12px; font-size: 12px; margin-bottom: 10px; }
-  #qc-modal-close { position: sticky; float: right; background: #1E54C9; color: #fff; border: none; border-radius: 8px; padding: 6px 14px; cursor: pointer; font-size: 14px; }
-</style>
-<img id="qc-logo" src="../../assets/images/productLogo.jpeg" onerror="this.onerror=null;this.src='../quantifyLogo.jpeg';" alt="Quantify Core" />
+
+
 <div id="qc-modal-overlay" role="dialog" aria-modal="true">
   <div id="qc-modal">
     <button id="qc-modal-close" type="button">Cerrar &#215;</button>
     <div id="qc-modal-content"></div>
   </div>
 </div>
+<script id="qc-theme-and-physics">
+(function () {
+  'use strict';
+  var root = document.documentElement;
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var THEME_COLORS = {
+    'tech-dark': '#0B0F17',
+    'tech-light': '#F4F7FD',
+    'cognitive': '#090C10',
+    'behavioral': '#0E131F'
+  };
+
+  var themeState = {
+    palette: root.dataset.palette || 'tech',
+    mode: root.dataset.mode || 'dark'
+  };
+
+  var paletteBtns = document.querySelectorAll('[data-palette-btn]');
+  var modeBtns = document.querySelectorAll('[data-mode-btn]');
+  var modeGroup = document.getElementById('themeMode');
+  var metaTheme = document.querySelector('meta[name="theme-color"]');
+
+  function applyTheme() {
+    var theme = themeState.palette === 'tech' ? 'tech-' + themeState.mode : themeState.palette;
+    root.dataset.theme = theme;
+    root.dataset.palette = themeState.palette;
+    root.dataset.mode = themeState.mode;
+
+    // Sincronizar compatibilidad interna con el visor Archify
+    var archifyTheme = (themeState.palette === 'tech' && themeState.mode === 'light') ? 'light' : 'dark';
+    root.setAttribute('data-theme', archifyTheme);
+
+    paletteBtns.forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.paletteBtn === themeState.palette));
+    });
+    modeBtns.forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.modeBtn === themeState.mode));
+    });
+
+    var isTech = themeState.palette === 'tech';
+    if (modeGroup) {
+      modeGroup.inert = !isTech;
+      modeGroup.setAttribute('aria-hidden', String(!isTech));
+    }
+    if (metaTheme) metaTheme.setAttribute('content', THEME_COLORS[theme] || '#0B0F17');
+
+    try { localStorage.setItem('qc-theme', JSON.stringify(themeState)); } catch (e) {}
+  }
+
+  paletteBtns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      themeState.palette = b.dataset.paletteBtn;
+      applyTheme();
+    });
+  });
+  modeBtns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      themeState.mode = b.dataset.modeBtn;
+      applyTheme();
+    });
+  });
+
+  window.addEventListener('storage', function (e) {
+    if (e.key === 'qc-theme' && e.newValue) {
+      try {
+        var parsed = JSON.parse(e.newValue);
+        if (parsed.palette) {
+          themeState.palette = parsed.palette;
+          themeState.mode = parsed.mode || 'dark';
+          applyTheme();
+        }
+      } catch (err) {}
+    }
+  });
+
+  window.addEventListener('message', function (e) {
+    if (e.data && e.data.type === 'qc-theme-change' && e.data.theme) {
+      themeState.palette = e.data.theme.palette;
+      themeState.mode = e.data.theme.mode;
+      applyTheme();
+    }
+  });
+
+  applyTheme();
+
+  /* ANIMACIÓN DEL FONDO REACTIVA AL MOVIMIENTO DEL MOUSE */
+  var blobs = document.querySelectorAll('.bg__blob');
+  var layers = [
+    { x: 0.22, y: 0.18, k: 0.22 },
+    { x: 0.82, y: 0.30, k: -0.16 },
+    { x: 0.55, y: 0.85, k: 0.12 }
+  ];
+  var target = { x: 0, y: 0, px: window.innerWidth / 2, py: window.innerHeight * 0.3 };
+  var current = { x: 0, y: 0, px: target.px, py: target.py };
+  var running = true;
+
+  function renderBackground(time) {
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+    var t = (time || 0) / 1000;
+
+    current.x += (target.x - current.x) * 0.06;
+    current.y += (target.y - current.y) * 0.06;
+    current.px += (target.px - current.px) * 0.12;
+    current.py += (target.py - current.py) * 0.12;
+
+    blobs.forEach(function (blob, i) {
+      var l = layers[i];
+      var driftX = reduceMotion ? 0 : Math.sin(t * 0.25 + i * 2.1) * 0.03;
+      var driftY = reduceMotion ? 0 : Math.cos(t * 0.2 + i * 1.7) * 0.03;
+      var x = (l.x + current.x * l.k + driftX) * w;
+      var y = (l.y + current.y * l.k + driftY) * h;
+      blob.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0)';
+    });
+
+    root.style.setProperty('--mx', current.px.toFixed(1) + 'px');
+    root.style.setProperty('--my', current.py.toFixed(1) + 'px');
+
+    if (running && !reduceMotion) requestAnimationFrame(renderBackground);
+  }
+
+  window.addEventListener('pointermove', function (e) {
+    target.x = e.clientX / window.innerWidth - 0.5;
+    target.y = e.clientY / window.innerHeight - 0.5;
+    target.px = e.clientX;
+    target.py = e.clientY;
+    if (reduceMotion) renderBackground(0);
+  }, { passive: true });
+
+  document.addEventListener('visibilitychange', function () {
+    running = !document.hidden;
+    if (running && !reduceMotion) requestAnimationFrame(renderBackground);
+  });
+
+  window.addEventListener('resize', function () { if (reduceMotion) renderBackground(0); });
+  renderBackground(0);
+  if (!reduceMotion) requestAnimationFrame(renderBackground);
+})();
+</script>
 <script id="qc-modal-script">
 (function () {
   var info = {
@@ -15077,7 +15819,14 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   var content = document.getElementById('qc-modal-content');
   document.getElementById('qc-modal-close').addEventListener('click', function () { overlay.style.display = 'none'; });
   overlay.addEventListener('click', function (e) { if (e.target === overlay) overlay.style.display = 'none'; });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') overlay.style.display = 'none'; });
+  // Escape de alta prioridad para cerrar el modal
+  window.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.style.display === 'flex') {
+      e.preventDefault();
+      e.stopPropagation();
+      overlay.style.display = 'none';
+    }
+  }, true);
   document.querySelectorAll('g[data-node-id]').forEach(function (g) {
     g.style.cursor = 'pointer';
     g.addEventListener('click', function () {
