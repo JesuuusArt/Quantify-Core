@@ -58,6 +58,8 @@ Cada rol utiliza los mismos sketches en móvil y PWA. **PWA** designa la represe
 
 Los wireframes compartidos por el equipo orientan el acceso, los formularios de hábitos, el progreso diario, el análisis, IA Coach y los ajustes. Se mejoró la jerarquía visual y se agregó el recorrido administrativo.
 
+Los espacios de imagen, las ilustraciones de acceso y los gráficos se representan con recuadros grises, diagonales y etiquetas entre corchetes, para conservar el aspecto de sketch. El logo, los iconos de los controles, los datos numéricos y la navegación mantienen su función.
+
 | Recurso | Aplicación |
 |---|---|
 | Logo del repositorio | `../quantifyLogo.jpeg`, usado en el visor y en la aplicación. |

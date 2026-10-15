@@ -53,9 +53,11 @@ correction_rounds: 0
 
 ## Identidad de los archivos principales revisados
 
+Después del ajuste visual a sketches, se volvieron a aprobar las 16 pruebas y la comprobación de sintaxis. Se inspeccionaron en Safari los recuadros de Análisis y del progreso de Hoy. Esta revisión adicional no modifica el diagrama independiente de Archify ni su recibo.
+
 | Archivo | SHA-256 |
 |---|---|
 | `index.html` | `72f34110c708a66eace53a784652f0121a6466b6cdcdb1a983ea721f9e6dfa20` |
-| `styles.css` | `9eea58fe37c471f91178bc31c38f491e4de6399af686634f00a83201a497e324` |
+| `styles.css` | `42fd0335120fcffd051010c91de72419cbdd25ac7a41ba480491d7f3003d6c5d` |
 | `data.js` | `0216b08e3eaf608e6b207b548785e6d73b162750f22ed3cc7d482f85ce985153` |
-| `app.js` | `3249fbb92765be1e93f09d89e4a547da70b368d31c5b74f36fe2d68f237954dd` |
+| `app.js` | `786da1caeff36e94522eec2cc3c0e5feb9b649dd29c60193b9aea1bb57ea62f5` |
