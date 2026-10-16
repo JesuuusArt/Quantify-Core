@@ -2,20 +2,20 @@
 
 ## 1. Identificación
 
-| Atributo | Detalle |
-|---|---|
-| **Proyecto** | Quantify Core — Sistema Inteligente de Hábitos y Productividad |
-| **Aplicación** | App Móvil Multiplataforma (Flutter / Android & iOS) + Backend API |
-| **Módulo** | Motor Asistente de IA / Sugerencias Adaptativas |
-| **Identificador (ID)** | HU-QC-05 |
-| **Nombre** | Recepción y Aceptación de Recomendaciones de Hábitos por IA |
-| **Actor Principal** | Usuario Final (Estudiante / Profesional) |
-| **Actores Secundarios** | Motor Backend e Inferencia IA (Soporte) / Administración (Auditoría) |
-| **Épica** | Motor Inteligente y Personalización Adaptativa del Hábito |
-| **Prioridad** | Alta (Core diferencial y propuesta de valor de Quantify Core) |
-| **Estado** | Propuesta Aprobada / Lista para Implementación |
-| **Plataforma Principal** | Mobile (Flutter) + Microservicio Backend (FastAPI / Node.js) |
-| **Tipo** | Funcional e Inteligente |
+| Atributo                 | Detalle                                                              |
+| ------------------------ | -------------------------------------------------------------------- |
+| **Proyecto**             | Quantify Core — Sistema Inteligente de Hábitos y Productividad       |
+| **Aplicación**           | App Móvil Multiplataforma (Flutter / Android & iOS) + Backend API    |
+| **Módulo**               | Motor Asistente de IA / Sugerencias Adaptativas                      |
+| **Identificador (ID)**   | HU-QC-05                                                             |
+| **Nombre**               | Recepción y Aceptación de Recomendaciones de Hábitos por IA          |
+| **Actor Principal**      | Usuario Final (Estudiante / Profesional)                             |
+| **Actores Secundarios**  | Motor Backend e Inferencia IA (Soporte) / Administración (Auditoría) |
+| **Épica**                | Motor Inteligente y Personalización Adaptativa del Hábito            |
+| **Prioridad**            | Alta (Core diferencial y propuesta de valor de Quantify Core)        |
+| **Estado**               | Propuesta Aprobada / Lista para Implementación                       |
+| **Plataforma Principal** | Mobile (Flutter) + Microservicio Backend (FastAPI / Node.js)         |
+| **Tipo**                 | Funcional e Inteligente                                              |
 
 ---
 
@@ -29,9 +29,10 @@
 
 ## 3. Valor de Negocio
 
-El diferenciador clave de **Quantify Core** frente a trackers tradicionales de hábitos es la transición de una herramienta pasiva de registro a un **asistente activo y proactivo**. 
+El diferenciador clave de **Quantify Core** frente a trackers tradicionales de hábitos es la transición de una herramienta pasiva de registro a un **asistente activo y proactivo**.
 
 La implementación de esta funcionalidad genera valor en las siguientes dimensiones:
+
 - **Retención y Engagement:** Incrementa el tiempo de permanencia y regreso diario al ofrecer nuevo contenido adaptado a cada persona.
 - **Reducción del Churn:** Los usuarios novatos que no saben qué hábitos seguir reciben guía inmediata basada en personas con perfiles similares.
 - **Validación del Algoritmo:** Permite calibrar el modelo predictivo con base en la tasa de aceptación (`Acceptance Rate`) de las sugerencias.
@@ -42,13 +43,16 @@ La implementación de esta funcionalidad genera valor en las siguientes dimensio
 ## 4. Precondiciones y Disparador
 
 ### Precondiciones
+
 1. El usuario debe poseer una sesión activa y autenticada con token JWT válido.
 2. El usuario debe tener al menos siete (7) días naturales de registros de hábitos o un mínimo de 15 eventos de micro-progreso confirmados.
 3. El usuario debe haber otorgado consentimiento explícito en los ajustes de privacidad para el análisis anonimizado de patrones por IA.
 4. No debe existir una recomendación idéntica en estado pendiente en la bandeja activa del usuario.
 
 ### Disparador (Trigger)
+
 La historia se activa bajo dos condiciones:
+
 - **Automática (Backend Cron / Event-driven):** El motor de analítica detecta una racha consolidada (ej. 7 días cumpliendo "Lectura 20 min") o una ruptura reiterada, disparando un evento en segundo plano que genera una recomendación contextual.
 - **Manual (On-Demand):** El usuario navega a la sección "Sugerencias IA" de la aplicación móvil y solicita una nueva optimización de su rutina.
 
@@ -63,7 +67,7 @@ sequenceDiagram
     participant B as Backend API REST
     participant AI as Motor Inferencia IA
     participant DB as PostgreSQL
-    
+
     U->>B: GET /api/v1/recommendations/active (con JWT)
     B->>DB: Consultar historial y rachas del usuario
     DB-->>B: Datos de consistencia
@@ -78,10 +82,10 @@ sequenceDiagram
 
 1. **Acceso al Dashboard:** El usuario abre Quantify Core e inicia sesión; la aplicación consulta al backend por sugerencias pendientes.
 2. **Detección de Oportunidad:** El motor de IA identifica una correlación positiva en el comportamiento del usuario (ejemplo: alto cumplimiento matutino).
-3. **Presentación de la Tarjeta:** En la pantalla principal aparece el pod interactivo: *"Sugerencia IA para ti: Sesión de Hidratación de 500ml tras despertar"*.
-4. **Consulta de Justificación:** El usuario pulsa sobre la sugerencia para desplegar el modal explicativo: el sistema expone el razonamiento de la IA (*"Notamos que tus días con mayor energía inician antes de las 7:30 AM"*).
+3. **Presentación de la Tarjeta:** En la pantalla principal aparece el pod interactivo: _"Sugerencia IA para ti: Sesión de Hidratación de 500ml tras despertar"_.
+4. **Consulta de Justificación:** El usuario pulsa sobre la sugerencia para desplegar el modal explicativo: el sistema expone el razonamiento de la IA (_"Notamos que tus días con mayor energía inician antes de las 7:30 AM"_).
 5. **Ajuste de Parámetros:** El usuario puede modificar parámetros sugeridos (horario, días de repetición o meta numérica) antes de confirmar.
-6. **Aceptación:** El usuario presiona *"Añadir a mi rutina"*.
+6. **Aceptación:** El usuario presiona _"Añadir a mi rutina"_.
 7. **Persistencia e Integración:** La aplicación móvil envía la confirmación a la API; el nuevo hábito queda guardado en PostgreSQL y se actualizan los recordatorios locales.
 8. **Calibración:** El motor registra el evento de aceptación como retroalimentación positiva para el vector de preferencias del usuario.
 
@@ -90,26 +94,31 @@ sequenceDiagram
 ## 6. Criterios de Aceptación (Formato Gherkin)
 
 ### CA-01 — Visualización de recomendación cualificada
+
 - **Dado que** el usuario cuenta con más de 7 días de registros y existe una recomendación calculada con puntaje de confianza $\ge 80\%$,
 - **cuando** accede a su pantalla principal de Quantify Core,
 - **entonces** el sistema debe renderizar la tarjeta destacada con distintivo de IA, nombre del hábito sugerido y botón de acción rápida.
 
 ### CA-02 — Explicabilidad de la sugerencia (Explainable AI)
+
 - **Dado que** el usuario visualiza una recomendación en pantalla,
 - **cuando** toca el botón "Por qué te sugerimos esto",
 - **entonces** la aplicación debe mostrar una explicación en lenguaje natural y comprensible sobre el patrón o racha que motivó la sugerencia.
 
 ### CA-03 — Incorporación directa del hábito sugerido
+
 - **Dado que** el usuario revisa la recomendación y pulsa "Añadir a mi rutina",
 - **cuando** el sistema confirma la petición vía API,
 - **entonces** el hábito se añade a la lista de hábitos diarios del usuario, se programa el recordatorio predeterminado y la tarjeta de recomendación se oculta con una animación de éxito.
 
 ### CA-04 — Descarte respetuoso y aprendizaje del modelo
+
 - **Dado que** el usuario no está interesado en la sugerencia actual,
 - **cuando** presiona "Descartar",
 - **entonces** la tarjeta desaparece inmediatamente de la vista, se actualiza su estado a `DISMISSED` en base de datos y el motor de IA no volverá a sugerir el mismo hábito en los próximos 21 días.
 
 ### CA-05 — Modo sin conexión (Offline Resilience)
+
 - **Dado que** el dispositivo móvil pierde conexión a internet tras haber recibido sugerencias cacheadas,
 - **cuando** el usuario decida aceptar una recomendación en modo offline,
 - **entonces** la app registrará la aceptación en SQLite local y sincronizará los cambios con el backend en cuanto se reanude la conectividad.
@@ -129,29 +138,31 @@ sequenceDiagram
 
 ## 8. Estructura de Datos y Modelo de la Recomendación
 
-| Campo | Tipo | Requerido | Descripción |
-|---|---|:---:|---|
-| `idRecommendation` | UUID (v4) | Sí | Identificador único de la sugerencia |
-| `idUser` | UUID (v4) | Sí | Identificador del usuario receptor |
-| `habitTitle` | String (100) | Sí | Título del hábito propuesto |
-| `habitCategory` | Enum | Sí | `SALUD`, `PRODUCTIVIDAD`, `MINDFULNESS`, `ESTUDIO` |
-| `suggestedFrequency` | Array[String] | Sí | Días recomendados (ej. `["LUN", "MIE", "VIE"]`) |
-| `suggestedTarget` | Integer | Sí | Meta cuantitativa (ej. `20` minutos o `2000` ml) |
-| `confidenceScore` | Float (0.0 - 1.0) | Sí | Grado de certeza predictiva del modelo |
-| `aiExplanation` | Text (300) | Sí | Justificación comprensible del motivo de la sugerencia |
-| `status` | Enum | Sí | `PENDING`, `ACCEPTED`, `DISMISSED`, `EXPIRED` |
-| `createdAt` | DateTime (UTC) | Sí | Marca de tiempo de emisión |
-| `resolvedAt` | DateTime (UTC) | No | Marca de tiempo de respuesta del usuario |
+| Campo                | Tipo              | Requerido | Descripción                                            |
+| -------------------- | ----------------- | :-------: | ------------------------------------------------------ |
+| `idRecommendation`   | UUID (v4)         |    Sí     | Identificador único de la sugerencia                   |
+| `idUser`             | UUID (v4)         |    Sí     | Identificador del usuario receptor                     |
+| `habitTitle`         | String (100)      |    Sí     | Título del hábito propuesto                            |
+| `habitCategory`      | Enum              |    Sí     | `SALUD`, `PRODUCTIVIDAD`, `MINDFULNESS`, `ESTUDIO`     |
+| `suggestedFrequency` | Array[String]     |    Sí     | Días recomendados (ej. `["LUN", "MIE", "VIE"]`)        |
+| `suggestedTarget`    | Integer           |    Sí     | Meta cuantitativa (ej. `20` minutos o `2000` ml)       |
+| `confidenceScore`    | Float (0.0 - 1.0) |    Sí     | Grado de certeza predictiva del modelo                 |
+| `aiExplanation`      | Text (300)        |    Sí     | Justificación comprensible del motivo de la sugerencia |
+| `status`             | Enum              |    Sí     | `PENDING`, `ACCEPTED`, `DISMISSED`, `EXPIRED`          |
+| `createdAt`          | DateTime (UTC)    |    Sí     | Marca de tiempo de emisión                             |
+| `resolvedAt`         | DateTime (UTC)    |    No     | Marca de tiempo de respuesta del usuario               |
 
 ---
 
 ## 9. Especificación de Endpoints API REST
 
 ### 1. Obtener recomendaciones activas
+
 - **Método:** `GET`
 - **Ruta:** `/api/v1/recommendations/active`
 - **Cabeceras:** `Authorization: Bearer <JWT_TOKEN>`
 - **Respuesta 200 OK:**
+
 ```json
 {
   "total": 1,
@@ -171,10 +182,12 @@ sequenceDiagram
 ```
 
 ### 2. Registrar acción del usuario (Aceptar o Descartar)
+
 - **Método:** `POST`
 - **Ruta:** `/api/v1/recommendations/{idRecommendation}/action`
 - **Cabeceras:** `Authorization: Bearer <JWT_TOKEN>`, `Content-Type: application/json`
 - **Payload:**
+
 ```json
 {
   "action": "ACCEPTED",
@@ -182,7 +195,9 @@ sequenceDiagram
   "customizedFrequency": ["LUN", "MAR", "MIE", "JUE", "VIE"]
 }
 ```
+
 - **Respuesta 201 Created:**
+
 ```json
 {
   "message": "Recomendación aceptada y hábito incorporado exitosamente a la rutina diaria.",
@@ -238,16 +253,16 @@ Siguiendo la arquitectura multiplataforma de Quantify Core (Flutter + Riverpod +
 
 ## 12. Casos de Prueba Básicos (Plan de Pruebas)
 
-| ID | Escenario | Entrada | Resultado Esperado |
-|---|---|---|---|
-| **CP-01** | Usuario con historial suficiente recibe sugerencia | Usuario con 10 días de racha activa | Se muestra tarjeta con score $\ge 0.75$ y texto explicativo |
-| **CP-02** | Usuario nuevo sin historial suficiente | Usuario registrado hace 2 días | No se generan sugerencias hasta acumular 7 días mínimos |
-| **CP-03** | Aceptación directa de la recomendación | Presionar "Añadir a mi rutina" | Se envía POST, status cambia a `ACCEPTED`, hábito aparece en lista |
-| **CP-04** | Aceptación con personalización previa | Modificar frecuencia a "Lunes a Viernes" | El hábito se persiste con los parámetros modificados |
-| **CP-05** | Descarte de la recomendación | Presionar "Descartar" | Tarjeta se oculta, status `DISMISSED`, no se repite en 21 días |
-| **CP-06** | Pérdida momentánea de conectividad | Aceptar sin internet activo | Operación guardada en cola local de sincronización offline |
-| **CP-07** | Token JWT expirado durante la interacción | Presionar acción con token vencido | Interceptor redirige a renovación de token o login limpio |
-| **CP-08** | Control de concurrencia y no duplicidad | Presionar doble clic rápido en "Añadir" | El botón se desactiva en el primer tap, evitando hábitos duplicados |
+| ID        | Escenario                                          | Entrada                                  | Resultado Esperado                                                  |
+| --------- | -------------------------------------------------- | ---------------------------------------- | ------------------------------------------------------------------- |
+| **CP-01** | Usuario con historial suficiente recibe sugerencia | Usuario con 10 días de racha activa      | Se muestra tarjeta con score $\ge 0.75$ y texto explicativo         |
+| **CP-02** | Usuario nuevo sin historial suficiente             | Usuario registrado hace 2 días           | No se generan sugerencias hasta acumular 7 días mínimos             |
+| **CP-03** | Aceptación directa de la recomendación             | Presionar "Añadir a mi rutina"           | Se envía POST, status cambia a `ACCEPTED`, hábito aparece en lista  |
+| **CP-04** | Aceptación con personalización previa              | Modificar frecuencia a "Lunes a Viernes" | El hábito se persiste con los parámetros modificados                |
+| **CP-05** | Descarte de la recomendación                       | Presionar "Descartar"                    | Tarjeta se oculta, status `DISMISSED`, no se repite en 21 días      |
+| **CP-06** | Pérdida momentánea de conectividad                 | Aceptar sin internet activo              | Operación guardada en cola local de sincronización offline          |
+| **CP-07** | Token JWT expirado durante la interacción          | Presionar acción con token vencido       | Interceptor redirige a renovación de token o login limpio           |
+| **CP-08** | Control de concurrencia y no duplicidad            | Presionar doble clic rápido en "Añadir"  | El botón se desactiva en el primer tap, evitando hábitos duplicados |
 
 ---
 
@@ -263,6 +278,7 @@ Siguiendo la arquitectura multiplataforma de Quantify Core (Flutter + Riverpod +
 ## 14. Definition of Done (DoD)
 
 La Historia de Usuario se declara formalmente **Terminada (Done)** cuando:
+
 - [x] Modelo de datos definido y migración de base de datos ejecutada.
 - [x] Endpoints API REST de obtención y resolución implementados con pruebas unitarias de backend.
 - [x] Pantalla y widgets Flutter implementados con gestión de estado mediante Riverpod.

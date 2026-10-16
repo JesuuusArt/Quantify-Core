@@ -1801,11 +1801,11 @@
         </div>
         <div class="kpi-chip">
           <span class="dot" style="background: var(--sis);"></span>
-          <strong>Motor IA</strong> Integrado
+          <strong>Motor Dual ML &amp; IA</strong>
         </div>
         <div class="kpi-chip">
           <span class="dot" style="background: var(--adm);"></span>
-          <strong>9 Acciones</strong> en Matriz
+          <strong>12 Acciones</strong> en Matriz
         </div>
       </div>
     </header>
@@ -1823,7 +1823,7 @@
       </div>
 
       <div class="scroll-container">
-        <svg class="roles-diagram" viewBox="0 0 1180 480" role="img" aria-label="Ecosistema de tres roles en Quantify Core con arquitectura de nodos diferenciados: Terminal de Usuario Móvil, Núcleo de IA/Backend y Consola de Administración.">
+        <svg class="roles-diagram" viewBox="0 0 1180 480" role="img" aria-label="Ecosistema de tres roles en Quantify Core con arquitectura de nodos diferenciados: Terminal Multi-dispositivo (Wear OS y Web), Núcleo de IA y Backend (Node.js, FastAPI y Gemini), y Torre de Control ML Ops.">
           <defs>
             <!-- Marcador flecha hacia la derecha -->
             <marker id="ar" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="12" refX="12" refY="6" orient="auto">
@@ -1860,10 +1860,10 @@
           </g>
           
           <!-- ============================================================== -->
-          <!-- FORMA 1: USUARIO FINAL (Terminal Móvil / Smartphone Glass)     -->
+          <!-- FORMA 1: USUARIO FINAL (Terminal Multi-dispositivo / Wear & Web) -->
           <!-- ============================================================== -->
           <g class="card stu interactive diagram-control" data-node="stu" role="button" tabindex="0" aria-pressed="false" aria-haspopup="dialog" aria-controls="roleDialog" aria-label="Rol Usuario Final. Haz clic para ver detalles.">
-            <title>Usuario Final - Actor Principal</title>
+            <title>Usuario Final - Actor Multi-dispositivo</title>
             
             <!-- Chasis Smartphone redondeado -->
             <rect class="card-bg terminal-frame" x="36" y="68" width="295" height="376"/>
@@ -1879,8 +1879,8 @@
             <path class="avatar-body" d="M 68 136 C 68 128, 96 128, 96 136"/>
             
             <text class="role-title" x="114" y="122">Usuario Final</text>
-            <rect x="114" y="130" width="136" height="18" rx="9" class="tag-pill stu-tag"/>
-            <text class="role-tag" x="182" y="143" text-anchor="middle">ACTOR PRINCIPAL</text>
+            <rect x="114" y="130" width="168" height="18" rx="9" class="tag-pill stu-tag"/>
+            <text class="role-tag" x="198" y="143" text-anchor="middle">ACTOR MULTI-DISPOSITIVO</text>
 
             <!-- Línea divisoria de cristal -->
             <line x1="52" y1="158" x2="313" y2="158" stroke="rgba(56, 189, 248, 0.2)" stroke-width="1"/>
@@ -1890,35 +1890,35 @@
               <rect class="item-pod" x="48" y="168" width="271" height="34" rx="10"/>
               <circle cx="68" cy="185" r="8" class="bullet-badge"/>
               <path d="M 64 185 h 8 M 68 181 v 8" class="bullet-ico"/>
-              <text class="role-item" x="84" y="189">Crea y personaliza hábitos</text>
+              <text class="role-item" x="84" y="189">Crea y parametriza hábitos</text>
             </g>
 
             <g class="pod-group">
               <rect class="item-pod" x="48" y="210" width="271" height="34" rx="10"/>
               <circle cx="68" cy="227" r="8" class="bullet-badge"/>
               <path d="M 65 227 l 2 2 l 4 -4" class="bullet-ico"/>
-              <text class="role-item" x="84" y="231">Registra progreso diario</text>
+              <text class="role-item" x="84" y="231">Telemetría y micro-logs (Wear OS)</text>
             </g>
 
             <g class="pod-group">
               <rect class="item-pod" x="48" y="252" width="271" height="34" rx="10"/>
               <circle cx="68" cy="269" r="8" class="bullet-badge"/>
               <path d="M 69 264 l -4 6 h 4 l -1 5 l 5 -7 h -4 z" class="bullet-ico"/>
-              <text class="role-item" x="84" y="273">Consulta historial y rachas</text>
+              <text class="role-item" x="84" y="273">Analítica en tiempo real (Web/TV)</text>
             </g>
 
             <g class="pod-group">
               <rect class="item-pod" x="48" y="294" width="271" height="34" rx="10"/>
               <circle cx="68" cy="311" r="8" class="bullet-badge"/>
               <path d="M 65 313 a 3 3 0 0 0 6 0 M 64 311 h 8" class="bullet-ico"/>
-              <text class="role-item" x="84" y="315">Configura recordatorios</text>
+              <text class="role-item" x="84" y="315">Sincroniza push y alertas socket</text>
             </g>
 
             <g class="pod-group">
               <rect class="item-pod" x="48" y="336" width="271" height="34" rx="10"/>
               <circle cx="68" cy="353" r="8" class="bullet-badge"/>
               <path d="M 68 348 l 1 3 l 3 1 l -3 1 l -1 3 l -1 -3 l -3 -1 l 3 -1 z" class="bullet-ico"/>
-              <text class="role-item" x="84" y="357">Acepta recomendaciones IA</text>
+              <text class="role-item" x="84" y="357">Acepta coaching predictivo e IA</text>
             </g>
 
             <!-- Barra inferior táctil estilo smartphone -->
@@ -1932,8 +1932,8 @@
           <!-- ============================================================== -->
           <!-- FORMA 2: SISTEMA / IA (Chasis Procesador Octagonal Chamfered)  -->
           <!-- ============================================================== -->
-          <g class="card sis interactive diagram-control" data-node="sis" role="button" tabindex="0" aria-pressed="false" aria-haspopup="dialog" aria-controls="roleDialog" aria-label="Rol Sistema, Backend e Inteligencia Artificial. Haz clic para ver detalles.">
-            <title>Sistema / Backend e Inteligencia Artificial</title>
+          <g class="card sis interactive diagram-control" data-node="sis" role="button" tabindex="0" aria-pressed="false" aria-haspopup="dialog" aria-controls="roleDialog" aria-label="Rol Sistema, Backend y Motores de Inteligencia Artificial. Haz clic para ver detalles.">
+            <title>Sistema / Gateway, Motor ML y Gemini AI</title>
             
             <!-- Chasis octagonal con esquinas en corte a 45 grados -->
             <polygon class="card-bg core-frame" points="460,52 720,52 750,82 750,426 720,456 460,456 430,426 430,82"/>
@@ -1951,8 +1951,8 @@
             <circle cx="467" cy="115" r="5" fill="var(--sis)"/>
             
             <text class="role-title" x="500" y="115">Sistema / Backend</text>
-            <rect x="500" y="124" width="180" height="18" rx="9" class="tag-pill sis-tag"/>
-            <text class="role-tag" x="590" y="137" text-anchor="middle">INTELIGENCIA ARTIFICIAL</text>
+            <rect x="500" y="124" width="220" height="18" rx="9" class="tag-pill sis-tag"/>
+            <text class="role-tag" x="610" y="137" text-anchor="middle">ML SUPERVISADO + CLUSTERING + LLM</text>
 
             <!-- Separador bus de datos -->
             <line x1="446" y1="152" x2="734" y2="152" stroke="rgba(52, 211, 153, 0.2)" stroke-width="1"/>
@@ -1960,33 +1960,33 @@
             <!-- 5 Pods del motor de procesamiento -->
             <g class="pod-group">
               <rect class="item-pod sis-pod" x="446" y="164" width="288" height="34" rx="8"/>
-              <text class="role-item" x="466" y="185">•  Valida registros y rachas</text>
+              <text class="role-item" x="466" y="185">•  Ingesta telemetría y timestamps</text>
             </g>
 
             <g class="pod-group">
               <rect class="item-pod sis-pod" x="446" y="206" width="288" height="34" rx="8"/>
-              <text class="role-item" x="466" y="227">•  Analiza historial de usuario</text>
+              <text class="role-item" x="466" y="227">•  Diagnóstico predictivo de Burnout (ML)</text>
             </g>
 
             <g class="pod-group">
               <rect class="item-pod sis-pod sis-active-pod" x="446" y="248" width="288" height="34" rx="8"/>
-              <text class="role-item" x="466" y="269" style="font-weight:600; fill: #FFFFFF;">•  Genera sugerencias de IA</text>
+              <text class="role-item" x="466" y="269" style="font-weight:600; fill: #FFFFFF;">•  Segmenta arquetipos (K-Means)</text>
             </g>
 
             <g class="pod-group">
               <rect class="item-pod sis-pod" x="446" y="290" width="288" height="34" rx="8"/>
-              <text class="role-item" x="466" y="311">•  Programa y envía avisos</text>
+              <text class="role-item" x="466" y="311">•  Sintetiza coaching XAI (Gemini AI)</text>
             </g>
 
             <g class="pod-group">
               <rect class="item-pod sis-pod" x="446" y="332" width="288" height="34" rx="8"/>
-              <text class="role-item" x="466" y="353">•  Protege datos personales</text>
+              <text class="role-item" x="466" y="353">•  Cifra biometría y cuida privacidad</text>
             </g>
 
             <!-- Consola de Telemetría Inferior del Núcleo -->
             <rect x="460" y="380" width="260" height="22" rx="11" class="core-hud"/>
             <circle cx="474" cy="391" r="4" class="hud-led"/>
-            <text x="488" y="395" class="hud-text">PIPELINE NEURONAL: ACTIVO // 99.9% UPTIME</text>
+            <text x="488" y="395" class="hud-text">PIPELINE ML &amp; SOCKET.IO: ACTIVO // 99.9% UPTIME</text>
 
             <!-- Puertos de I/O laterales -->
             <circle class="port-socket" cx="430" cy="210" r="6"/>
@@ -1998,8 +1998,8 @@
           <!-- ============================================================== -->
           <!-- FORMA 3: ADMINISTRACIÓN (Torre de Mando / Escudo Shield)       -->
           <!-- ============================================================== -->
-          <g class="card adm interactive diagram-control" data-node="adm" role="button" tabindex="0" aria-pressed="false" aria-haspopup="dialog" aria-controls="roleDialog" aria-label="Rol Administración del Sistema. Haz clic para ver detalles.">
-            <title>Administración y Monitoreo Global</title>
+          <g class="card adm interactive diagram-control" data-node="adm" role="button" tabindex="0" aria-pressed="false" aria-haspopup="dialog" aria-controls="roleDialog" aria-label="Rol Administración del Sistema y ML Ops. Haz clic para ver detalles.">
+            <title>Administración y Torre de Control ML Ops</title>
             
             <!-- Chasis con silueta de Torre de Mando / Escudo blindado -->
             <polygon class="card-bg admin-frame" points="867,68 1118,68 1140,90 1140,414 1118,444 867,444 845,414 845,90"/>
@@ -2009,8 +2009,8 @@
             <circle cx="884" cy="122" r="5" fill="var(--adm)"/>
             
             <text class="role-title" x="918" y="122">Administración</text>
-            <rect x="918" y="130" width="150" height="18" rx="9" class="tag-pill adm-tag"/>
-            <text class="role-tag" x="993" y="143" text-anchor="middle">MONITOREO GLOBAL</text>
+            <rect x="918" y="130" width="168" height="18" rx="9" class="tag-pill adm-tag"/>
+            <text class="role-tag" x="1002" y="143" text-anchor="middle">TORRE DE CONTROL &amp; ML OPS</text>
 
             <!-- Separador tecnológico -->
             <line x1="860" y1="158" x2="1125" y2="158" stroke="rgba(167, 139, 250, 0.2)" stroke-width="1"/>
@@ -2018,25 +2018,25 @@
             <!-- 3 Pods de control y supervisión -->
             <g class="pod-group">
               <rect class="item-pod adm-pod" x="858" y="174" width="269" height="42" rx="10"/>
-              <text class="role-item" x="876" y="200">•  Monitorea uso general *</text>
+              <text class="role-item" x="876" y="200">•  Telemetría de pipelines ETL *</text>
             </g>
 
             <g class="pod-group">
               <rect class="item-pod adm-pod" x="858" y="226" width="269" height="42" rx="10"/>
-              <text class="role-item" x="876" y="252">•  Gestiona suscripciones *</text>
+              <text class="role-item" x="876" y="252">•  Monitoreo Drift y F1-Score ML *</text>
             </g>
 
             <g class="pod-group">
               <rect class="item-pod adm-pod" x="858" y="278" width="269" height="42" rx="10"/>
-              <text class="role-item" x="876" y="304">•  Administra y ajusta IA *</text>
+              <text class="role-item" x="876" y="304">•  Gestión suscripciones y cuotas *</text>
             </g>
 
             <!-- Consola de Supervisión en tiempo real -->
             <g transform="translate(858, 334)">
               <rect class="admin-console-box" x="0" y="0" width="269" height="74" rx="12"/>
-              <text x="16" y="24" class="console-label">TORRE DE CONTROL QUANTIFY</text>
-              <text x="16" y="44" class="console-sub">Métricas en tiempo real &amp; calibración IA</text>
-              <text x="16" y="60" class="console-sub" style="color: var(--adm); font-weight:600;">• ACCESO RESTRINGIDO A DESARROLLADORES</text>
+              <text x="16" y="24" class="console-label">TORRE DE CONTROL &amp; ML OPS</text>
+              <text x="16" y="44" class="console-sub">Métricas de inferencia, drift y pasarelas</text>
+              <text x="16" y="60" class="console-sub" style="color: var(--adm); font-weight:600;">• ACCESO RESTRINGIDO A INGENIEROS ML OPS</text>
               <circle cx="250" cy="20" r="4.5" class="console-badge-led"/>
             </g>
 
@@ -2049,39 +2049,39 @@
           <!-- DUCTOS / PIPELINES DE COMUNICACIÓN (DOBLE VÍA BIDIRECCIONAL)   -->
           <!-- ============================================================== -->
           
-          <!-- Conductor 1: Usuario -> Sistema (Datos de Actividad) -->
+          <!-- Conductor 1: Terminales -> Sistema (Telemetría Wear OS y Micro-logs) -->
           <g>
             <path class="arr association" data-from="stu" data-to="sis" d="M 331 210 L 430 210" marker-end="url(#ar)"/>
-            <rect x="348" y="186" width="65" height="17" rx="6" class="ecosystem-pill"/>
-            <text class="pipe-label" x="380" y="198">DATOS</text>
+            <rect x="340" y="186" width="82" height="17" rx="6" class="ecosystem-pill"/>
+            <text class="pipe-label" x="381" y="198">TELEMETRÍA</text>
           </g>
 
-          <!-- Conductor 2: Sistema -> Usuario (Sugerencias e Insights IA) -->
+          <!-- Conductor 2: Sistema -> Terminales (Coaching IA y Alertas Socket) -->
           <g>
             <path class="arr association" data-from="sis" data-to="stu" d="M 430 310 L 331 310" marker-end="url(#ar-left)"/>
-            <rect x="340" y="318" width="81" height="17" rx="6" class="ecosystem-pill"/>
-            <text class="pipe-label" x="380" y="330">AVISOS / IA</text>
+            <rect x="336" y="318" width="88" height="17" rx="6" class="ecosystem-pill"/>
+            <text class="pipe-label" x="380" y="330">COACHING / IA</text>
           </g>
 
-          <!-- Conductor 3: Sistema -> Administración (Métricas agregadas) -->
+          <!-- Conductor 3: Sistema -> Administración (Métricas ML y Rendimiento) -->
           <g>
             <path class="arr prop association" data-from="sis" data-to="adm" d="M 750 210 L 845 210" marker-end="url(#ar)"/>
-            <rect x="760" y="186" width="76" height="17" rx="6" class="ecosystem-pill"/>
-            <text class="pipe-label prop-label" x="798" y="198">MÉTRICAS</text>
+            <rect x="755" y="186" width="85" height="17" rx="6" class="ecosystem-pill"/>
+            <text class="pipe-label prop-label" x="797" y="198">MÉTRICAS ML</text>
           </g>
 
-          <!-- Conductor 4: Administración -> Sistema (Control y Calibración IA) -->
+          <!-- Conductor 4: Administración -> Sistema (Calibración y Reentrenamiento) -->
           <g>
             <path class="arr prop association" data-from="adm" data-to="sis" d="M 845 310 L 750 310" marker-end="url(#ar-left)"/>
-            <rect x="764" y="318" width="68" height="17" rx="6" class="ecosystem-pill"/>
-            <text class="pipe-label prop-label" x="798" y="330">CONTROL</text>
+            <rect x="752" y="318" width="91" height="17" rx="6" class="ecosystem-pill"/>
+            <text class="pipe-label prop-label" x="797" y="330">CALIBRACIÓN</text>
           </g>
         </svg>
       </div>
 
       <p class="diagram-note">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-        * Funciones reservadas para los desarrolladores y administradores del sistema Quantify Core.
+        * Funciones reservadas para los ingenieros administradores y operadores de ML Ops del sistema Quantify Core.
       </p>
     </section>
 
@@ -2107,15 +2107,15 @@
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
             </div>
           </div>
-          <h3 class="feature-title">Creación y Personalización de Hábitos</h3>
+          <h3 class="feature-title">Parametrización y Gestión de Hábitos Cuantitativos</h3>
           <p class="feature-desc">
-            Permite al usuario diseñar nuevos hábitos parametrizando nombre, categoría temática (Salud, Estudio, Productividad), frecuencia programada (diaria, días específicos) y metas cuantitativas alcanzables.
+            Permite definir hábitos con metas cuantitativas precisas (minutos de lectura, pasos, vasos de agua), cadencia programada (diaria, fines de semana, días alternos) y etiquetas de bienestar, sincronizados entre el Dashboard Web y la aplicación Wear OS.
           </p>
           <div class="feature-meta">
             <span class="feature-roles-label">Actores involucrados:</span>
             <div class="feature-chips">
-              <span class="chip-role c-stu">Usuario Final (Ejecuta)</span>
-              <span class="chip-role c-sis">Sistema (Persiste)</span>
+              <span class="chip-role c-stu">Usuario Final (Configura)</span>
+              <span class="chip-role c-sis">Backend (Sincroniza)</span>
             </div>
           </div>
         </article>
@@ -2128,15 +2128,15 @@
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
             </div>
           </div>
-          <h3 class="feature-title">Registro de Progreso Diario</h3>
+          <h3 class="feature-title">Ingesta Biométrica y Micro-Progreso Wear OS</h3>
           <p class="feature-desc">
-            Interacción ágil de micro-progreso donde el usuario marca el cumplimiento parcial o total de sus hábitos del día mediante retroalimentación táctil y actualización inmediata de estado.
+            Captura táctil inmediata en smartwatch para registrar micro-avances en menos de 3 segundos, combinada con telemetría pasiva de actividad física almacenada localmente en Room DB y despachada resilientemente con WorkManager.
           </p>
           <div class="feature-meta">
             <span class="feature-roles-label">Actores involucrados:</span>
             <div class="feature-chips">
-              <span class="chip-role c-stu">Usuario Final (Registra)</span>
-              <span class="chip-role c-sis">Sistema (Valida / Timestamp)</span>
+              <span class="chip-role c-stu">Smartwatch (Captura)</span>
+              <span class="chip-role c-sis">Sistema (Ingesta / Valida)</span>
             </div>
           </div>
         </article>
@@ -2149,69 +2149,68 @@
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
             </div>
           </div>
-          <h3 class="feature-title">Consulta de Historial y Rachas</h3>
+          <h3 class="feature-title">Diagnóstico Predictivo de Burnout y Deserción</h3>
           <p class="feature-desc">
-            Visualización analítica del desempeño acumulado, mapas de calor de constancia y cálculo automático de rachas consecutivas (streaks) para reforzar la motivación intrínseca.
+            Microservicio en Python FastAPI con Scikit-Learn que analiza series temporales y caídas de adherencia para calcular el índice de riesgo de sobreentrenamiento o fatiga mental antes de que el usuario abandone el hábito.
           </p>
           <div class="feature-meta">
             <span class="feature-roles-label">Actores involucrados:</span>
             <div class="feature-chips">
-              <span class="chip-role c-stu">Usuario Final (Consulta)</span>
-              <span class="chip-role c-sis">Backend (Calcula Métricas)</span>
+              <span class="chip-role c-sis">Motor ML (Infiere Riesgo)</span>
+              <span class="chip-role c-adm">ML Ops (Monitorea Métricas)</span>
             </div>
           </div>
         </article>
 
         <!-- Feature 4 -->
-        <article class="feature-card">
+        <article class="feature-card f-ai">
           <div class="feature-header">
             <span class="feature-idx">FEATURE 04</span>
             <div class="feature-icon-box" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
             </div>
           </div>
-          <h3 class="feature-title">Recordatorios Inteligentes</h3>
+          <h3 class="feature-title">Clustering de Arquetipos y Coaching con Gemini AI</h3>
           <p class="feature-desc">
-            El usuario configura sus ventanas horarias preferidas y el despachador del backend sincroniza notificaciones push locales y remotas en momentos estratégicos de la jornada.
+            Algoritmo no supervisado K-Means para segmentar patrones de comportamiento acoplado a la API de Gemini AI, generando explicaciones de coaching personalizadas con justificación causal (Explainable AI - XAI).
           </p>
           <div class="feature-meta">
             <span class="feature-roles-label">Actores involucrados:</span>
             <div class="feature-chips">
-              <span class="chip-role c-stu">Usuario Final (Configura)</span>
-              <span class="chip-role c-sis">Sistema (Programa / Dispara)</span>
+              <span class="chip-role c-sis">K-Means + Gemini (Genera)</span>
+              <span class="chip-role c-stu">Usuario (Acepta / Descarta)</span>
             </div>
           </div>
         </article>
 
         <!-- Feature 5 -->
-        <article class="feature-card f-ai">
+        <article class="feature-card">
           <div class="feature-header">
             <span class="feature-idx">FEATURE 05</span>
             <div class="feature-icon-box" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
             </div>
           </div>
-          <h3 class="feature-title">Recomendaciones Adaptativas por IA</h3>
+          <h3 class="feature-title">Tablero en Tiempo Real y Alertas Reactivas</h3>
           <p class="feature-desc">
-            El motor de inferencia heurística detecta patrones en los hábitos del usuario y genera sugerencias contextuales con puntuación de confianza, permitiendo al usuario aceptarlas con un toque o descartarlas.
+            Dashboard interactivo en React + Socket.IO con mapas de calor, visualización de streaks y programación de notificaciones push adaptadas a los ritmos circadianos del usuario para maximizar la consistencia.
           </p>
           <div class="feature-meta">
             <span class="feature-roles-label">Actores involucrados:</span>
             <div class="feature-chips">
-              <span class="chip-role c-sis">Sistema / IA (Infiere)</span>
-              <span class="chip-role c-stu">Usuario Final (Decide)</span>
-              <span class="chip-role c-adm">Admin (Audita Modelo)</span>
+              <span class="chip-role c-stu">Usuario Final (Visualiza)</span>
+              <span class="chip-role c-sis">Socket.IO (Emite Eventos)</span>
             </div>
           </div>
         </article>
       </div>
     </section>
 
-    <!-- SECCIÓN 3: MATRIZ ANALÍTICA DE PERMISOS -->
+    <!-- SECCIÓN 3: MATRIZ ANALÍTICA DE PERMISOS (12 ACCIONES) -->
     <section class="card-box scroll-reveal delay-2" aria-label="Matriz de permisos">
       <div class="card-box-header">
         <h2>
-          <span>Matriz Analítica de Permisos</span>
+          <span>Matriz Analítica de Permisos (12 Operaciones)</span>
         </h2>
         <span class="hint-badge">Hover en filas para resaltar acciones</span>
       </div>
@@ -2220,68 +2219,85 @@
         <table class="qc-matrix">
           <thead>
             <tr>
-              <th scope="col" style="text-align:left">Acción en Plataforma</th>
+              <th scope="col" style="text-align:left">Acción Operativa en Plataforma</th>
               <th scope="col" data-col="stu">Usuario Final</th>
-              <th scope="col" data-col="adm">Administración</th>
-              <th scope="col" data-col="sis">Sistema / Backend</th>
+              <th scope="col" data-col="adm">Administración / ML Ops</th>
+              <th scope="col" data-col="sis">Sistema / Backend &amp; IA</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <th scope="row">Crear y personalizar hábitos</th>
+              <th scope="row">1. Parametrizar y crear hábitos cuantitativos</th>
               <td data-col="stu"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg></span></td>
               <td data-col="adm"><span class="qc-badge none">—</span></td>
               <td data-col="sis"><span class="qc-badge none">—</span></td>
             </tr>
             <tr>
-              <th scope="row">Registrar progreso diario</th>
-              <td data-col="stu"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg></span></td>
+              <th scope="row">2. Ingesta de telemetría y micro-logs (Wear OS)</th>
+              <td data-col="stu"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg> (Wear OS)</span></td>
               <td data-col="adm"><span class="qc-badge none">—</span></td>
-              <td data-col="sis"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg> (Valida)</span></td>
+              <td data-col="sis"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg> (Ingesta)</span></td>
             </tr>
             <tr>
-              <th scope="row">Consultar historial y rachas</th>
+              <th scope="row">3. Consultar métricas en tiempo real y rachas</th>
               <td data-col="stu"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg></span></td>
               <td data-col="adm"><span class="qc-badge none">—</span></td>
-              <td data-col="sis"><span class="qc-badge none">—</span></td>
+              <td data-col="sis"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg> (Calcula)</span></td>
             </tr>
             <tr>
-              <th scope="row">Configurar recordatorios</th>
+              <th scope="row">4. Programar ventanas horarias y alarmas push</th>
               <td data-col="stu"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg></span></td>
               <td data-col="adm"><span class="qc-badge none">—</span></td>
-              <td data-col="sis"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg> (Programa)</span></td>
+              <td data-col="sis"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg> (Despacha)</span></td>
             </tr>
             <tr>
-              <th scope="row">Generar y enviar sugerencias (IA)</th>
+              <th scope="row">5. Detección predictiva de Burnout (ML Supervisado)</th>
               <td data-col="stu"><span class="qc-badge none">—</span></td>
-              <td data-col="adm"><span class="qc-badge none">—</span></td>
-              <td data-col="sis"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg></span></td>
+              <td data-col="adm"><span class="qc-badge proposed">◐ (Audita Drift)</span></td>
+              <td data-col="sis"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg> (Infiere)</span></td>
             </tr>
             <tr>
-              <th scope="row">Aceptar o rechazar sugerencias</th>
+              <th scope="row">6. Segmentación no supervisada por arquetipos (K-Means)</th>
+              <td data-col="stu"><span class="qc-badge none">—</span></td>
+              <td data-col="adm"><span class="qc-badge proposed">◐ (Evalúa Silueta)</span></td>
+              <td data-col="sis"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg> (Agrupa)</span></td>
+            </tr>
+            <tr>
+              <th scope="row">7. Generación de coaching explicable (Gemini AI)</th>
+              <td data-col="stu"><span class="qc-badge none">—</span></td>
+              <td data-col="adm"><span class="qc-badge proposed">◐ (Tokens / Cuota)</span></td>
+              <td data-col="sis"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg> (Sintetiza)</span></td>
+            </tr>
+            <tr>
+              <th scope="row">8. Aceptar o descartar recomendaciones de IA</th>
               <td data-col="stu"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg></span></td>
               <td data-col="adm"><span class="qc-badge none">—</span></td>
-              <td data-col="sis"><span class="qc-badge none">—</span></td>
+              <td data-col="sis"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg> (Feedback)</span></td>
             </tr>
             <tr>
-              <th scope="row">Monitorear uso de la plataforma</th>
+              <th scope="row">9. Monitorear salud de pipelines ETL y carga API</th>
               <td data-col="stu"><span class="qc-badge none">—</span></td>
-              <td data-col="adm"><span class="qc-badge proposed">◐</span></td>
-              <td data-col="sis"><span class="qc-badge none">—</span></td>
+              <td data-col="adm"><span class="qc-badge proposed">◐ (Monitorea)</span></td>
+              <td data-col="sis"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg> (Reporta)</span></td>
             </tr>
             <tr>
-              <th scope="row">Gestionar modelos de suscripción</th>
+              <th scope="row">10. Evaluar métricas de modelos (F1-score, Drift, Latencia)</th>
               <td data-col="stu"><span class="qc-badge none">—</span></td>
-              <td data-col="adm"><span class="qc-badge proposed">◐</span></td>
-              <td data-col="sis"><span class="qc-badge none">—</span></td>
+              <td data-col="adm"><span class="qc-badge proposed">◐ (Calibra)</span></td>
+              <td data-col="sis"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg> (Expone)</span></td>
             </tr>
             <tr>
-              <th scope="row">Modificar datos privados de otros</th>
+              <th scope="row">11. Gestionar pasarelas de pago y planes de suscripción</th>
+              <td data-col="stu"><span class="qc-badge none">—</span></td>
+              <td data-col="adm"><span class="qc-badge proposed">◐ (Administra)</span></td>
+              <td data-col="sis"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg> (Factura)</span></td>
+            </tr>
+            <tr>
+              <th scope="row">12. Acceso o alteración de biometría en crudo de otros usuarios</th>
               <td data-col="stu"><span class="qc-badge blocked"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span></td>
               <td data-col="adm"><span class="qc-badge blocked"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span></td>
               <td data-col="sis"><span class="qc-badge blocked"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span></td>
-            </tr>
-          </tbody>
+            </tr></tbody>
         </table>
       </div>
 
@@ -2290,10 +2306,10 @@
           <span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg></span> Permitido / Lo realiza
         </span>
         <span class="legend-chip">
-          <span class="qc-badge proposed">◐</span> Propuesta en evaluación
+          <span class="qc-badge proposed">◐</span> Propuesta / Gestión Técnica
         </span>
         <span class="legend-chip">
-          <span class="qc-badge blocked"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span> Bloqueado por seguridad
+          <span class="qc-badge blocked"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span> Bloqueado por privacidad (GDPR / HIPAA)
         </span>
         <span class="legend-chip">
           <span class="qc-badge none">—</span> No aplica
@@ -2332,42 +2348,43 @@
     (() => {
       const defs = {
         stu: {
-          kicker: "Actor Principal",
-          title: "Usuario Final",
-          purpose: "Persona que utiliza la aplicación para construir y mantener hábitos diarios.",
-          desc: "Interactúa con las pantallas móviles para registrar su día a día y recibir retroalimentación personalizada de la IA.",
+          kicker: "Actor Multi-dispositivo",
+          title: "Usuario Final (Wear OS, Web, Smart TV)",
+          purpose: "Persona que construye hábitos sustentables a través de terminales wearables y analítica web en tiempo real.",
+          desc: "Registra micro-progresos desde su smartwatch Wear OS con sincronización offline-first y visualiza correlaciones avanzadas en su dashboard web React.",
           list: [
-            "Crear y personalizar hábitos de acuerdo a sus metas y estilo de vida.",
-            "Registrar el progreso de cada hábito diariamente con un toque.",
-            "Consultar historial y estadísticas para motivarse con sus rachas.",
-            "Configurar notificaciones push para recordatorios oportunos.",
-            "Aceptar o descartar recomendaciones de hábitos generados por IA."
+            "Parametrizar hábitos cuantitativos con metas numéricas y categorías de bienestar.",
+            "Registrar micro-hábitos con un toque en Wear OS y sincronizar vía WorkManager.",
+            "Consultar dashboards analíticos con mapas de calor, rachas y correlación biométrica.",
+            "Configurar ventanas de notificaciones contextuales y avisos en smartwatch y web.",
+            "Aceptar, posponer o descartar recomendaciones predictivas generadas por Gemini AI."
           ],
           proposed: false
         },
         sis: {
-          kicker: "Capa Tecnológica",
-          title: "Sistema / Backend e IA",
-          purpose: "Procesa la información, entrena modelos y envía alertas automáticas.",
-          desc: "Representa toda la infraestructura tecnológica automatizada de Quantify Core.",
+          kicker: "Capa Inteligente y Backend",
+          title: "Sistema / Backend, ML Engine y Gemini AI",
+          purpose: "Orquesta el pipeline de datos, infiere riesgo de burnout con Scikit-Learn y genera coaching personalizado con Gemini AI.",
+          desc: "Arquitectura híbrida: Gateway Node.js/Express con Socket.IO para eventos reactivos, y microservicio Python FastAPI con Scikit-Learn y Gemini AI.",
           list: [
-            "Validar que los registros diarios sean consistentes y correctos.",
-            "Analizar el historial del usuario para detectar patrones y horarios óptimos.",
-            "Generar sugerencias de IA de hábitos que complementen la rutina del usuario.",
-            "Programar y enviar los avisos a la hora idónea.",
-            "Proteger los datos personales mediante cifrado de extremo a extremo."
+            "Ingestar telemetría biométrica y validar integridad criptográfica de timestamps.",
+            "Ejecutar modelo de ML supervisado para clasificar riesgo de fatiga y deserción.",
+            "Agrupar usuarios mediante clustering no supervisado K-Means para segmentar arquetipos.",
+            "Sintetizar coaching adaptativo explicable (XAI) con Gemini AI integrando contexto.",
+            "Garantizar privacidad estricta bloqueando acceso no autorizado a biometría en crudo."
           ],
           proposed: false
         },
         adm: {
-          kicker: "Operativa",
-          title: "Administración",
-          purpose: "Mantiene la plataforma a nivel de negocio, métricas y fiabilidad.",
-          desc: "Herramientas de back-office exclusivas para los creadores de Quantify Core.",
+          kicker: "Supervisión y ML Ops",
+          title: "Administración & Torre de Control ML Ops",
+          purpose: "Supervisa la salud operativa de los microservicios, el rendimiento de los modelos de IA y la sostenibilidad del producto.",
+          desc: "Panel de control técnico reservado a ingenieros y administradores para monitorear latencia, drift conceptual de IA y métricas de negocio sin vulnerar la privacidad del usuario.",
           list: [
-            "Monitorear métricas agregadas de uso y retención de usuarios.",
-            "Gestionar el modelo freemium/premium y pasarelas de pago.",
-            "Afinar y calibrar los parámetros de la Inteligencia Artificial."
+            "Monitorear la salud de los pipelines ETL y la concurrencia de conexiones Socket.IO.",
+            "Auditar drift de datos y evaluar F1-Score, matriz de confusión y latencia de inferencia.",
+            "Administrar planes de suscripción, cuotas de consumo de Gemini AI y facturación.",
+            "Disparar pipelines de reentrenamiento y calibración de hiperparámetros en el motor ML."
           ],
           proposed: true
         }
