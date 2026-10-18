@@ -95,3 +95,46 @@ test('Contraseñas de prueba nunca se escriben en localStorage',()=>{
 test('Un acceso administrativo inválido permanece en el formulario',()=>{
   const a=environment();a.view.role='admin';a.view.screen='A01';a.submit(a.form('admin-login',{email:'alex@quantify.demo',password:'Demo2026!'}));assert.equal(a.view.screen,'A01');assert.match(a.error(),/denegado/);
 });
+test('Una cuenta nueva solo inicia sesión después de verificar el código',()=>{
+  const a=environment(),credentials={email:'nueva@quantify.demo',password:'Prueba2026!'};
+  a.submit(a.form('register',{name:'Nueva Cuenta',...credentials,terms:'on'}));
+  a.view.screen='U02';a.submit(a.form('login',credentials));
+  assert.equal(a.view.screen,'U02');assert.match(a.error(),/Primero verifica/);
+  assert.match(a.renderers.U02(),/Continuar verificación/);
+  a.action('resume-verification');assert.equal(a.view.screen,'U05');
+  a.submit(a.form('verify',{code:'000000'}));assert.equal(a.view.screen,'U05');
+  a.submit(a.form('verify',{code:'123456'}));assert.equal(a.view.screen,'U06');
+  a.action('logout-user');a.submit(a.form('login',credentials));assert.equal(a.view.screen,'U06');
+});
+test('Recuperar una cuenta pendiente no permite saltar la verificación de registro',()=>{
+  const a=environment();a.submit(a.form('register',{name:'Nueva Cuenta',email:'nueva@quantify.demo',password:'Prueba2026!',terms:'on'}));
+  a.view.screen='U04';a.submit(a.form('recover',{email:'nueva@quantify.demo'}));
+  assert.equal(a.view.screen,'U04');assert.match(a.error(),/verificación de registro/);
+});
+test('El código de registro requiere una cuenta y la cuenta demo conserva su recuperación',()=>{
+  const a=environment();a.view.screen='U05';a.submit(a.form('verify',{code:'123456'}));
+  assert.equal(a.view.screen,'U05');assert.match(a.error(),/crea una cuenta/);
+  a.submit(a.form('recover',{email:'alex@quantify.demo'}));a.submit(a.form('verify',{code:'123456'}));
+  assert.equal(a.view.screen,'U15');a.submit(a.form('password',{password:'NuevaDemo2026!',confirm:'NuevaDemo2026!'}));
+  a.submit(a.form('login',{email:'alex@quantify.demo',password:'Demo2026!'}));assert.equal(a.view.screen,'U02');
+  a.submit(a.form('login',{email:'alex@quantify.demo',password:'NuevaDemo2026!'}));assert.equal(a.view.screen,'U06');
+});
+test('Los avisos reflejan horario, días, desactivación y archivo de hábitos',()=>{
+  const a=environment();a.view.selected='h1';
+  a.submit(a.form('reminder-form',{enabled:'on',time:'09:30',days:['2']}));
+  let html=a.renderers.U14();assert.match(html,/09:30/);assert.ok(!html.includes('08:00'));
+  a.submit(a.form('reminder-form',{enabled:'on',time:'09:30',days:['0']}));
+  assert.ok(!a.renderers.U14().includes('09:30'));
+  a.submit(a.form('reminder-form',{time:'09:30',days:['2']}));assert.ok(!a.renderers.U14().includes('09:30'));
+  a.submit(a.form('reminder-form',{enabled:'on',time:'09:30',days:['2']}));
+  a.action('archive-habit');assert.ok(!a.renderers.U14().includes('Lectura consciente'));
+  a.db.habits[1].reminder.enabled=false;assert.match(a.renderers.U14(),/Sin avisos para hoy/);
+});
+test('Los avisos escapan nombres y conservan el estado leído mientras no cambia el horario',()=>{
+  const a=environment();a.db.habits[0].name='<img src=x onerror=alert(1)>';
+  assert.ok(!a.renderers.U14().includes('<img src=x'));
+  assert.match(a.renderers.U14(),/&lt;img src=x/);
+  a.action('read-notice','reminder:h1:2026-10-14:08:00');assert.match(a.renderers.U14(),/>Leído</);
+  a.view.selected='h1';a.submit(a.form('reminder-form',{enabled:'on',time:'09:30',days:['2']}));
+  assert.ok(!a.renderers.U14().includes('>Leído<'));
+});

@@ -19,7 +19,7 @@ window.QC = (() => {
   const s = (id, title, group, description, ids, edges) => ({id,title,group,description,rules:ids,edges:edges.map(([to,label,kind])=>({to,label,kind:kind||'navigate'}))});
   const user = [
     s('U01','Bienvenida','Acceso','Presentación del seguimiento de hábitos y acceso a una rutina más consciente.',['RN02','RN13'],[['U02','Iniciar sesión'],['U03','Crear cuenta']]),
-    s('U02','Iniciar sesión','Acceso','Validar las credenciales de ejemplo y continuar a la rutina.',['RN02'],[['U06','Credenciales válidas'],['U02','Credenciales inválidas','state'],['U03','Crear cuenta'],['U04','Olvidé mi contraseña'],['U01','Volver']]),
+    s('U02','Iniciar sesión','Acceso','Validar las credenciales de ejemplo y continuar a la rutina.',['RN02'],[['U06','Credenciales válidas'],['U02','Credenciales inválidas','state'],['U03','Crear cuenta'],['U04','Olvidé mi contraseña'],['U05','Continuar verificación pendiente'],['U01','Volver']]),
     s('U03','Crear cuenta','Acceso','Capturar los datos y aceptar las condiciones antes de verificar la cuenta.',['RN02'],[['U05','Datos válidos'],['U03','Corregir datos','state'],['U02','Ya tengo cuenta']]),
     s('U04','Recuperar acceso','Acceso','Iniciar una recuperación simulada sin enviar correos.',['RN02'],[['U05','Solicitar código demo'],['U02','Cancelar']]),
     s('U05','Verificar código','Acceso','Verificación demostrativa del registro o de una recuperación.',['RN02'],[['U06','Código válido · registro'],['U15','Código válido · recuperación'],['U05','Código inválido o reenviar','state'],['U02','Cancelar']]),

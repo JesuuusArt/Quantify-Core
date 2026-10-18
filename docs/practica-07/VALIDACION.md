@@ -61,3 +61,19 @@ Después del ajuste visual a sketches, se volvieron a aprobar las 16 pruebas y l
 | `styles.css` | `42fd0335120fcffd051010c91de72419cbdd25ac7a41ba480491d7f3003d6c5d` |
 | `data.js` | `0216b08e3eaf608e6b207b548785e6d73b162750f22ed3cc7d482f85ce985153` |
 | `app.js` | `786da1caeff36e94522eec2cc3c0e5feb9b649dd29c60193b9aea1bb57ea62f5` |
+
+
+## Correcciones y comprobación del 17 de octubre de 2026
+
+- **21 de 21 pruebas de lógica aprobadas**: las 16 originales y 5 regresiones adicionales.
+- Las cuentas recién registradas requieren el código antes de iniciar sesión. Pueden retomar la verificación; recuperar una cuenta pendiente no omite este paso. El acceso y la recuperación de la cuenta demo siguen funcionando.
+- El centro de avisos deriva sus entradas de los recordatorios activos para el día de ejemplo. Refleja horario y días, excluye hábitos archivados, conserva el estado leído para el mismo aviso y escapa los nombres al generar HTML.
+- El README identifica la captura aportada como U01 — Bienvenida, de una versión anterior del diseño. La imagen original se conserva.
+- Las referencias a Práctica 05 apuntan a los archivos de `main` en GitHub, bajo `docs/Practica05`, para funcionar con ambas estructuras de carpetas. Se comprobó su existencia en la referencia local `main`; no se comprobó su disponibilidad por HTTP.
+- Sintaxis JavaScript, recursos locales y espacios del diff comprobados. No se realizó una nueva revisión visual en navegador; la inspección de Safari descrita arriba corresponde al 14 de octubre.
+- Los hashes de la tabla anterior son históricos. Estos son los hashes de los archivos modificados de la aplicación en esta revisión:
+
+| Archivo | SHA-256 |
+|---|---|
+| `data.js` | `76fb52b24b3fd3ddcef44f6d9d3fffac15b45aa74f19be8338bb74700237af6f` |
+| `app.js` | `cc7ee0135b272eb7cbab3677b76e4d15402d3289a62028e097a2a9e2543e5f0e` |
