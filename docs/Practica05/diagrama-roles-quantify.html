@@ -4,52 +4,76 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Diagrama de roles de usuario · Quantify Core</title>
+  <meta name="theme-color" content="#0B0F17">
+  <!-- Pre-render theme initialization -->
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var palette = 'tech';
+      var mode = 'dark';
+      try {
+        var saved = JSON.parse(localStorage.getItem('qc-theme'));
+        if (saved && ['tech', 'cognitive', 'behavioral'].indexOf(saved.palette) !== -1) {
+          palette = saved.palette;
+          mode = saved.mode === 'light' ? 'light' : 'dark';
+        } else if (window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches) {
+          mode = 'light';
+        }
+      } catch (e) {}
+      root.dataset.palette = palette;
+      root.dataset.mode = mode;
+      root.dataset.theme = palette === 'tech' ? 'tech-' + mode : palette;
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
   
   <style>
     /* ==========================================================================
        VARIABLES Y PALETA DE COLORES (Identidad Quantify Core)
        ========================================================================== */
-    :root, [data-theme="dark"] {
-      --bg: #2C3036;
-      --bg-gradient: radial-gradient(circle at 50% 0%, rgba(30, 84, 201, 0.22) 0%, transparent 60%),
-                     radial-gradient(circle at 100% 100%, rgba(76, 127, 232, 0.12) 0%, transparent 50%),
-                     #2C3036;
-      --grid: #3A414B;
+    :root, [data-theme="tech-dark"] {
+      --bg: #0B0F17;
+      --bg-gradient: linear-gradient(160deg, #0B0F17 0%, #0D1524 48%, #111C35 100%);
+      --surface: #161F2E;
+      --surface-2: #1B2639;
+      --surface-glass: rgba(22, 31, 46, 0.75);
+      --border: #283548;
+      --border-strong: #3A4C6E;
       --text: #FFFFFF;
-      --text-muted: #C9CED6;
-      --text-dim: #9AA3AF;
-      --text-faint: #AEB6C2;
-      
-      --brand-blue: #1E54C9;
-      --brand-glow: #4C7FE8;
-      --brand-light: #6C93F0;
-      
-      --panel: rgba(36, 41, 48, 0.85);
-      --panel-solid: #262B32;
-      --panel-border: rgba(76, 127, 232, 0.32);
-      --panel-border-hover: #4C7FE8;
-      --panel-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
-      
+      --text-muted: #B4C0D0;
+      --text-dim: #8A99AD;
+      --text-faint: #6B7A90;
+
+      --brand-blue: #275BC0;
+      --brand-glow: #4A7DE8;
+      --brand-light: #7EA3F0;
+      --primary-soft: rgba(39, 91, 192, 0.16);
+
+      --panel: rgba(22, 31, 46, 0.82);
+      --panel-solid: #161F2E;
+      --panel-border: rgba(58, 76, 110, 0.50);
+      --panel-border-hover: #4A7DE8;
+      --panel-shadow: 0 20px 48px -20px rgba(0, 0, 0, 0.75);
+
       /* Roles temáticos */
       --stu: #38BDF8;      /* Usuario Final - Cyan eléctrico / móvil */
       --stu-glow: rgba(56, 189, 248, 0.38);
-      --stu-bg: rgba(56, 189, 248, 0.08);
-      
+      --stu-bg: rgba(56, 189, 248, 0.10);
+
       --sis: #34D399;      /* Sistema / Backend / IA - Verde esmeralda IA */
       --sis-glow: rgba(52, 211, 153, 0.38);
-      --sis-bg: rgba(52, 211, 153, 0.08);
-      
+      --sis-bg: rgba(52, 211, 153, 0.10);
+
       --adm: #A78BFA;      /* Administración - Púrpura de gobernanza */
       --adm-glow: rgba(167, 139, 250, 0.38);
-      --adm-bg: rgba(167, 139, 250, 0.08);
+      --adm-bg: rgba(167, 139, 250, 0.10);
 
-      --card-bg: rgba(28, 32, 38, 0.95);
-      --table-stripe: rgba(255, 255, 255, 0.02);
-      --table-hover: rgba(30, 84, 201, 0.18);
-      --table-border: rgba(58, 65, 75, 0.7);
+      --card-bg: rgba(27, 38, 57, 0.94);
+      --table-stripe: rgba(255, 255, 255, 0.025);
+      --table-hover: rgba(39, 91, 192, 0.18);
+      --table-border: #283548;
 
       --badge-allowed-bg: rgba(52, 211, 153, 0.15);
       --badge-allowed-text: #34D399;
@@ -63,60 +87,357 @@
       --badge-blocked-text: #F87171;
       --badge-blocked-border: rgba(248, 113, 113, 0.35);
 
-      --font-main: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --g1: rgba(39, 91, 192, 0.55);
+      --g2: rgba(24, 61, 135, 0.65);
+      --g3: rgba(14, 165, 233, 0.30);
+      --spot: rgba(74, 125, 232, 0.12);
+      --grid: rgba(255, 255, 255, 0.045);
+      --frame-bg: #0B0F17;
+
+      --font-main: 'Plus Jakarta Sans', 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
     }
 
-    [data-theme="light"] {
-      --bg: #F4F6FB;
-      --bg-gradient: radial-gradient(circle at 50% 0%, rgba(30, 84, 201, 0.08) 0%, transparent 60%),
-                     #F4F6FB;
-      --grid: #E2E8F0;
-      --text: #1E232B;
-      --text-muted: #4B5565;
-      --text-dim: #6B7280;
-      --text-faint: #9CA3AF;
-      
-      --brand-blue: #1E54C9;
-      --brand-glow: #1E54C9;
-      --brand-light: #3B6FE0;
-      
-      --panel: rgba(255, 255, 255, 0.94);
+    [data-theme="tech-light"] {
+      --bg: #F4F7FD;
+      --bg-gradient: linear-gradient(160deg, #FFFFFF 0%, #F4F7FD 50%, #E6EEFC 100%);
+      --surface: #FFFFFF;
+      --surface-2: #F1F5FC;
+      --surface-glass: rgba(255, 255, 255, 0.88);
+      --border: #DCE4F2;
+      --border-strong: #BFCDE5;
+      --text: #0B0F17;
+      --text-muted: #3D4A5E;
+      --text-dim: #6B7A90;
+      --text-faint: #94A3B8;
+
+      --brand-blue: #275BC0;
+      --brand-glow: #183D87;
+      --brand-light: #275BC0;
+      --primary-soft: rgba(39, 91, 192, 0.08);
+
+      --panel: rgba(255, 255, 255, 0.92);
       --panel-solid: #FFFFFF;
-      --panel-border: rgba(30, 84, 201, 0.22);
-      --panel-border-hover: #1E54C9;
-      --panel-shadow: 0 12px 32px rgba(30, 84, 201, 0.08);
+      --panel-border: rgba(39, 91, 192, 0.24);
+      --panel-border-hover: #275BC0;
+      --panel-shadow: 0 16px 36px -16px rgba(24, 61, 135, 0.25);
 
       --stu: #0284C7;
       --stu-glow: rgba(2, 132, 199, 0.25);
-      --stu-bg: rgba(2, 132, 199, 0.06);
+      --stu-bg: rgba(2, 132, 199, 0.08);
 
       --sis: #059669;
       --sis-glow: rgba(5, 150, 105, 0.25);
-      --sis-bg: rgba(5, 150, 105, 0.06);
+      --sis-bg: rgba(5, 150, 105, 0.08);
 
       --adm: #7C3AED;
       --adm-glow: rgba(124, 58, 237, 0.25);
-      --adm-bg: rgba(124, 58, 237, 0.06);
+      --adm-bg: rgba(124, 58, 237, 0.08);
 
       --card-bg: #FFFFFF;
-      --table-stripe: rgba(30, 84, 201, 0.02);
-      --table-hover: rgba(30, 84, 201, 0.07);
-      --table-border: #E2E8F0;
+      --table-stripe: rgba(39, 91, 192, 0.03);
+      --table-hover: rgba(39, 91, 192, 0.09);
+      --table-border: #DCE4F2;
 
-      --badge-allowed-bg: rgba(5, 150, 105, 0.1);
+      --badge-allowed-bg: rgba(5, 150, 105, 0.12);
       --badge-allowed-text: #047857;
-      --badge-allowed-border: rgba(5, 150, 105, 0.3);
+      --badge-allowed-border: rgba(5, 150, 105, 0.35);
 
-      --badge-prop-bg: rgba(124, 58, 237, 0.1);
+      --badge-prop-bg: rgba(124, 58, 237, 0.12);
       --badge-prop-text: #6D28D9;
-      --badge-prop-border: rgba(124, 58, 237, 0.3);
+      --badge-prop-border: rgba(124, 58, 237, 0.35);
 
-      --badge-blocked-bg: rgba(239, 68, 68, 0.1);
+      --badge-blocked-bg: rgba(239, 68, 68, 0.12);
       --badge-blocked-text: #DC2626;
-      --badge-blocked-border: rgba(239, 68, 68, 0.3);
+      --badge-blocked-border: rgba(239, 68, 68, 0.35);
+
+      --g1: rgba(39, 91, 192, 0.22);
+      --g2: rgba(74, 125, 232, 0.20);
+      --g3: rgba(14, 165, 233, 0.16);
+      --spot: rgba(39, 91, 192, 0.08);
+      --grid: rgba(11, 15, 23, 0.05);
+      --frame-bg: #FFFFFF;
     }
 
+    [data-theme="cognitive"] {
+      --bg: #090C10;
+      --bg-gradient: linear-gradient(150deg, #090C10 0%, #0E1122 50%, #16123A 100%);
+      --surface: #131924;
+      --surface-2: #192131;
+      --surface-glass: rgba(19, 25, 36, 0.75);
+      --border: #232E40;
+      --border-strong: #3B3F72;
+      --text: #F8FAFC;
+      --text-muted: #B6C2D4;
+      --text-dim: #94A3B8;
+      --text-faint: #64748B;
+
+      --brand-blue: #275BC0;
+      --brand-glow: #6366F1;
+      --brand-light: #A5ABFB;
+      --primary-soft: rgba(99, 102, 241, 0.16);
+
+      --panel: rgba(19, 25, 36, 0.82);
+      --panel-solid: #131924;
+      --panel-border: rgba(59, 63, 114, 0.6);
+      --panel-border-hover: #6366F1;
+      --panel-shadow: 0 20px 48px -20px rgba(0, 0, 0, 0.8);
+
+      --stu: #06B6D4;
+      --stu-glow: rgba(6, 182, 212, 0.38);
+      --stu-bg: rgba(6, 182, 212, 0.10);
+
+      --sis: #34D399;
+      --sis-glow: rgba(52, 211, 153, 0.38);
+      --sis-bg: rgba(52, 211, 153, 0.10);
+
+      --adm: #C084FC;
+      --adm-glow: rgba(192, 132, 252, 0.38);
+      --adm-bg: rgba(192, 132, 252, 0.10);
+
+      --card-bg: rgba(25, 33, 49, 0.94);
+      --table-stripe: rgba(99, 102, 241, 0.03);
+      --table-hover: rgba(99, 102, 241, 0.18);
+      --table-border: #232E40;
+
+      --badge-allowed-bg: rgba(52, 211, 153, 0.15);
+      --badge-allowed-text: #34D399;
+      --badge-allowed-border: rgba(52, 211, 153, 0.35);
+
+      --badge-prop-bg: rgba(192, 132, 252, 0.15);
+      --badge-prop-text: #E9D5FF;
+      --badge-prop-border: rgba(192, 132, 252, 0.35);
+
+      --badge-blocked-bg: rgba(248, 113, 113, 0.15);
+      --badge-blocked-text: #F87171;
+      --badge-blocked-border: rgba(248, 113, 113, 0.35);
+
+      --g1: rgba(99, 102, 241, 0.50);
+      --g2: rgba(39, 91, 192, 0.55);
+      --g3: rgba(6, 182, 212, 0.30);
+      --spot: rgba(99, 102, 241, 0.14);
+      --grid: rgba(148, 163, 184, 0.05);
+      --frame-bg: #090C10;
+    }
+
+    [data-theme="behavioral"] {
+      --bg: #0E131F;
+      --bg-gradient: linear-gradient(155deg, #0E131F 0%, #0F1A26 50%, #0E2324 100%);
+      --surface: #1A2234;
+      --surface-2: #202A40;
+      --surface-glass: rgba(26, 34, 52, 0.75);
+      --border: #2A3550;
+      --border-strong: #2F6A63;
+      --text: #F9FAFB;
+      --text-muted: #C2CAD6;
+      --text-dim: #9CA3AF;
+      --text-faint: #6B7280;
+
+      --brand-blue: #275BC0;
+      --brand-glow: #10B981;
+      --brand-light: #34D399;
+      --primary-soft: rgba(16, 185, 129, 0.14);
+
+      --panel: rgba(26, 34, 52, 0.82);
+      --panel-solid: #1A2234;
+      --panel-border: rgba(47, 106, 99, 0.55);
+      --panel-border-hover: #10B981;
+      --panel-shadow: 0 20px 48px -20px rgba(0, 0, 0, 0.75);
+
+      --stu: #38BDF8;
+      --stu-glow: rgba(56, 189, 248, 0.38);
+      --stu-bg: rgba(56, 189, 248, 0.10);
+
+      --sis: #10B981;
+      --sis-glow: rgba(16, 185, 129, 0.38);
+      --sis-bg: rgba(16, 185, 129, 0.10);
+
+      --adm: #F59E0B;
+      --adm-glow: rgba(245, 158, 11, 0.38);
+      --adm-bg: rgba(245, 158, 11, 0.10);
+
+      --card-bg: rgba(32, 42, 64, 0.94);
+      --table-stripe: rgba(16, 185, 129, 0.03);
+      --table-hover: rgba(16, 185, 129, 0.16);
+      --table-border: #2A3550;
+
+      --badge-allowed-bg: rgba(16, 185, 129, 0.15);
+      --badge-allowed-text: #34D399;
+      --badge-allowed-border: rgba(16, 185, 129, 0.35);
+
+      --badge-prop-bg: rgba(245, 158, 11, 0.15);
+      --badge-prop-text: #FCD34D;
+      --badge-prop-border: rgba(245, 158, 11, 0.35);
+
+      --badge-blocked-bg: rgba(248, 113, 113, 0.15);
+      --badge-blocked-text: #F87171;
+      --badge-blocked-border: rgba(248, 113, 113, 0.35);
+
+      --g1: rgba(39, 91, 192, 0.50);
+      --g2: rgba(16, 185, 129, 0.36);
+      --g3: rgba(245, 158, 11, 0.22);
+      --spot: rgba(16, 185, 129, 0.11);
+      --grid: rgba(255, 255, 255, 0.04);
+      --frame-bg: #0E131F;
+    }
+
+    /* Fondo dinámico y reactivo */
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+      background: var(--bg);
+      transition: background-color 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .bg__gradient {
+      position: absolute;
+      inset: 0;
+      background: var(--bg-gradient);
+      opacity: 0.95;
+    }
+    .bg__blob {
+      position: absolute;
+      width: 620px;
+      height: 620px;
+      border-radius: 50%;
+      filter: blur(100px);
+      will-change: transform;
+      opacity: 0.65;
+      mix-blend-mode: screen;
+      top: -310px;
+      left: -310px;
+      transition: background 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    [data-mode="light"] .bg__blob {
+      mix-blend-mode: multiply;
+      opacity: 0.45;
+      filter: blur(90px);
+    }
+    .bg__blob--1 { background: var(--g1); }
+    .bg__blob--2 { background: var(--g2); width: 680px; height: 680px; }
+    .bg__blob--3 { background: var(--g3); width: 540px; height: 540px; }
+    .bg__spot {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--mx, 50%) var(--my, 30%), var(--spot) 0%, transparent 45%);
+      pointer-events: none;
+    }
+    .bg__grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, var(--grid) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(circle at 50% 35%, black 45%, transparent 90%);
+      -webkit-mask-image: radial-gradient(circle at 50% 35%, black 45%, transparent 90%);
+    }
+
+    /* Switcher de tema unificado */
+    .theme {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      backdrop-filter: blur(12px);
+    }
+    .theme__group {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .theme__mode {
+      position: relative;
+      margin-left: 2px;
+      padding-left: 6px;
+      border-left: 1px solid var(--border);
+      transition: opacity 0.25s, transform 0.25s;
+    }
+    .theme__mode[aria-hidden="true"] {
+      opacity: 0;
+      pointer-events: none;
+      display: none;
+    }
+    .theme__btn {
+      appearance: none;
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      white-space: nowrap;
+    }
+    .theme__btn:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.06);
+    }
+    [data-mode="light"] .theme__btn:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+    .theme__btn[aria-pressed="true"] {
+      color: #FFFFFF;
+      background: var(--brand-blue);
+      border-color: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 12px rgba(39, 91, 192, 0.35);
+    }
+    [data-mode="light"] .theme__btn[aria-pressed="true"] {
+      color: #FFFFFF;
+    }
+    .theme__dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 6px currentColor;
+    }
+    .theme__dot--tech { color: #4A7DE8; }
+    .theme__dot--cog { color: #A5ABFB; }
+    .theme__dot--beh { color: #34D399; }
+
+    .portal-back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 13px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      min-width: max-content;
+      transition: all 0.2s;
+    }
+    .portal-back-btn:hover {
+      color: var(--text);
+      border-color: var(--brand-glow);
+      transform: translateX(-2px);
+    }
+    @media (max-width: 1200px) {
+      .theme__label { display: none; }
+      .theme__btn { padding: 5px 8px; }
+    }
+    @media (max-width: 900px) {
+      .portal-back-btn span { display: none; }
+      .portal-back-btn { padding: 6px 10px; }
+      .brand-sub { display: none; }
+    }
     /* ==========================================================================
        RESET Y BASE
        ========================================================================== */
@@ -131,8 +452,7 @@
     }
 
     body {
-      background: var(--bg-gradient);
-      background-attachment: fixed;
+      background: transparent;
       color: var(--text);
       font-family: var(--font-main);
       line-height: 1.6;
@@ -172,9 +492,11 @@
       transition: all 0.3s ease;
     }
 
+    [data-mode="light"] .qc-navbar,
+    [data-theme="tech-light"] .qc-navbar,
     [data-theme="light"] .qc-navbar {
-      background: rgba(255, 255, 255, 0.9);
-      border-bottom: 1px solid rgba(30, 84, 201, 0.15);
+      background: rgba(255, 255, 255, 0.92);
+      border-bottom: 1px solid var(--border);
     }
 
     .qc-navbar.scrolled {
@@ -341,8 +663,10 @@
       -webkit-text-fill-color: transparent;
     }
 
+    [data-mode="light"] h1,
+    [data-theme="tech-light"] h1,
     [data-theme="light"] h1 {
-      background: linear-gradient(135deg, #1E232B 30%, var(--brand-blue) 100%);
+      background: linear-gradient(135deg, #0B0F17 30%, var(--brand-blue) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -1239,8 +1563,10 @@
       color: #FFFFFF;
     }
 
+    [data-mode="light"] .dialog-head h2,
+    [data-theme="tech-light"] .dialog-head h2,
     [data-theme="light"] .dialog-head h2 {
-      color: #1E232B;
+      color: #0B0F17;
     }
 
     .dialog-close {
@@ -1291,8 +1617,10 @@
       gap: 8px;
     }
 
+    [data-mode="light"] .dialog-inner h3,
+    [data-theme="tech-light"] .dialog-inner h3,
     [data-theme="light"] .dialog-inner h3 {
-      color: #1E232B;
+      color: #0B0F17;
     }
 
     .dialog-inner ul {
@@ -1389,6 +1717,15 @@
   </style>
 </head>
 <body>
+  <!-- Fondo dinámico unificado idéntico al portal -->
+  <div class="bg" aria-hidden="true">
+    <div class="bg__gradient"></div>
+    <div class="bg__blob bg__blob--1"></div>
+    <div class="bg__blob bg__blob--2"></div>
+    <div class="bg__blob bg__blob--3"></div>
+    <div class="bg__spot"></div>
+    <div class="bg__grid"></div>
+  </div>
 
   <!-- Barra de progreso de scroll -->
   <div id="scroll-progress" role="progressbar" aria-label="Progreso de lectura" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
@@ -1396,7 +1733,7 @@
   <!-- Barra de navegación con logo y controles -->
   <nav class="qc-navbar" id="qcNavbar" aria-label="Navegación principal">
     <div class="brand-group">
-      <img id="qc-logo" src="../../quantifyLogo.jpeg" onerror="this.onerror=null;this.src='../quantifyLogo.jpeg';" alt="Logo de Quantify Core" title="Quantify Core Logo">
+      <img id="qc-logo" src="../quantifyLogo.jpeg" onerror="this.onerror=null;this.src='../../assets/images/quantifyLogo.jpeg';" alt="Logo de Quantify Core" title="Quantify Core Logo">
       <div class="brand-meta">
         <div class="brand-name">
           QUANTIFY <span class="core">CORE</span>
@@ -1407,20 +1744,38 @@
     </div>
     
     <div class="nav-tools">
-      <button id="themeToggle" class="qc-btn" type="button" aria-pressed="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" id="themeIcon">
-          <circle cx="12" cy="12" r="5"></circle>
-          <line x1="12" y1="1" x2="12" y2="3"></line>
-          <line x1="12" y1="21" x2="12" y2="23"></line>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-          <line x1="1" y1="12" x2="3" y2="12"></line>
-          <line x1="21" y1="12" x2="23" y2="12"></line>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-        </svg>
-        <span id="themeText">Modo Claro</span>
-      </button>
+      <a href="../../index.html" class="portal-back-btn" title="Volver al portal principal de Quantify Core">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>Portal</span>
+      </a>
+
+      <!-- Selector de tema unificado -->
+      <div class="theme" role="group" aria-label="Selector de tema">
+        <div class="theme__group" role="group" aria-label="Paleta de colores">
+          <button class="theme__btn" type="button" id="theme-tech" data-palette-btn="tech" aria-pressed="true" title="Tema Tech (Identidad Central)">
+            <span class="theme__dot theme__dot--tech" aria-hidden="true"></span>
+            <span class="theme__label">Tech</span>
+          </button>
+          <button class="theme__btn" type="button" id="theme-cognitive" data-palette-btn="cognitive" aria-pressed="false" title="Tema Cognitive AI">
+            <span class="theme__dot theme__dot--cog" aria-hidden="true"></span>
+            <span class="theme__label">Cognitive AI</span>
+          </button>
+          <button class="theme__btn" type="button" id="theme-behavioral" data-palette-btn="behavioral" aria-pressed="false" title="Tema Behavioral">
+            <span class="theme__dot theme__dot--beh" aria-hidden="true"></span>
+            <span class="theme__label">Behavioral</span>
+          </button>
+        </div>
+        <div class="theme__group theme__mode" id="themeMode" role="group" aria-label="Modo de la paleta Tech">
+          <button class="theme__btn" type="button" id="mode-dark" data-mode-btn="dark" aria-pressed="true" title="Modo negro / oscuro">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <span class="theme__label">Negro</span>
+          </button>
+          <button class="theme__btn" type="button" id="mode-light" data-mode-btn="light" aria-pressed="false" title="Modo blanco / claro">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <span class="theme__label">Blanco</span>
+          </button>
+        </div>
+      </div>
 
       <button id="resetView" class="qc-btn" type="button" title="Restablecer selección del diagrama">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1446,11 +1801,11 @@
         </div>
         <div class="kpi-chip">
           <span class="dot" style="background: var(--sis);"></span>
-          <strong>Motor IA</strong> Integrado
+          <strong>Motor Dual ML &amp; IA</strong>
         </div>
         <div class="kpi-chip">
           <span class="dot" style="background: var(--adm);"></span>
-          <strong>9 Acciones</strong> en Matriz
+          <strong>12 Acciones</strong> en Matriz
         </div>
       </div>
     </header>
@@ -1468,7 +1823,7 @@
       </div>
 
       <div class="scroll-container">
-        <svg class="roles-diagram" viewBox="0 0 1180 480" role="img" aria-label="Ecosistema de tres roles en Quantify Core con arquitectura de nodos diferenciados: Terminal de Usuario Móvil, Núcleo de IA/Backend y Consola de Administración.">
+        <svg class="roles-diagram" viewBox="0 0 1180 480" role="img" aria-label="Ecosistema de tres roles en Quantify Core con arquitectura de nodos diferenciados: Terminal Multi-dispositivo (Wear OS y Web), Núcleo de IA y Backend (Node.js, FastAPI y Gemini), y Torre de Control ML Ops.">
           <defs>
             <!-- Marcador flecha hacia la derecha -->
             <marker id="ar" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="12" refX="12" refY="6" orient="auto">
@@ -1505,10 +1860,10 @@
           </g>
           
           <!-- ============================================================== -->
-          <!-- FORMA 1: USUARIO FINAL (Terminal Móvil / Smartphone Glass)     -->
+          <!-- FORMA 1: USUARIO FINAL (Terminal Multi-dispositivo / Wear & Web) -->
           <!-- ============================================================== -->
           <g class="card stu interactive diagram-control" data-node="stu" role="button" tabindex="0" aria-pressed="false" aria-haspopup="dialog" aria-controls="roleDialog" aria-label="Rol Usuario Final. Haz clic para ver detalles.">
-            <title>Usuario Final - Actor Principal</title>
+            <title>Usuario Final - Actor Multi-dispositivo</title>
             
             <!-- Chasis Smartphone redondeado -->
             <rect class="card-bg terminal-frame" x="36" y="68" width="295" height="376"/>
@@ -1524,8 +1879,8 @@
             <path class="avatar-body" d="M 68 136 C 68 128, 96 128, 96 136"/>
             
             <text class="role-title" x="114" y="122">Usuario Final</text>
-            <rect x="114" y="130" width="136" height="18" rx="9" class="tag-pill stu-tag"/>
-            <text class="role-tag" x="182" y="143" text-anchor="middle">ACTOR PRINCIPAL</text>
+            <rect x="114" y="130" width="168" height="18" rx="9" class="tag-pill stu-tag"/>
+            <text class="role-tag" x="198" y="143" text-anchor="middle">ACTOR MULTI-DISPOSITIVO</text>
 
             <!-- Línea divisoria de cristal -->
             <line x1="52" y1="158" x2="313" y2="158" stroke="rgba(56, 189, 248, 0.2)" stroke-width="1"/>
@@ -1535,35 +1890,35 @@
               <rect class="item-pod" x="48" y="168" width="271" height="34" rx="10"/>
               <circle cx="68" cy="185" r="8" class="bullet-badge"/>
               <path d="M 64 185 h 8 M 68 181 v 8" class="bullet-ico"/>
-              <text class="role-item" x="84" y="189">Crea y personaliza hábitos</text>
+              <text class="role-item" x="84" y="189">Crea y parametriza hábitos</text>
             </g>
 
             <g class="pod-group">
               <rect class="item-pod" x="48" y="210" width="271" height="34" rx="10"/>
               <circle cx="68" cy="227" r="8" class="bullet-badge"/>
               <path d="M 65 227 l 2 2 l 4 -4" class="bullet-ico"/>
-              <text class="role-item" x="84" y="231">Registra progreso diario</text>
+              <text class="role-item" x="84" y="231">Telemetría y micro-logs (Wear OS)</text>
             </g>
 
             <g class="pod-group">
               <rect class="item-pod" x="48" y="252" width="271" height="34" rx="10"/>
               <circle cx="68" cy="269" r="8" class="bullet-badge"/>
               <path d="M 69 264 l -4 6 h 4 l -1 5 l 5 -7 h -4 z" class="bullet-ico"/>
-              <text class="role-item" x="84" y="273">Consulta historial y rachas</text>
+              <text class="role-item" x="84" y="273">Analítica en tiempo real (Web/TV)</text>
             </g>
 
             <g class="pod-group">
               <rect class="item-pod" x="48" y="294" width="271" height="34" rx="10"/>
               <circle cx="68" cy="311" r="8" class="bullet-badge"/>
               <path d="M 65 313 a 3 3 0 0 0 6 0 M 64 311 h 8" class="bullet-ico"/>
-              <text class="role-item" x="84" y="315">Configura recordatorios</text>
+              <text class="role-item" x="84" y="315">Sincroniza push y alertas socket</text>
             </g>
 
             <g class="pod-group">
               <rect class="item-pod" x="48" y="336" width="271" height="34" rx="10"/>
               <circle cx="68" cy="353" r="8" class="bullet-badge"/>
               <path d="M 68 348 l 1 3 l 3 1 l -3 1 l -1 3 l -1 -3 l -3 -1 l 3 -1 z" class="bullet-ico"/>
-              <text class="role-item" x="84" y="357">Acepta recomendaciones IA</text>
+              <text class="role-item" x="84" y="357">Acepta coaching predictivo e IA</text>
             </g>
 
             <!-- Barra inferior táctil estilo smartphone -->
@@ -1577,8 +1932,8 @@
           <!-- ============================================================== -->
           <!-- FORMA 2: SISTEMA / IA (Chasis Procesador Octagonal Chamfered)  -->
           <!-- ============================================================== -->
-          <g class="card sis interactive diagram-control" data-node="sis" role="button" tabindex="0" aria-pressed="false" aria-haspopup="dialog" aria-controls="roleDialog" aria-label="Rol Sistema, Backend e Inteligencia Artificial. Haz clic para ver detalles.">
-            <title>Sistema / Backend e Inteligencia Artificial</title>
+          <g class="card sis interactive diagram-control" data-node="sis" role="button" tabindex="0" aria-pressed="false" aria-haspopup="dialog" aria-controls="roleDialog" aria-label="Rol Sistema, Backend y Motores de Inteligencia Artificial. Haz clic para ver detalles.">
+            <title>Sistema / Gateway, Motor ML y Gemini AI</title>
             
             <!-- Chasis octagonal con esquinas en corte a 45 grados -->
             <polygon class="card-bg core-frame" points="460,52 720,52 750,82 750,426 720,456 460,456 430,426 430,82"/>
@@ -1596,8 +1951,8 @@
             <circle cx="467" cy="115" r="5" fill="var(--sis)"/>
             
             <text class="role-title" x="500" y="115">Sistema / Backend</text>
-            <rect x="500" y="124" width="180" height="18" rx="9" class="tag-pill sis-tag"/>
-            <text class="role-tag" x="590" y="137" text-anchor="middle">INTELIGENCIA ARTIFICIAL</text>
+            <rect x="500" y="124" width="220" height="18" rx="9" class="tag-pill sis-tag"/>
+            <text class="role-tag" x="610" y="137" text-anchor="middle">ML SUPERVISADO + CLUSTERING + LLM</text>
 
             <!-- Separador bus de datos -->
             <line x1="446" y1="152" x2="734" y2="152" stroke="rgba(52, 211, 153, 0.2)" stroke-width="1"/>
@@ -1605,33 +1960,33 @@
             <!-- 5 Pods del motor de procesamiento -->
             <g class="pod-group">
               <rect class="item-pod sis-pod" x="446" y="164" width="288" height="34" rx="8"/>
-              <text class="role-item" x="466" y="185">•  Valida registros y rachas</text>
+              <text class="role-item" x="466" y="185">•  Ingesta telemetría y timestamps</text>
             </g>
 
             <g class="pod-group">
               <rect class="item-pod sis-pod" x="446" y="206" width="288" height="34" rx="8"/>
-              <text class="role-item" x="466" y="227">•  Analiza historial de usuario</text>
+              <text class="role-item" x="466" y="227">•  Diagnóstico predictivo de Burnout (ML)</text>
             </g>
 
             <g class="pod-group">
               <rect class="item-pod sis-pod sis-active-pod" x="446" y="248" width="288" height="34" rx="8"/>
-              <text class="role-item" x="466" y="269" style="font-weight:600; fill: #FFFFFF;">•  Genera sugerencias de IA</text>
+              <text class="role-item" x="466" y="269" style="font-weight:600; fill: #FFFFFF;">•  Segmenta arquetipos (K-Means)</text>
             </g>
 
             <g class="pod-group">
               <rect class="item-pod sis-pod" x="446" y="290" width="288" height="34" rx="8"/>
-              <text class="role-item" x="466" y="311">•  Programa y envía avisos</text>
+              <text class="role-item" x="466" y="311">•  Sintetiza coaching XAI (Gemini AI)</text>
             </g>
 
             <g class="pod-group">
               <rect class="item-pod sis-pod" x="446" y="332" width="288" height="34" rx="8"/>
-              <text class="role-item" x="466" y="353">•  Protege datos personales</text>
+              <text class="role-item" x="466" y="353">•  Cifra biometría y cuida privacidad</text>
             </g>
 
             <!-- Consola de Telemetría Inferior del Núcleo -->
             <rect x="460" y="380" width="260" height="22" rx="11" class="core-hud"/>
             <circle cx="474" cy="391" r="4" class="hud-led"/>
-            <text x="488" y="395" class="hud-text">PIPELINE NEURONAL: ACTIVO // 99.9% UPTIME</text>
+            <text x="488" y="395" class="hud-text">PIPELINE ML &amp; SOCKET.IO: ACTIVO // 99.9% UPTIME</text>
 
             <!-- Puertos de I/O laterales -->
             <circle class="port-socket" cx="430" cy="210" r="6"/>
@@ -1643,8 +1998,8 @@
           <!-- ============================================================== -->
           <!-- FORMA 3: ADMINISTRACIÓN (Torre de Mando / Escudo Shield)       -->
           <!-- ============================================================== -->
-          <g class="card adm interactive diagram-control" data-node="adm" role="button" tabindex="0" aria-pressed="false" aria-haspopup="dialog" aria-controls="roleDialog" aria-label="Rol Administración del Sistema. Haz clic para ver detalles.">
-            <title>Administración y Monitoreo Global</title>
+          <g class="card adm interactive diagram-control" data-node="adm" role="button" tabindex="0" aria-pressed="false" aria-haspopup="dialog" aria-controls="roleDialog" aria-label="Rol Administración del Sistema y ML Ops. Haz clic para ver detalles.">
+            <title>Administración y Torre de Control ML Ops</title>
             
             <!-- Chasis con silueta de Torre de Mando / Escudo blindado -->
             <polygon class="card-bg admin-frame" points="867,68 1118,68 1140,90 1140,414 1118,444 867,444 845,414 845,90"/>
@@ -1654,8 +2009,8 @@
             <circle cx="884" cy="122" r="5" fill="var(--adm)"/>
             
             <text class="role-title" x="918" y="122">Administración</text>
-            <rect x="918" y="130" width="150" height="18" rx="9" class="tag-pill adm-tag"/>
-            <text class="role-tag" x="993" y="143" text-anchor="middle">MONITOREO GLOBAL</text>
+            <rect x="918" y="130" width="168" height="18" rx="9" class="tag-pill adm-tag"/>
+            <text class="role-tag" x="1002" y="143" text-anchor="middle">TORRE DE CONTROL &amp; ML OPS</text>
 
             <!-- Separador tecnológico -->
             <line x1="860" y1="158" x2="1125" y2="158" stroke="rgba(167, 139, 250, 0.2)" stroke-width="1"/>
@@ -1663,25 +2018,25 @@
             <!-- 3 Pods de control y supervisión -->
             <g class="pod-group">
               <rect class="item-pod adm-pod" x="858" y="174" width="269" height="42" rx="10"/>
-              <text class="role-item" x="876" y="200">•  Monitorea uso general *</text>
+              <text class="role-item" x="876" y="200">•  Telemetría de pipelines ETL *</text>
             </g>
 
             <g class="pod-group">
               <rect class="item-pod adm-pod" x="858" y="226" width="269" height="42" rx="10"/>
-              <text class="role-item" x="876" y="252">•  Gestiona suscripciones *</text>
+              <text class="role-item" x="876" y="252">•  Monitoreo Drift y F1-Score ML *</text>
             </g>
 
             <g class="pod-group">
               <rect class="item-pod adm-pod" x="858" y="278" width="269" height="42" rx="10"/>
-              <text class="role-item" x="876" y="304">•  Administra y ajusta IA *</text>
+              <text class="role-item" x="876" y="304">•  Gestión suscripciones y cuotas *</text>
             </g>
 
             <!-- Consola de Supervisión en tiempo real -->
             <g transform="translate(858, 334)">
               <rect class="admin-console-box" x="0" y="0" width="269" height="74" rx="12"/>
-              <text x="16" y="24" class="console-label">TORRE DE CONTROL QUANTIFY</text>
-              <text x="16" y="44" class="console-sub">Métricas en tiempo real &amp; calibración IA</text>
-              <text x="16" y="60" class="console-sub" style="color: var(--adm); font-weight:600;">• ACCESO RESTRINGIDO A DESARROLLADORES</text>
+              <text x="16" y="24" class="console-label">TORRE DE CONTROL &amp; ML OPS</text>
+              <text x="16" y="44" class="console-sub">Métricas de inferencia, drift y pasarelas</text>
+              <text x="16" y="60" class="console-sub" style="color: var(--adm); font-weight:600;">• ACCESO RESTRINGIDO A INGENIEROS ML OPS</text>
               <circle cx="250" cy="20" r="4.5" class="console-badge-led"/>
             </g>
 
@@ -1694,39 +2049,39 @@
           <!-- DUCTOS / PIPELINES DE COMUNICACIÓN (DOBLE VÍA BIDIRECCIONAL)   -->
           <!-- ============================================================== -->
           
-          <!-- Conductor 1: Usuario -> Sistema (Datos de Actividad) -->
+          <!-- Conductor 1: Terminales -> Sistema (Telemetría Wear OS y Micro-logs) -->
           <g>
             <path class="arr association" data-from="stu" data-to="sis" d="M 331 210 L 430 210" marker-end="url(#ar)"/>
-            <rect x="348" y="186" width="65" height="17" rx="6" class="ecosystem-pill"/>
-            <text class="pipe-label" x="380" y="198">DATOS</text>
+            <rect x="340" y="186" width="82" height="17" rx="6" class="ecosystem-pill"/>
+            <text class="pipe-label" x="381" y="198">TELEMETRÍA</text>
           </g>
 
-          <!-- Conductor 2: Sistema -> Usuario (Sugerencias e Insights IA) -->
+          <!-- Conductor 2: Sistema -> Terminales (Coaching IA y Alertas Socket) -->
           <g>
             <path class="arr association" data-from="sis" data-to="stu" d="M 430 310 L 331 310" marker-end="url(#ar-left)"/>
-            <rect x="340" y="318" width="81" height="17" rx="6" class="ecosystem-pill"/>
-            <text class="pipe-label" x="380" y="330">AVISOS / IA</text>
+            <rect x="336" y="318" width="88" height="17" rx="6" class="ecosystem-pill"/>
+            <text class="pipe-label" x="380" y="330">COACHING / IA</text>
           </g>
 
-          <!-- Conductor 3: Sistema -> Administración (Métricas agregadas) -->
+          <!-- Conductor 3: Sistema -> Administración (Métricas ML y Rendimiento) -->
           <g>
             <path class="arr prop association" data-from="sis" data-to="adm" d="M 750 210 L 845 210" marker-end="url(#ar)"/>
-            <rect x="760" y="186" width="76" height="17" rx="6" class="ecosystem-pill"/>
-            <text class="pipe-label prop-label" x="798" y="198">MÉTRICAS</text>
+            <rect x="755" y="186" width="85" height="17" rx="6" class="ecosystem-pill"/>
+            <text class="pipe-label prop-label" x="797" y="198">MÉTRICAS ML</text>
           </g>
 
-          <!-- Conductor 4: Administración -> Sistema (Control y Calibración IA) -->
+          <!-- Conductor 4: Administración -> Sistema (Calibración y Reentrenamiento) -->
           <g>
             <path class="arr prop association" data-from="adm" data-to="sis" d="M 845 310 L 750 310" marker-end="url(#ar-left)"/>
-            <rect x="764" y="318" width="68" height="17" rx="6" class="ecosystem-pill"/>
-            <text class="pipe-label prop-label" x="798" y="330">CONTROL</text>
+            <rect x="752" y="318" width="91" height="17" rx="6" class="ecosystem-pill"/>
+            <text class="pipe-label prop-label" x="797" y="330">CALIBRACIÓN</text>
           </g>
         </svg>
       </div>
 
       <p class="diagram-note">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-        * Funciones reservadas para los desarrolladores y administradores del sistema Quantify Core.
+        * Funciones reservadas para los ingenieros administradores y operadores de ML Ops del sistema Quantify Core.
       </p>
     </section>
 
@@ -1752,15 +2107,15 @@
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
             </div>
           </div>
-          <h3 class="feature-title">Creación y Personalización de Hábitos</h3>
+          <h3 class="feature-title">Parametrización y Gestión de Hábitos Cuantitativos</h3>
           <p class="feature-desc">
-            Permite al usuario diseñar nuevos hábitos parametrizando nombre, categoría temática (Salud, Estudio, Productividad), frecuencia programada (diaria, días específicos) y metas cuantitativas alcanzables.
+            Permite definir hábitos con metas cuantitativas precisas (minutos de lectura, pasos, vasos de agua), cadencia programada (diaria, fines de semana, días alternos) y etiquetas de bienestar, sincronizados entre el Dashboard Web y la aplicación Wear OS.
           </p>
           <div class="feature-meta">
             <span class="feature-roles-label">Actores involucrados:</span>
             <div class="feature-chips">
-              <span class="chip-role c-stu">👤 Usuario Final (Ejecuta)</span>
-              <span class="chip-role c-sis">⚙️ Sistema (Persiste)</span>
+              <span class="chip-role c-stu">Usuario Final (Configura)</span>
+              <span class="chip-role c-sis">Backend (Sincroniza)</span>
             </div>
           </div>
         </article>
@@ -1773,15 +2128,15 @@
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
             </div>
           </div>
-          <h3 class="feature-title">Registro de Progreso Diario</h3>
+          <h3 class="feature-title">Ingesta Biométrica y Micro-Progreso Wear OS</h3>
           <p class="feature-desc">
-            Interacción ágil de micro-progreso donde el usuario marca el cumplimiento parcial o total de sus hábitos del día mediante retroalimentación táctil y actualización inmediata de estado.
+            Captura táctil inmediata en smartwatch para registrar micro-avances en menos de 3 segundos, combinada con telemetría pasiva de actividad física almacenada localmente en Room DB y despachada resilientemente con WorkManager.
           </p>
           <div class="feature-meta">
             <span class="feature-roles-label">Actores involucrados:</span>
             <div class="feature-chips">
-              <span class="chip-role c-stu">👤 Usuario Final (Registra)</span>
-              <span class="chip-role c-sis">⚙️ Sistema (Valida / Timestamp)</span>
+              <span class="chip-role c-stu">Smartwatch (Captura)</span>
+              <span class="chip-role c-sis">Sistema (Ingesta / Valida)</span>
             </div>
           </div>
         </article>
@@ -1794,69 +2149,68 @@
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
             </div>
           </div>
-          <h3 class="feature-title">Consulta de Historial y Rachas</h3>
+          <h3 class="feature-title">Diagnóstico Predictivo de Burnout y Deserción</h3>
           <p class="feature-desc">
-            Visualización analítica del desempeño acumulado, mapas de calor de constancia y cálculo automático de rachas consecutivas (streaks) para reforzar la motivación intrínseca.
+            Microservicio en Python FastAPI con Scikit-Learn que analiza series temporales y caídas de adherencia para calcular el índice de riesgo de sobreentrenamiento o fatiga mental antes de que el usuario abandone el hábito.
           </p>
           <div class="feature-meta">
             <span class="feature-roles-label">Actores involucrados:</span>
             <div class="feature-chips">
-              <span class="chip-role c-stu">👤 Usuario Final (Consulta)</span>
-              <span class="chip-role c-sis">⚙️ Backend (Calcula Métricas)</span>
+              <span class="chip-role c-sis">Motor ML (Infiere Riesgo)</span>
+              <span class="chip-role c-adm">ML Ops (Monitorea Métricas)</span>
             </div>
           </div>
         </article>
 
         <!-- Feature 4 -->
-        <article class="feature-card">
+        <article class="feature-card f-ai">
           <div class="feature-header">
             <span class="feature-idx">FEATURE 04</span>
             <div class="feature-icon-box" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
             </div>
           </div>
-          <h3 class="feature-title">Recordatorios Inteligentes</h3>
+          <h3 class="feature-title">Clustering de Arquetipos y Coaching con Gemini AI</h3>
           <p class="feature-desc">
-            El usuario configura sus ventanas horarias preferidas y el despachador del backend sincroniza notificaciones push locales y remotas en momentos estratégicos de la jornada.
+            Algoritmo no supervisado K-Means para segmentar patrones de comportamiento acoplado a la API de Gemini AI, generando explicaciones de coaching personalizadas con justificación causal (Explainable AI - XAI).
           </p>
           <div class="feature-meta">
             <span class="feature-roles-label">Actores involucrados:</span>
             <div class="feature-chips">
-              <span class="chip-role c-stu">👤 Usuario Final (Configura)</span>
-              <span class="chip-role c-sis">⚙️ Sistema (Programa / Dispara)</span>
+              <span class="chip-role c-sis">K-Means + Gemini (Genera)</span>
+              <span class="chip-role c-stu">Usuario (Acepta / Descarta)</span>
             </div>
           </div>
         </article>
 
         <!-- Feature 5 -->
-        <article class="feature-card f-ai">
+        <article class="feature-card">
           <div class="feature-header">
             <span class="feature-idx">FEATURE 05</span>
             <div class="feature-icon-box" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
             </div>
           </div>
-          <h3 class="feature-title">Recomendaciones Adaptativas por IA</h3>
+          <h3 class="feature-title">Tablero en Tiempo Real y Alertas Reactivas</h3>
           <p class="feature-desc">
-            El motor de inferencia heurística detecta patrones en los hábitos del usuario y genera sugerencias contextuales con puntuación de confianza, permitiendo al usuario aceptarlas con un toque o descartarlas.
+            Dashboard interactivo en React + Socket.IO con mapas de calor, visualización de streaks y programación de notificaciones push adaptadas a los ritmos circadianos del usuario para maximizar la consistencia.
           </p>
           <div class="feature-meta">
             <span class="feature-roles-label">Actores involucrados:</span>
             <div class="feature-chips">
-              <span class="chip-role c-sis">🤖 Sistema / IA (Infiere)</span>
-              <span class="chip-role c-stu">👤 Usuario Final (Decide)</span>
-              <span class="chip-role c-adm">🛡️ Admin (Audita Modelo)</span>
+              <span class="chip-role c-stu">Usuario Final (Visualiza)</span>
+              <span class="chip-role c-sis">Socket.IO (Emite Eventos)</span>
             </div>
           </div>
         </article>
       </div>
     </section>
 
-    <!-- SECCIÓN 3: MATRIZ ANALÍTICA DE PERMISOS -->
+    <!-- SECCIÓN 3: MATRIZ ANALÍTICA DE PERMISOS (12 ACCIONES) -->
     <section class="card-box scroll-reveal delay-2" aria-label="Matriz de permisos">
       <div class="card-box-header">
         <h2>
-          <span>Matriz Analítica de Permisos</span>
+          <span>Matriz Analítica de Permisos (12 Operaciones)</span>
         </h2>
         <span class="hint-badge">Hover en filas para resaltar acciones</span>
       </div>
@@ -1865,80 +2219,97 @@
         <table class="qc-matrix">
           <thead>
             <tr>
-              <th scope="col" style="text-align:left">Acción en Plataforma</th>
+              <th scope="col" style="text-align:left">Acción Operativa en Plataforma</th>
               <th scope="col" data-col="stu">Usuario Final</th>
-              <th scope="col" data-col="adm">Administración</th>
-              <th scope="col" data-col="sis">Sistema / Backend</th>
+              <th scope="col" data-col="adm">Administración / ML Ops</th>
+              <th scope="col" data-col="sis">Sistema / Backend &amp; IA</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <th scope="row">Crear y personalizar hábitos</th>
-              <td data-col="stu"><span class="qc-badge allowed">✔</span></td>
+              <th scope="row">1. Parametrizar y crear hábitos cuantitativos</th>
+              <td data-col="stu"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg></span></td>
               <td data-col="adm"><span class="qc-badge none">—</span></td>
               <td data-col="sis"><span class="qc-badge none">—</span></td>
             </tr>
             <tr>
-              <th scope="row">Registrar progreso diario</th>
-              <td data-col="stu"><span class="qc-badge allowed">✔</span></td>
+              <th scope="row">2. Ingesta de telemetría y micro-logs (Wear OS)</th>
+              <td data-col="stu"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg> (Wear OS)</span></td>
               <td data-col="adm"><span class="qc-badge none">—</span></td>
-              <td data-col="sis"><span class="qc-badge allowed">✔ (Valida)</span></td>
+              <td data-col="sis"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg> (Ingesta)</span></td>
             </tr>
             <tr>
-              <th scope="row">Consultar historial y rachas</th>
-              <td data-col="stu"><span class="qc-badge allowed">✔</span></td>
+              <th scope="row">3. Consultar métricas en tiempo real y rachas</th>
+              <td data-col="stu"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg></span></td>
               <td data-col="adm"><span class="qc-badge none">—</span></td>
-              <td data-col="sis"><span class="qc-badge none">—</span></td>
+              <td data-col="sis"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg> (Calcula)</span></td>
             </tr>
             <tr>
-              <th scope="row">Configurar recordatorios</th>
-              <td data-col="stu"><span class="qc-badge allowed">✔</span></td>
+              <th scope="row">4. Programar ventanas horarias y alarmas push</th>
+              <td data-col="stu"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg></span></td>
               <td data-col="adm"><span class="qc-badge none">—</span></td>
-              <td data-col="sis"><span class="qc-badge allowed">✔ (Programa)</span></td>
+              <td data-col="sis"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg> (Despacha)</span></td>
             </tr>
             <tr>
-              <th scope="row">Generar y enviar sugerencias (IA)</th>
+              <th scope="row">5. Detección predictiva de Burnout (ML Supervisado)</th>
               <td data-col="stu"><span class="qc-badge none">—</span></td>
-              <td data-col="adm"><span class="qc-badge none">—</span></td>
-              <td data-col="sis"><span class="qc-badge allowed">✔</span></td>
+              <td data-col="adm"><span class="qc-badge proposed">◐ (Audita Drift)</span></td>
+              <td data-col="sis"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg> (Infiere)</span></td>
             </tr>
             <tr>
-              <th scope="row">Aceptar o rechazar sugerencias</th>
-              <td data-col="stu"><span class="qc-badge allowed">✔</span></td>
-              <td data-col="adm"><span class="qc-badge none">—</span></td>
-              <td data-col="sis"><span class="qc-badge none">—</span></td>
-            </tr>
-            <tr>
-              <th scope="row">Monitorear uso de la plataforma</th>
+              <th scope="row">6. Segmentación no supervisada por arquetipos (K-Means)</th>
               <td data-col="stu"><span class="qc-badge none">—</span></td>
-              <td data-col="adm"><span class="qc-badge proposed">◐</span></td>
-              <td data-col="sis"><span class="qc-badge none">—</span></td>
+              <td data-col="adm"><span class="qc-badge proposed">◐ (Evalúa Silueta)</span></td>
+              <td data-col="sis"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg> (Agrupa)</span></td>
             </tr>
             <tr>
-              <th scope="row">Gestionar modelos de suscripción</th>
+              <th scope="row">7. Generación de coaching explicable (Gemini AI)</th>
               <td data-col="stu"><span class="qc-badge none">—</span></td>
-              <td data-col="adm"><span class="qc-badge proposed">◐</span></td>
-              <td data-col="sis"><span class="qc-badge none">—</span></td>
+              <td data-col="adm"><span class="qc-badge proposed">◐ (Tokens / Cuota)</span></td>
+              <td data-col="sis"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg> (Sintetiza)</span></td>
             </tr>
             <tr>
-              <th scope="row">Modificar datos privados de otros</th>
-              <td data-col="stu"><span class="qc-badge blocked">✖</span></td>
-              <td data-col="adm"><span class="qc-badge blocked">✖</span></td>
-              <td data-col="sis"><span class="qc-badge blocked">✖</span></td>
+              <th scope="row">8. Aceptar o descartar recomendaciones de IA</th>
+              <td data-col="stu"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg></span></td>
+              <td data-col="adm"><span class="qc-badge none">—</span></td>
+              <td data-col="sis"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg> (Feedback)</span></td>
             </tr>
-          </tbody>
+            <tr>
+              <th scope="row">9. Monitorear salud de pipelines ETL y carga API</th>
+              <td data-col="stu"><span class="qc-badge none">—</span></td>
+              <td data-col="adm"><span class="qc-badge proposed">◐ (Monitorea)</span></td>
+              <td data-col="sis"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg> (Reporta)</span></td>
+            </tr>
+            <tr>
+              <th scope="row">10. Evaluar métricas de modelos (F1-score, Drift, Latencia)</th>
+              <td data-col="stu"><span class="qc-badge none">—</span></td>
+              <td data-col="adm"><span class="qc-badge proposed">◐ (Calibra)</span></td>
+              <td data-col="sis"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg> (Expone)</span></td>
+            </tr>
+            <tr>
+              <th scope="row">11. Gestionar pasarelas de pago y planes de suscripción</th>
+              <td data-col="stu"><span class="qc-badge none">—</span></td>
+              <td data-col="adm"><span class="qc-badge proposed">◐ (Administra)</span></td>
+              <td data-col="sis"><span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg> (Factura)</span></td>
+            </tr>
+            <tr>
+              <th scope="row">12. Acceso o alteración de biometría en crudo de otros usuarios</th>
+              <td data-col="stu"><span class="qc-badge blocked"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span></td>
+              <td data-col="adm"><span class="qc-badge blocked"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span></td>
+              <td data-col="sis"><span class="qc-badge blocked"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span></td>
+            </tr></tbody>
         </table>
       </div>
 
       <div class="legend-bar">
         <span class="legend-chip">
-          <span class="qc-badge allowed">✔</span> Permitido / Lo realiza
+          <span class="qc-badge allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg></span> Permitido / Lo realiza
         </span>
         <span class="legend-chip">
-          <span class="qc-badge proposed">◐</span> Propuesta en evaluación
+          <span class="qc-badge proposed">◐</span> Propuesta / Gestión Técnica
         </span>
         <span class="legend-chip">
-          <span class="qc-badge blocked">✖</span> Bloqueado por seguridad
+          <span class="qc-badge blocked"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span> Bloqueado por privacidad (GDPR / HIPAA)
         </span>
         <span class="legend-chip">
           <span class="qc-badge none">—</span> No aplica
@@ -1955,7 +2326,7 @@
           <span class="qc-tag" id="dKicker"></span>
           <h2 id="dTitle"></h2>
         </div>
-        <button class="dialog-close" id="closeDialog" type="button" aria-label="Cerrar detalle">✕</button>
+        <button class="dialog-close" id="closeDialog" type="button" aria-label="Cerrar detalle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
       </div>
       
       <p class="d-purpose" id="dPurpose"></p>
@@ -1977,42 +2348,43 @@
     (() => {
       const defs = {
         stu: {
-          kicker: "Actor Principal",
-          title: "Usuario Final",
-          purpose: "Persona que utiliza la aplicación para construir y mantener hábitos diarios.",
-          desc: "Interactúa con las pantallas móviles para registrar su día a día y recibir retroalimentación personalizada de la IA.",
+          kicker: "Actor Multi-dispositivo",
+          title: "Usuario Final (Wear OS, Web, Smart TV)",
+          purpose: "Persona que construye hábitos sustentables a través de terminales wearables y analítica web en tiempo real.",
+          desc: "Registra micro-progresos desde su smartwatch Wear OS con sincronización offline-first y visualiza correlaciones avanzadas en su dashboard web React.",
           list: [
-            "Crear y personalizar hábitos de acuerdo a sus metas y estilo de vida.",
-            "Registrar el progreso de cada hábito diariamente con un toque.",
-            "Consultar historial y estadísticas para motivarse con sus rachas.",
-            "Configurar notificaciones push para recordatorios oportunos.",
-            "Aceptar o descartar recomendaciones de hábitos generados por IA."
+            "Parametrizar hábitos cuantitativos con metas numéricas y categorías de bienestar.",
+            "Registrar micro-hábitos con un toque en Wear OS y sincronizar vía WorkManager.",
+            "Consultar dashboards analíticos con mapas de calor, rachas y correlación biométrica.",
+            "Configurar ventanas de notificaciones contextuales y avisos en smartwatch y web.",
+            "Aceptar, posponer o descartar recomendaciones predictivas generadas por Gemini AI."
           ],
           proposed: false
         },
         sis: {
-          kicker: "Capa Tecnológica",
-          title: "Sistema / Backend e IA",
-          purpose: "Procesa la información, entrena modelos y envía alertas automáticas.",
-          desc: "Representa toda la infraestructura tecnológica automatizada de Quantify Core.",
+          kicker: "Capa Inteligente y Backend",
+          title: "Sistema / Backend, ML Engine y Gemini AI",
+          purpose: "Orquesta el pipeline de datos, infiere riesgo de burnout con Scikit-Learn y genera coaching personalizado con Gemini AI.",
+          desc: "Arquitectura híbrida: Gateway Node.js/Express con Socket.IO para eventos reactivos, y microservicio Python FastAPI con Scikit-Learn y Gemini AI.",
           list: [
-            "Validar que los registros diarios sean consistentes y correctos.",
-            "Analizar el historial del usuario para detectar patrones y horarios óptimos.",
-            "Generar sugerencias de IA de hábitos que complementen la rutina del usuario.",
-            "Programar y enviar los avisos a la hora idónea.",
-            "Proteger los datos personales mediante cifrado de extremo a extremo."
+            "Ingestar telemetría biométrica y validar integridad criptográfica de timestamps.",
+            "Ejecutar modelo de ML supervisado para clasificar riesgo de fatiga y deserción.",
+            "Agrupar usuarios mediante clustering no supervisado K-Means para segmentar arquetipos.",
+            "Sintetizar coaching adaptativo explicable (XAI) con Gemini AI integrando contexto.",
+            "Garantizar privacidad estricta bloqueando acceso no autorizado a biometría en crudo."
           ],
           proposed: false
         },
         adm: {
-          kicker: "Operativa",
-          title: "Administración",
-          purpose: "Mantiene la plataforma a nivel de negocio, métricas y fiabilidad.",
-          desc: "Herramientas de back-office exclusivas para los creadores de Quantify Core.",
+          kicker: "Supervisión y ML Ops",
+          title: "Administración & Torre de Control ML Ops",
+          purpose: "Supervisa la salud operativa de los microservicios, el rendimiento de los modelos de IA y la sostenibilidad del producto.",
+          desc: "Panel de control técnico reservado a ingenieros y administradores para monitorear latencia, drift conceptual de IA y métricas de negocio sin vulnerar la privacidad del usuario.",
           list: [
-            "Monitorear métricas agregadas de uso y retención de usuarios.",
-            "Gestionar el modelo freemium/premium y pasarelas de pago.",
-            "Afinar y calibrar los parámetros de la Inteligencia Artificial."
+            "Monitorear la salud de los pipelines ETL y la concurrencia de conexiones Socket.IO.",
+            "Auditar drift de datos y evaluar F1-Score, matriz de confusión y latencia de inferencia.",
+            "Administrar planes de suscripción, cuotas de consumo de Gemini AI y facturación.",
+            "Disparar pipelines de reentrenamiento y calibración de hiperparámetros en el motor ML."
           ],
           proposed: true
         }
@@ -2023,8 +2395,7 @@
       const cells = [...document.querySelectorAll("[data-col]")];
       const dialog = document.getElementById("roleDialog");
       const announce = document.getElementById("announce");
-      const themeBtn = document.getElementById("themeToggle");
-      const themeText = document.getElementById("themeText");
+
       const resetBtn = document.getElementById("resetView");
       const root = document.documentElement;
       const scrollBar = document.getElementById("scroll-progress");
@@ -2173,22 +2544,141 @@
         if (returnFocusEl && returnFocusEl.isConnected) returnFocusEl.focus();
       });
 
-      // Modo Oscuro / Claro
-      const isDarkMode = () => root.dataset.theme ? root.dataset.theme === "dark" : true;
-
-      const updateThemeUI = () => {
-        const dark = isDarkMode();
-        themeBtn.setAttribute("aria-pressed", String(dark));
-        themeText.textContent = dark ? "Modo Claro" : "Modo Oscuro";
+      /* ======================================================================
+         SISTEMA DE TEMAS Y FONDOS GRADIENTES UNIFICADOS
+         ====================================================================== */
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var THEME_COLORS = {
+        'tech-dark': '#0B0F17',
+        'tech-light': '#F4F7FD',
+        'cognitive': '#090C10',
+        'behavioral': '#0E131F'
       };
 
-      themeBtn.addEventListener("click", () => {
-        const newTheme = isDarkMode() ? "light" : "dark";
-        root.dataset.theme = newTheme;
-        updateThemeUI();
+      var themeState = {
+        palette: root.dataset.palette || 'tech',
+        mode: root.dataset.mode || 'dark'
+      };
+
+      var paletteBtns = document.querySelectorAll('[data-palette-btn]');
+      var modeBtns = document.querySelectorAll('[data-mode-btn]');
+      var modeGroup = document.getElementById('themeMode');
+      var metaTheme = document.querySelector('meta[name="theme-color"]');
+
+      function applyTheme() {
+        var theme = themeState.palette === 'tech' ? 'tech-' + themeState.mode : themeState.palette;
+        root.dataset.theme = theme;
+        root.dataset.palette = themeState.palette;
+        root.dataset.mode = themeState.mode;
+
+        paletteBtns.forEach(function (b) {
+          b.setAttribute('aria-pressed', String(b.dataset.paletteBtn === themeState.palette));
+        });
+        modeBtns.forEach(function (b) {
+          b.setAttribute('aria-pressed', String(b.dataset.modeBtn === themeState.mode));
+        });
+
+        var isTech = themeState.palette === 'tech';
+        if (modeGroup) {
+          modeGroup.inert = !isTech;
+          modeGroup.setAttribute('aria-hidden', String(!isTech));
+        }
+        if (metaTheme) metaTheme.setAttribute('content', THEME_COLORS[theme] || '#0B0F17');
+
+        try { localStorage.setItem('qc-theme', JSON.stringify(themeState)); } catch (e) {}
+      }
+
+      paletteBtns.forEach(function (b) {
+        b.addEventListener('click', function () {
+          themeState.palette = b.dataset.paletteBtn;
+          applyTheme();
+        });
+      });
+      modeBtns.forEach(function (b) {
+        b.addEventListener('click', function () {
+          themeState.mode = b.dataset.modeBtn;
+          applyTheme();
+        });
       });
 
-      updateThemeUI();
+      // Sincronización en vivo entre pestañas/portal y iframes
+      window.addEventListener('storage', function (e) {
+        if (e.key === 'qc-theme' && e.newValue) {
+          try {
+            var parsed = JSON.parse(e.newValue);
+            if (parsed.palette) {
+              themeState.palette = parsed.palette;
+              themeState.mode = parsed.mode || 'dark';
+              applyTheme();
+            }
+          } catch (err) {}
+        }
+      });
+
+      window.addEventListener('message', function (e) {
+        if (e.data && e.data.type === 'qc-theme-change' && e.data.theme) {
+          themeState.palette = e.data.theme.palette;
+          themeState.mode = e.data.theme.mode;
+          applyTheme();
+        }
+      });
+
+      applyTheme();
+
+      /* ======================================================================
+         ANIMACIÓN DEL FONDO REACTIVA AL MOVIMIENTO DEL MOUSE
+         ====================================================================== */
+      var blobs = document.querySelectorAll('.bg__blob');
+      var layers = [
+        { x: 0.22, y: 0.18, k: 0.22 },
+        { x: 0.82, y: 0.30, k: -0.16 },
+        { x: 0.55, y: 0.85, k: 0.12 }
+      ];
+      var target = { x: 0, y: 0, px: window.innerWidth / 2, py: window.innerHeight * 0.3 };
+      var current = { x: 0, y: 0, px: target.px, py: target.py };
+      var running = true;
+
+      function renderBackground(time) {
+        var w = window.innerWidth;
+        var h = window.innerHeight;
+        var t = (time || 0) / 1000;
+
+        current.x += (target.x - current.x) * 0.06;
+        current.y += (target.y - current.y) * 0.06;
+        current.px += (target.px - current.px) * 0.12;
+        current.py += (target.py - current.py) * 0.12;
+
+        blobs.forEach(function (blob, i) {
+          var l = layers[i];
+          var driftX = reduceMotion ? 0 : Math.sin(t * 0.25 + i * 2.1) * 0.03;
+          var driftY = reduceMotion ? 0 : Math.cos(t * 0.2 + i * 1.7) * 0.03;
+          var x = (l.x + current.x * l.k + driftX) * w;
+          var y = (l.y + current.y * l.k + driftY) * h;
+          blob.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0)';
+        });
+
+        root.style.setProperty('--mx', current.px.toFixed(1) + 'px');
+        root.style.setProperty('--my', current.py.toFixed(1) + 'px');
+
+        if (running && !reduceMotion) requestAnimationFrame(renderBackground);
+      }
+
+      window.addEventListener('pointermove', function (e) {
+        target.x = e.clientX / window.innerWidth - 0.5;
+        target.y = e.clientY / window.innerHeight - 0.5;
+        target.px = e.clientX;
+        target.py = e.clientY;
+        if (reduceMotion) renderBackground(0);
+      }, { passive: true });
+
+      document.addEventListener('visibilitychange', function () {
+        running = !document.hidden;
+        if (running && !reduceMotion) requestAnimationFrame(renderBackground);
+      });
+
+      window.addEventListener('resize', function () { if (reduceMotion) renderBackground(0); });
+      renderBackground(0);
+      if (!reduceMotion) requestAnimationFrame(renderBackground);
 
       document.addEventListener("keydown", e => {
         if (e.key === "Escape" && !dialog.open) {
