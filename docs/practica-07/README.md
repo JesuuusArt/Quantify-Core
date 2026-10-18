@@ -32,11 +32,25 @@ Se eligió un **diagrama de navegación entre sketches**. El mapa representa pan
 
 ## 2. Abrir el prototipo
 
-- **[Prototipo interactivo](./index.html):** inventario de sketches, dispositivo de vista previa, conexiones, reglas y mapa interactivo.
-- **[Diagrama general de navegación](./navegacion.html):** síntesis de los recorridos principales generada con Archify.
-- **[Evidencia de validación](./VALIDACION.md):** pruebas realizadas y límites de la revisión.
+Explora **Quantify Core**: recorre sus pantallas o descubre cómo se conectan. Abre cualquiera de las dos experiencias directamente en tu navegador.
 
-Puede abrirse `index.html` directamente en un navegador. Para una vista local con un origen estable para el almacenamiento, ejecutar **desde la raíz del repositorio**:
+| 📱 Vive el prototipo | 🧭 Explora la navegación |
+| :---: | :---: |
+| Prueba las **24 pantallas**, cambia de rol y alterna entre móvil y PWA. | Consulta el **mapa de recorridos principales** de Usuario y Administrador. |
+| [![Abrir prototipo interactivo](./assets/abrir-prototipo.svg)](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/) | [![Ver mapa de navegación](./assets/abrir-navegacion.svg)](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/navegacion.html) |
+| [Abrir prototipo ↗](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/) | [Ver navegación ↗](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/navegacion.html) |
+
+> [!TIP]
+> **Empieza por el prototipo.** Selecciona un rol y usa los controles del dispositivo para recorrer la demo. Los botones de arriba abren la página publicada en GitHub Pages.
+
+📋 **[Consultar evidencia de validación](./VALIDACION.md)** · Pruebas realizadas y límites de la revisión.
+
+<details>
+<summary><strong>💻 Abrir una copia local y consultar la ruta de publicación</strong></summary>
+
+Abrir un archivo `.html` desde la lista de archivos del repositorio en GitHub muestra su código fuente. Para ver la experiencia publicada, utiliza los accesos de arriba.
+
+Para usar una copia descargada, puede abrirse `index.html` directamente en un navegador. Para una vista local con un origen estable para el almacenamiento, ejecutar **desde la raíz del repositorio**:
 
 ```sh
 python3 -m http.server 8765 --bind 127.0.0.1 --directory docs
@@ -44,7 +58,9 @@ python3 -m http.server 8765 --bind 127.0.0.1 --directory docs
 
 Después visitar `http://127.0.0.1:8765/practica-07/`.
 
-**Ruta de publicación en GitHub Pages:** [Quantify Core · Práctica 07](https://jesuuusart.github.io/Quantify-Core/practica-07/). Los archivos están preparados para servirse desde `docs`. La disponibilidad de esta dirección depende de que GitHub Pages publique la rama que contiene la práctica.
+**Ruta de publicación en GitHub Pages:** [Quantify Core · Práctica 07](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/). La publicación actual sirve el repositorio desde su raíz, por lo que la dirección incluye `/docs/`. El servidor local del comando anterior sirve directamente esa carpeta; por eso su dirección local no incluye `/docs/`.
+
+</details>
 
 ### Cómo recorrerlo
 
@@ -182,11 +198,11 @@ No incluye backend, autenticación real, envío de correos, notificaciones del d
 
 | Archivo                                                | Contenido                                                                |
 | ------------------------------------------------------ | ------------------------------------------------------------------------ |
-| [index.html](./index.html)                             | Visor, controles de revisión y diálogos.                                 |
+| [index.html · abrir prototipo](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/) | Visor, controles de revisión y diálogos. |
 | [styles.css](./styles.css)                             | Identidad visual y distribución adaptable móvil/PWA.                     |
 | [data.js](./data.js)                                   | Inventario de 24 sketches, conexiones y 13 reglas.                       |
 | [app.js](./app.js)                                     | Pantallas, navegación y lógica de simulación.                            |
-| [navegacion.html](./navegacion.html)                   | Diagrama general independiente generado con Archify.                     |
+| [navegacion.html · abrir diagrama](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/navegacion.html) | Diagrama general independiente generado con Archify. |
 | [navegacion.archify.json](./navegacion.archify.json)   | Especificación editable del diagrama general.                            |
 | [assets/prototipo-hoy.png](./assets/prototipo-hoy.png) | Captura de U01 — Bienvenida en formato móvil, incluida en este README. |
 | [tests/prototipo.test.cjs](./tests/prototipo.test.cjs) | Pruebas de lógica con Node.js, sin dependencias.                         |

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="280" height="60" viewBox="0 0 280 60" role="img" aria-labelledby="title">
+  <title id="title">Abrir prototipo interactivo</title>
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#1E54C9"/><stop offset="1" stop-color="#153A8D"/></linearGradient></defs>
+  <rect x="1" y="1" width="278" height="58" rx="12" fill="url(#bg)" stroke="#4675DB"/>
+  <rect x="18" y="13" width="28" height="34" rx="7" fill="#FFFFFF" fill-opacity=".15"/>
+  <g fill="none" stroke="#FFFFFF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="26" y="19" width="12" height="22" rx="3"/><path d="M30 23h4m-3 14h2M244 23h12v12m0-12-13 13"/></g>
+  <text x="59" y="27" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="14" font-weight="700">Abrir prototipo</text>
+  <text x="59" y="43" fill="#DCE8FF" font-family="system-ui, sans-serif" font-size="10">24 pantallas · Móvil y PWA</text>
+</svg>
