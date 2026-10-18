@@ -12,6 +12,18 @@ La telemetría operativa describe el funcionamiento del sistema. Los hábitos, l
 
 ## Señales que se utilizarán
 
+```mermaid
+flowchart LR
+    S[Servicios instrumentados] --> M[Métricas]
+    S --> L[Logs estructurados]
+    S --> T[Trazas]
+    M --> B[Destinos de observabilidad]
+    L --> B
+    T --> B
+    B --> D[Tableros y diagnóstico]
+    B --> A[Alertas con responsable]
+```
+
 | Señal | Pregunta que ayuda a responder | Contenido previsto |
 |---|---|---|
 | Métricas | ¿Con qué frecuencia ocurre algo y cómo cambia en el tiempo? | Conteos, duración de operaciones, errores, uso de recursos y acumulación de trabajos. |

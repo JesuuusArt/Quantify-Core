@@ -6,6 +6,15 @@ Esta carpeta establece cómo se preparará, ejecutará, observará y publicará 
 
 ## Responsabilidad de cada carpeta
 
+```mermaid
+flowchart LR
+    D[Docker: entorno local] --> V[Verificación del flujo]
+    V --> P[Deployment: publicación]
+    P --> O[Observability: señales y alertas]
+    O --> R[Diagnóstico y recuperación]
+    R --> V
+```
+
 | Carpeta | Qué se hará | Qué debe entregar |
 |---|---|---|
 | [docker](docker/README.md) | Preparar imágenes y dependencias para desarrollo y pruebas reproducibles. | Configuración de contenedores, requisitos de la máquina, variables, puertos, persistencia y pasos verificados. |
@@ -60,6 +69,9 @@ No introducir stacks alternativos, otro motor de datos o una plataforma de orque
 
 ## Información mínima de cada componente
 
+<details>
+<summary>Ficha que debe completar cada componente antes de integrarse</summary>
+
 Antes de integrar su configuración, registrar en el README correspondiente:
 
 | Campo | Contenido requerido |
@@ -72,6 +84,8 @@ Antes de integrar su configuración, registrar en el README correspondiente:
 | Datos | Volúmenes o almacenamiento, migraciones, retención y recuperación. |
 | Operación | Inicio, parada, comprobación de salud, diagnóstico y reversión. |
 | Validación | Entorno, comandos realmente ejecutados, resultado y limitaciones conocidas. |
+
+</details>
 
 ## Orden de trabajo y criterio de entrega
 

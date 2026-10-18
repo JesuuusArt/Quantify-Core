@@ -6,6 +6,15 @@ Esta carpeta definirá cómo construir imágenes y levantar las dependencias de 
 
 ## Alcance
 
+```mermaid
+flowchart TB
+    H[Host de desarrollo] --> C[Entorno Compose]
+    C --> A[Servicios implementados]
+    A --> D[Dependencias aprobadas]
+    D --> V[Volúmenes persistentes]
+    A --> O[Logs y salud]
+```
+
 - Construir imágenes de los servicios implementados en [services](../../services/README.md) y, cuando corresponda, del cliente [web](../../apps/web/README.md).
 - Preparar las dependencias aprobadas del primer flujo: la propuesta incluye PostgreSQL, MongoDB, Redis y Keycloak, pero cada una deberá justificar su inclusión.
 - Aislar redes, configuración y almacenamiento del entorno local y de las pruebas.

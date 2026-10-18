@@ -51,6 +51,16 @@ La configuración común se reutiliza y las diferencias por ambiente se declaran
 
 ## Secuencia de publicación prevista
 
+```mermaid
+flowchart LR
+    C[Commit revisado] --> A[Artefacto identificado]
+    A --> V[Validación en destino de prueba]
+    V --> P[Publicación aprobada]
+    P --> S{Salud y flujo correctos}
+    S -->|Sí| E[Registrar evidencia]
+    S -->|No| R[Recuperar versión compatible]
+```
+
 1. **Validar el cambio:** revisar contratos, configuración y pruebas aplicables. Registrar fallos o limitaciones que impidan publicar.
 2. **Preparar el artefacto:** construirlo, identificarlo y comprobar sus dependencias y configuración requerida.
 3. **Preparar el destino:** verificar accesos, capacidad, secretos, compatibilidad de datos y versión recuperable.
