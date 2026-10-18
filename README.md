@@ -2,7 +2,7 @@
 
 <div align="center">
   <img src="assets/images/quantifyLogo.jpeg" alt="Logotipo de Quantify Core" width="180" style="vertical-align: middle;" />
-  <img src="assets/images/enterpriseLogo.jpeg" alt="Logo empresarial" width="300" height="224" style="vertical-align: middle;" />
+  <img src="assets/images/enterpriseLogo.jpeg" alt="Logo empresarial" width="180" style="vertical-align: middle;" />
 </div>
 
 <p align="center">
