@@ -23,6 +23,7 @@ Este directorio reúne la documentación funcional y técnica del proyecto, adem
 | `../.github/` | Plantillas de colaboración y automatización del repositorio. |
 | `Practica04/` | Material correspondiente a la Práctica 04. |
 | `Practica05/` | Material correspondiente a la Práctica 05. |
+| `practica-07/` | Prototipo y diagramas de navegación de la Práctica 07. |
 
 Las secciones temáticas se irán incorporando conforme avance la definición del sistema. Los documentos de prácticas existentes se conservan en sus directorios actuales.
 
@@ -30,6 +31,7 @@ Las secciones temáticas se irán incorporando conforme avance la definición de
 
 - [Práctica 04: README](Practica04/README.md)
 - [Práctica 05: README](Practica05/README.md)
+- [Práctica 07: README](practica-07/README.md)
 - [Portal de documentación](index.html)
 
 ## Estado de la estructura

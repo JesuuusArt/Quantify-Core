@@ -27,8 +27,8 @@
 </p>
 
 - [Página principal del proyecto](https://jesuuusart.github.io/Quantify-Core/)
-- [Práctica 04 — Business Model Canvas](https://jesuuusart.github.io/Quantify-Core/Practica04/business-model-canvas.html)
-- [Práctica 05 — Diagrama de roles de usuario](https://jesuuusart.github.io/Quantify-Core/Practica05/diagrama-roles-usuario.html)
+- [Práctica 04 — Business Model Canvas](https://jesuuusart.github.io/Quantify-Core/docs/Practica04/business-model-canvas.html)
+- [Práctica 05 — Diagrama de roles de usuario](https://jesuuusart.github.io/Quantify-Core/docs/Practica05/diagrama-roles-quantify.html)
 
 ## Contenido
 
