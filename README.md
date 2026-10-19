@@ -27,11 +27,26 @@
 </p>
 
 - [Página principal del proyecto](https://jesuuusart.github.io/Quantify-Core/)
-- [Práctica 04 — Business Model Canvas](https://jesuuusart.github.io/Quantify-Core/Practica04/business-model-canvas.html)
-- [Práctica 05 — Diagrama de roles de usuario](https://jesuuusart.github.io/Quantify-Core/Practica05/diagrama-roles-usuario.html)
+- [Práctica 04 — Business Model Canvas](https://jesuuusart.github.io/Quantify-Core/docs/Practica04/business-model-canvas.html)
+- [Práctica 05 — Diagrama de roles de usuario](https://jesuuusart.github.io/Quantify-Core/docs/Practica05/diagrama-roles-quantify.html)
+
+## Documentación para desarrollar
+
+La base de trabajo del equipo está en el **[mapa de documentación](docs/README.md)**. Incluye requisitos, arquitectura, contratos de API, datos, seguridad, diseño, guías por componente y criterios de pruebas y operación.
+
+| Quiero empezar por… | Referencia |
+|---|---|
+| Entender el proyecto y preparar una tarea | [Incorporación](docs/guias/incorporacion.md). |
+| Conocer las reglas que deben compartir los módulos | [Requerimientos](docs/requerimientos/README.md) y [arquitectura](docs/arquitectura/README.md). |
+| Implementar clientes o servicios | [Aplicaciones](apps/README.md), [servicios](services/README.md) y [contratos](packages/contracts/README.md). |
+| Mantener consistencia visual | [Diseño](docs/diseno/README.md) y [tokens](packages/design-tokens/README.md). |
+| Trabajar con agentes o enviar cambios | [AGENTS.md](AGENTS.md), [contribución](CONTRIBUTING.md) y [Git Flow](docs/guias/git-flow.md). |
+
+Los diagramas y secciones desplegables de los README ayudan a recorrer estas guías en GitHub. Su estado distingue el producto previsto del prototipo académico y de las partes verificadas.
 
 ## Contenido
 
+- [Documentación para desarrollar](#documentación-para-desarrollar)
 - [Descripción](#descripción)
 - [Planteamiento del problema](#planteamiento-del-problema)
 - [Propuesta de solución](#propuesta-de-solución)
@@ -43,6 +58,7 @@
 - [Datos, IA y biometría](#datos-ia-y-biometría)
 - [Seguridad y privacidad](#seguridad-y-privacidad)
 - [Roadmap](#roadmap)
+- [Diagrama de Gantt en Jira](#diagrama-de-gantt-en-jira)
 - [Estructura propuesta del proyecto](#estructura-propuesta-del-proyecto)
 - [Instalación y ejecución](#instalación-y-ejecución)
 - [Documentación y prácticas académicas](#documentación-y-prácticas-académicas)
@@ -188,8 +204,8 @@ flowchart TB
     API --> WORKER
     WORKER --> ML
     WORKER --> EXT
-    ML --> PG
-    ML --> MONGO
+    ML -->|Lectura autorizada| PG
+    ML -->|Lectura autorizada| MONGO
     API -.-> OBS
     WORKER -.-> OBS
     ML -.-> OBS
@@ -228,6 +244,8 @@ flowchart TB
 | MySQL/PostgreSQL + MongoDB | **PostgreSQL + MongoDB**, con propiedad clara de datos | Solo PostgreSQL si el volumen no justifica dos motores | Medición de volumen, consistencia requerida y carga de mantenimiento |
 
 La adopción final de cualquier componente requiere un registro de decisión arquitectónica (ADR), una prueba técnica y aprobación del equipo.
+
+Las alternativas de la tabla son antecedentes para decisiones futuras. La documentación de desarrollo utiliza la selección base indicada; no autoriza combinar stacks incompatibles. Los límites de acceso a datos y las decisiones por resolver se detallan en [arquitectura](docs/arquitectura/README.md).
 
 ### Principios técnicos
 
@@ -355,6 +373,14 @@ El equipo deberá validar la normativa y las políticas institucionales aplicabl
 
 Las fechas y responsables se gestionarán en Jira. Este roadmap expresa orden y criterios de avance, no compromisos de entrega.
 
+### Diagrama de Gantt en Jira
+
+El cronograma del proyecto se organiza en Jira por sprints y actividades. Estas dos capturas muestran la planificación en formato de Gantt: la primera presenta el arranque de los trabajos y la segunda continúa hasta las etapas de integración y entrega. Para consultar fechas, asignaciones y avances vigentes, revisar Jira; las capturas muestran el plan al momento de tomarlas.
+
+![Diagrama de Gantt de Quantify Core en Jira: inicio de los sprints y actividades de documentación, arquitectura, identidad, datos, API, web, móvil, IA, Wear OS y pruebas.](gannt.png)
+
+![Continuación del diagrama de Gantt de Quantify Core en Jira: sprints de backend, integración y entrega, con las actividades del proyecto.](gannt2.png)
+
 ### Fase 0 — Definición
 
 - cerrar alcance, requisitos y criterios de aceptación;
@@ -427,7 +453,8 @@ Quantify-Core/
 │   ├── guias/
 │   ├── despliegue/
 │   ├── Practica04/
-│   └── Practica05/
+│   ├── Practica05/
+│   └── practica-07/
 ├── assets/
 │   └── images/                 # Logos y recursos visuales
 ├── tests/                      # Pruebas de integración y sistema
@@ -462,7 +489,7 @@ La documentación general se organizará en `docs/`, separando el producto y el 
 
 | Práctica | Título | Descripción | Firmas | Estatus |
 |---|---|---|---:|---|
-| Práctica 04 | [Modelo Canvas](docs/Practica04/modelo-canvas-quantify.html) | Elaboración asistida del Business Model Canvas del proyecto integrador | 20 | Terminado |
+| Práctica 04 | [Modelo Canvas](docs/Practica04/business-model-canvas.html) | Elaboración asistida del Business Model Canvas del proyecto integrador | 20 | Terminado |
 | Práctica 05 | [Diagrama de roles de usuario](docs/Practica05/diagrama-roles-quantify.html) | Diagrama interactivo de roles de usuario del proyecto | 15 | Terminado |
 | Práctica 07 | Diagrama de secuencia | Modelado de una interacción prioritaria del sistema | — | En curso |
 

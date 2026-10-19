@@ -1,5 +1,7 @@
 # Práctica 07 — Diagrama de secuencia o navegación de sketches del proyecto integrador
 
+> **Alcance:** este prototipo valida recorridos de una entrega académica. Sus cuentas, colores, datos locales y umbrales son parte de la demo. El producto V2.0 toma como referencia los [requisitos](../requerimientos/README.md), el [contrato de API](../../packages/contracts/README.md) y el [sistema de diseño](../diseno/sistema-diseno.md).
+
 **Proyecto:** Quantify Core<br>
 **Universidad:** Universidad Tecnológica de Xicotepec de Juárez<br>
 **Cuatrimestre:** 10° · **Grupo:** A

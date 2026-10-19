@@ -1,5 +1,7 @@
 # Practica 05 - Diagrama de Roles de Usuario y Funcionalidades Principales
 
+> **Contexto:** esta práctica conserva decisiones y ejemplos de su entrega académica. Para implementar V2.0, consultar [requisitos](../requerimientos/README.md), [arquitectura](../arquitectura/README.md), [contratos](../../packages/contracts/README.md) y [diseño](../diseno/README.md). Librerías, umbrales y colores de esta práctica no quedan aprobados para el producto por aparecer aquí.
+
 **Proyecto Integrador:** Quantify Core  
 **Asignatura / Contexto:** Desarrollo de Aplicaciones Multiplataforma / Ingenieria de Software  
 **Caso de Estudio de Referencia:** MecaGest (Sistema de Gestion de Talleres Mecanicos)
@@ -10,7 +12,7 @@
 
 El diagrama interactivo de roles de usuario y las funcionalidades principales se encuentran desplegados y listos para su visualizacion en linea a traves de GitHub Pages:
 
-- **Enlace directo en GitHub Pages:** [Visualizar Diagrama Interactivo de Roles](https://jesuuusart.github.io/Quantify-Core/practica-05/diagrama-roles-quantify.html)
+- **Enlace directo en GitHub Pages:** [Visualizar Diagrama Interactivo de Roles](https://jesuuusart.github.io/Quantify-Core/docs/Practica05/diagrama-roles-quantify.html)
 - **Enlace alternativo (raiz del sitio):** [https://jesuuusart.github.io/Quantify-Core/](https://jesuuusart.github.io/Quantify-Core/)
 - **Archivo fuente local:** [diagrama-roles-quantify.html](./diagrama-roles-quantify.html)
 
