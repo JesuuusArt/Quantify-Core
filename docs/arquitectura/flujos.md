@@ -36,7 +36,7 @@ sequenceDiagram
     C-->>U: Sincronizado o conflicto explícito
 ```
 
-El comando usa `clientEventId`, `businessDate`, `occurredAt`, `timeZone`, `value` y `expectedVersion`. `value` es el total acumulado del día. Una creación usa revisión esperada cero; correcciones indican la revisión recibida. La API genera `receivedAt` y valida que fecha/zona correspondan a la agenda histórica.
+El comando usa `clientEventId`, `businessDate`, `occurredAt`, `timeZone`, `value` y `expectedVersion`. `value` es el total acumulado del día. Una creación usa revisión esperada cero; correcciones indican la revisión recibida. La API genera `recordedAt` y valida que fecha/zona correspondan a la agenda histórica.
 
 La deduplicación por `clientEventId` dura lo que establezca la política de registros; la caché de una clave de solicitud puede tener otra retención. Reutilizar la clave o evento con contenido distinto causa conflicto. La transacción debe resolver carreras con restricciones y control de versión, no solo con un `SELECT` previo.
 
