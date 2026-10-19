@@ -4,10 +4,10 @@ Esta guía explica la experiencia disponible **hoy**: el prototipo académico de
 
 ## Abrir la demostración
 
-1. Abrir el [prototipo interactivo](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/).
+1. Abrir el [prototipo interactivo](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/).
 2. Elegir **Usuario** o **Administrador** en el visor.
 3. Elegir formato **Móvil** o **PWA**. En la demo cambia la presentación y se conservan los datos del recorrido.
-4. Usar las acciones de la pantalla o el inventario lateral para explorar. **Ver navegación** muestra el [mapa de pantallas](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/navegacion.html).
+4. Usar las acciones de la pantalla o el inventario lateral para explorar. **Ver navegación** muestra el [mapa de pantallas](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/navegacion.html).
 5. Activar **Zonas clicables** si no se identifica una acción. **Restablecer demo** borra los cambios ficticios de esa visita.
 
 Las [cuentas y código de ejemplo](../practica-07/README.md) pertenecen solo a la simulación. No introducir contraseñas personales, hábitos reales ni biometría en el prototipo.

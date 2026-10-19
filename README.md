@@ -21,16 +21,16 @@
 ## Sitio del proyecto
 
 <p align="center">
-  <a href="https://jesuuusart.github.io/Quantify-Core/">
+  <a href="https://angeljesus13.github.io/Quantify-Core/">
     <img src="https://img.shields.io/badge/Ver%20sitio%20del%20proyecto-1E54C9?style=for-the-badge&logo=github&logoColor=white" alt="Abrir sitio del proyecto" />
   </a>
 </p>
 
-- [Página principal del proyecto (Portal Web en GitHub Pages)](https://jesuuusart.github.io/Quantify-Core/)
-- [Práctica 04 — Business Model Canvas Interactivo](https://jesuuusart.github.io/Quantify-Core/docs/Practica04/business-model-canvas.html)
-- [Práctica 05 — Diagrama Interactivo de Roles de Usuario](https://jesuuusart.github.io/Quantify-Core/docs/Practica05/diagrama-roles-quantify.html)
-- [Práctica 07 — Prototipo Interactivo de Sketches](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/)
-- [Práctica 07 — Mapa de Navegación de Sketches](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/navegacion.html)
+- [Página principal del proyecto (Portal Web en GitHub Pages)](https://angeljesus13.github.io/Quantify-Core/)
+- [Práctica 04 — Business Model Canvas Interactivo](https://angeljesus13.github.io/Quantify-Core/docs/Practica04/business-model-canvas.html)
+- [Práctica 05 — Diagrama Interactivo de Roles de Usuario](https://angeljesus13.github.io/Quantify-Core/docs/Practica05/diagrama-roles-quantify.html)
+- [Práctica 07 — Prototipo Interactivo de Sketches](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/)
+- [Práctica 07 — Mapa de Navegación de Sketches](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/navegacion.html)
 
 ## Documentación para desarrollar
 
@@ -491,9 +491,9 @@ La documentación general se organiza en [docs/](docs/), separando el producto y
 
 | Práctica | Título y recurso interactivo (GitHub Pages) | Descripción | Firmas | Estatus |
 |---|---|---|---:|---|
-| Práctica 04 | [Modelo Canvas Interactivo](https://jesuuusart.github.io/Quantify-Core/docs/Practica04/business-model-canvas.html) · [Doc](docs/Practica04/README.md) | Elaboración asistida del Business Model Canvas del proyecto integrador | 20 | Terminado |
-| Práctica 05 | [Diagrama de roles de usuario](https://jesuuusart.github.io/Quantify-Core/docs/Practica05/diagrama-roles-quantify.html) · [Doc](docs/Practica05/README.md) | Diagrama interactivo de roles de usuario del proyecto | 15 | Terminado |
-| Práctica 07 | [Prototipo interactivo](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/) · [Mapa de navegación](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/navegacion.html) · [Doc](docs/practica-07/README.md) | Prototipo interactivo de navegación de sketches para Usuario y Administrador en móvil y PWA | 20 | Terminado |
+| Práctica 04 | [Modelo Canvas Interactivo](https://angeljesus13.github.io/Quantify-Core/docs/Practica04/business-model-canvas.html) · [Doc](docs/Practica04/README.md) | Elaboración asistida del Business Model Canvas del proyecto integrador | 20 | Terminado |
+| Práctica 05 | [Diagrama de roles de usuario](https://angeljesus13.github.io/Quantify-Core/docs/Practica05/diagrama-roles-quantify.html) · [Doc](docs/Practica05/README.md) | Diagrama interactivo de roles de usuario del proyecto | 15 | Terminado |
+| Práctica 07 | [Prototipo interactivo](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/) · [Mapa de navegación](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/navegacion.html) · [Doc](docs/practica-07/README.md) | Prototipo interactivo de navegación de sketches para Usuario y Administrador en móvil y PWA | 20 | Terminado |
 
 Los modelos, diagramas y prototipos interactivos enlazan a su versión en **GitHub Pages**. Los enlaces de documentación técnica dirigen a los archivos correspondientes en el repositorio.
 

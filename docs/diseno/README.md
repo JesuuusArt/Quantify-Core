@@ -15,7 +15,7 @@
 
 | Prototipo de pantallas | Mapa de navegación |
 |---|---|
-| [Abrir demo móvil y PWA](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/) | [Abrir mapa de recorridos](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/navegacion.html) |
+| [Abrir demo móvil y PWA](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/) | [Abrir mapa de recorridos](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/navegacion.html) |
 | Permite alternar rol, probar formularios y visualizar estados locales | Permite inspeccionar conexiones y condiciones entre sketches |
 
 La demo contiene 15 sketches de Usuario y 9 de Administrador. Sus cuentas, código de verificación, fecha fija, almacenamiento local y cifras ilustrativas sirven para revisión. El visor PWA no implementa instalación, service worker ni sincronización remota, y el cambio de rol no representa autorización real.

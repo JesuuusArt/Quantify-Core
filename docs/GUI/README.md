@@ -32,4 +32,4 @@ Los IDs de pantalla pertenecen a la demo; los [recorridos V2.0](../diseno/recorr
 - Cada gráfico incluye texto, unidad, periodo, fuente y estado «sin datos» cuando corresponda. Color solo es apoyo.
 - Comprobar teclado, foco, lectura accesible, contraste y temas. La [paleta del sketch](../practica-07/README.md) no sustituye los tokens V2.0.
 
-Para revisar visualmente, abrir el [prototipo](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/) y el [mapa de navegación](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/navegacion.html). Sus capturas y estados son evidencia de diseño académico. Los nuevos componentes deberán enlazar RF, historia, tokens, contrato y prueba de accesibilidad.
+Para revisar visualmente, abrir el [prototipo](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/) y el [mapa de navegación](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/navegacion.html). Sus capturas y estados son evidencia de diseño académico. Los nuevos componentes deberán enlazar RF, historia, tokens, contrato y prueba de accesibilidad.
