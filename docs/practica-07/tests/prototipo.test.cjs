@@ -15,7 +15,7 @@ function environment(){
   const sandbox={console,Date,Set,Map,Number,String,Math,JSON,FormData:FormDataMock,crypto:{randomUUID:()=>String(Math.random())},setTimeout:()=>0,clearTimeout(){},location:{hash:''},history:{pushState(){},replaceState(){}},localStorage:{getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v)},document:{querySelector:lookup,querySelectorAll:()=>[],addEventListener(){},body:node()},window:{addEventListener(){}}};
   vm.createContext(sandbox);
   vm.runInContext(fs.readFileSync(path.join(root,'data.js'),'utf8'),sandbox);
-  const source=fs.readFileSync(path.join(root,'app.js'),'utf8').replace('routeFromHash();render();\n})();','globalThis.check={db,view,renderers,submit,handleAction,complete,scheduled,streak,dailyPercent,relevantRecommendations,validHabit,dateAt,todayHabits};\n})();');
+  const source=fs.readFileSync(path.join(root,'app.js'),'utf8').replace(/routeFromHash\(\);render\(\);\r?\n\}\)\(\);\s*$/,'globalThis.check={db,view,renderers,submit,handleAction,complete,scheduled,streak,dailyPercent,relevantRecommendations,validHabit,dateAt,todayHabits};\n})();');
   vm.runInContext(source,sandbox);
   const api=sandbox.check;
   api.form=(id,fields)=>({id,fields,checkValidity:()=>true,querySelector:lookup,querySelectorAll:()=>[]});
