@@ -26,9 +26,11 @@
   </a>
 </p>
 
-- [Página principal del proyecto](https://jesuuusart.github.io/Quantify-Core/)
-- [Práctica 04 — Business Model Canvas](https://jesuuusart.github.io/Quantify-Core/Practica04/business-model-canvas.html)
-- [Práctica 05 — Diagrama de roles de usuario](https://jesuuusart.github.io/Quantify-Core/Practica05/diagrama-roles-usuario.html)
+- [Página principal del proyecto (Portal Web en GitHub Pages)](https://jesuuusart.github.io/Quantify-Core/)
+- [Práctica 04 — Business Model Canvas Interactivo](https://jesuuusart.github.io/Quantify-Core/docs/Practica04/business-model-canvas.html)
+- [Práctica 05 — Diagrama Interactivo de Roles de Usuario](https://jesuuusart.github.io/Quantify-Core/docs/Practica05/diagrama-roles-quantify.html)
+- [Práctica 07 — Prototipo Interactivo de Sketches](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/)
+- [Práctica 07 — Mapa de Navegación de Sketches](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/navegacion.html)
 
 ## Contenido
 
@@ -49,6 +51,8 @@
 - [Identidad visual](#identidad-visual)
 - [Equipo e información académica](#equipo-e-información-académica)
 - [Decisiones pendientes](#decisiones-pendientes)
+- [Estado y licencia](#estado-y-licencia)
+- [Stack tecnológico](#stack-tecnológico)
 
 ## Descripción
 
@@ -458,15 +462,15 @@ No deben agregarse credenciales, datos biométricos reales ni archivos `.env` al
 
 ## Documentación y prácticas académicas
 
-La documentación general se organizará en `docs/`, separando el producto y el desarrollo de los entregables académicos. El índice deberá mantenerse en `docs/README.md` cuando esa ruta exista.
+La documentación general se organizará en [docs/](docs/), separando el producto y el desarrollo de los entregables académicos. El índice se encuentra disponible en [docs/README.md](docs/README.md).
 
-| Práctica | Título | Descripción | Firmas | Estatus |
+| Práctica | Título y recurso interactivo (GitHub Pages) | Descripción | Firmas | Estatus |
 |---|---|---|---:|---|
-| Práctica 04 | [Modelo Canvas](docs/Practica04/modelo-canvas-quantify.html) | Elaboración asistida del Business Model Canvas del proyecto integrador | 20 | Terminado |
-| Práctica 05 | [Diagrama de roles de usuario](docs/Practica05/diagrama-roles-quantify.html) | Diagrama interactivo de roles de usuario del proyecto | 15 | Terminado |
-| Práctica 07 | Diagrama de secuencia | Modelado de una interacción prioritaria del sistema | — | En curso |
+| Práctica 04 | [Modelo Canvas Interactivo](https://jesuuusart.github.io/Quantify-Core/docs/Practica04/business-model-canvas.html) · [Doc](docs/Practica04/README.md) | Elaboración asistida del Business Model Canvas del proyecto integrador | 20 | Terminado |
+| Práctica 05 | [Diagrama de roles de usuario](https://jesuuusart.github.io/Quantify-Core/docs/Practica05/diagrama-roles-quantify.html) · [Doc](docs/Practica05/README.md) | Diagrama interactivo de roles de usuario del proyecto | 15 | Terminado |
+| Práctica 07 | [Prototipo interactivo](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/) · [Mapa de navegación](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/navegacion.html) · [Doc](docs/practica-07/README.md) | Prototipo interactivo de navegación de sketches para Usuario y Administrador en móvil y PWA | 20 | Terminado |
 
-Los enlaces relativos representan la ubicación documental prevista o heredada. Su disponibilidad depende de que los archivos correspondientes formen parte del repositorio.
+Los modelos, diagramas y prototipos interactivos enlazan directamente a su versión desplegada en **GitHub Pages** para su ejecución interactiva en vivo. Los enlaces de documentación técnica dirigen a los archivos correspondientes en el repositorio.
 
 ### Prácticas de trabajo
 
@@ -528,7 +532,9 @@ Los colores no deben ser el único medio para comunicar estados; toda interfaz d
 ### Organigrama
 
 <p align="center">
-  <img src="ORGANIGRAMA.jpg" alt="Organigrama del equipo de Quantify Core" width="900" />
+  <a href="https://jesuuusart.github.io/Quantify-Core/ORGANIGRAMA.jpg" target="_blank" title="Ver organigrama en alta resolución en GitHub Pages">
+    <img src="ORGANIGRAMA.jpg" alt="Organigrama del equipo de Quantify Core" width="900" />
+  </a>
 </p>
 
 ### Equipo de desarrollo
