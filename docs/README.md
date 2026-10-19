@@ -29,11 +29,11 @@ Las secciones temáticas se irán incorporando conforme avance la definición de
 
 ## Entregables interactivos en vivo (GitHub Pages)
 
-- [Portal principal](https://jesuuusart.github.io/Quantify-Core/)
-- [Práctica 04 — Business Model Canvas Interactivo](https://jesuuusart.github.io/Quantify-Core/docs/Practica04/business-model-canvas.html)
-- [Práctica 05 — Diagrama de Roles de Usuario Interactivo](https://jesuuusart.github.io/Quantify-Core/docs/Practica05/diagrama-roles-quantify.html)
-- [Práctica 07 — Prototipo Interactivo de Sketches](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/)
-- [Práctica 07 — Mapa de Navegación de Sketches](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/navegacion.html)
+- [Portal principal](https://angeljesus13.github.io/Quantify-Core/)
+- [Práctica 04 — Business Model Canvas Interactivo](https://angeljesus13.github.io/Quantify-Core/docs/Practica04/business-model-canvas.html)
+- [Práctica 05 — Diagrama de Roles de Usuario Interactivo](https://angeljesus13.github.io/Quantify-Core/docs/Practica05/diagrama-roles-quantify.html)
+- [Práctica 07 — Prototipo Interactivo de Sketches](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/)
+- [Práctica 07 — Mapa de Navegación de Sketches](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/navegacion.html)
 
 ## Documentos técnicos disponibles
 

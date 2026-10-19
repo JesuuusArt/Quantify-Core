@@ -37,8 +37,8 @@ Explora **Quantify Core**: recorre sus pantallas o descubre cómo se conectan. A
 | 📱 Vive el prototipo | 🧭 Explora la navegación |
 | :---: | :---: |
 | Prueba las **24 pantallas**, cambia de rol y alterna entre móvil y PWA. | Consulta el **mapa de recorridos principales** de Usuario y Administrador. |
-| [![Abrir prototipo interactivo](./assets/abrir-prototipo.svg)](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/) | [![Ver mapa de navegación](./assets/abrir-navegacion.svg)](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/navegacion.html) |
-| [Abrir prototipo ↗](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/) | [Ver navegación ↗](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/navegacion.html) |
+| [![Abrir prototipo interactivo](./assets/abrir-prototipo.svg)](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/) | [![Ver mapa de navegación](./assets/abrir-navegacion.svg)](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/navegacion.html) |
+| [Abrir prototipo ↗](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/) | [Ver navegación ↗](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/navegacion.html) |
 
 > [!TIP]
 > **Empieza por el prototipo.** Selecciona un rol y usa los controles del dispositivo para recorrer la demo. Los botones de arriba abren la página publicada en GitHub Pages.
@@ -58,7 +58,7 @@ python3 -m http.server 8765 --bind 127.0.0.1 --directory docs
 
 Después visitar `http://127.0.0.1:8765/practica-07/`.
 
-**Ruta de publicación en GitHub Pages:** [Quantify Core · Práctica 07](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/). La publicación actual sirve el repositorio desde su raíz, por lo que la dirección incluye `/docs/`. El servidor local del comando anterior sirve directamente esa carpeta; por eso su dirección local no incluye `/docs/`.
+**Ruta de publicación en GitHub Pages:** [Quantify Core · Práctica 07](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/). La publicación actual sirve el repositorio desde su raíz, por lo que la dirección incluye `/docs/`. El servidor local del comando anterior sirve directamente esa carpeta; por eso su dirección local no incluye `/docs/`.
 
 </details>
 
@@ -198,11 +198,11 @@ No incluye backend, autenticación real, envío de correos, notificaciones del d
 
 | Archivo                                                | Contenido                                                                |
 | ------------------------------------------------------ | ------------------------------------------------------------------------ |
-| [index.html · abrir prototipo](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/) | Visor, controles de revisión y diálogos. |
+| [index.html · abrir prototipo](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/) | Visor, controles de revisión y diálogos. |
 | [styles.css](./styles.css)                             | Identidad visual y distribución adaptable móvil/PWA.                     |
 | [data.js](./data.js)                                   | Inventario de 24 sketches, conexiones y 13 reglas.                       |
 | [app.js](./app.js)                                     | Pantallas, navegación y lógica de simulación.                            |
-| [navegacion.html · abrir diagrama](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/navegacion.html) | Diagrama general independiente generado con Archify. |
+| [navegacion.html · abrir diagrama](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/navegacion.html) | Diagrama general independiente generado con Archify. |
 | [navegacion.archify.json](./navegacion.archify.json)   | Especificación editable del diagrama general.                            |
 | [assets/prototipo-hoy.png](./assets/prototipo-hoy.png) | Captura de U01 — Bienvenida en formato móvil, incluida en este README. |
 | [tests/prototipo.test.cjs](./tests/prototipo.test.cjs) | Pruebas de lógica con Node.js, sin dependencias.                         |
@@ -218,4 +218,4 @@ El diagrama de Archify mantiene su interfaz fija en inglés y su atributo `lang`
 
 ## 10. Relación con las prácticas anteriores
 
-Se retoman las funciones y responsabilidades de la [Práctica 05](https://github.com/JesuuusArt/Quantify-Core/blob/main/docs/Practica05/README.md) y la [historia de usuario de recomendaciones](https://github.com/JesuuusArt/Quantify-Core/blob/main/docs/Practica05/HU-Recomendaciones-IA.md). Esta entrega transforma esa base en recorridos visuales verificables y agrega validaciones, cancelaciones y confirmaciones para orientar el posterior desarrollo.
+Se retoman las funciones y responsabilidades de la [Práctica 05](https://github.com/angelJesus13/Quantify-Core/blob/main/docs/Practica05/README.md) y la [historia de usuario de recomendaciones](https://github.com/angelJesus13/Quantify-Core/blob/main/docs/Practica05/HU-Recomendaciones-IA.md). Esta entrega transforma esa base en recorridos visuales verificables y agrega validaciones, cancelaciones y confirmaciones para orientar el posterior desarrollo.

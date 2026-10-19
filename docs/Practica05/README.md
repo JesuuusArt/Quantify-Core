@@ -10,8 +10,8 @@
 
 El diagrama interactivo de roles de usuario y las funcionalidades principales se encuentran desplegados y listos para su visualizacion en linea a traves de GitHub Pages:
 
-- **Enlace directo en GitHub Pages:** [Visualizar Diagrama Interactivo de Roles](https://jesuuusart.github.io/Quantify-Core/docs/Practica05/diagrama-roles-quantify.html)
-- **Enlace alternativo (raiz del sitio):** [https://jesuuusart.github.io/Quantify-Core/](https://jesuuusart.github.io/Quantify-Core/)
+- **Enlace directo en GitHub Pages:** [Visualizar Diagrama Interactivo de Roles](https://angeljesus13.github.io/Quantify-Core/docs/Practica05/diagrama-roles-quantify.html)
+- **Enlace alternativo (raiz del sitio):** [https://angeljesus13.github.io/Quantify-Core/](https://angeljesus13.github.io/Quantify-Core/)
 - **Archivo fuente local:** [diagrama-roles-quantify.html](./diagrama-roles-quantify.html)
 
 > **Nota de configuracion:** Para habilitar GitHub Pages en el repositorio, dirigirse a **Settings -> Pages**, seleccionar en **Source** la rama `main` y en carpeta `/docs` o `/ (root)`. Ambos esquemas cuentan con soporte y redireccion automatica.
