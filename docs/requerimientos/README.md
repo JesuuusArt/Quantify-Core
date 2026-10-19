@@ -2,6 +2,8 @@
 
 Esta es la base documental propuesta para construir el producto. Describe qué debe hacer cada entrega y cómo demostrarlo; no acredita funciones implementadas ni aprobación del equipo. El [README principal](../../README.md) fija el stack de referencia.
 
+Para consultar por tipo de documento: [BRs](../BRs/README.md) · [FRs](../FRs/README.md) · [NFRs](../NFRs/README.md) · [UHs](../UHs/README.md). Estos índices conservan los IDs y remiten a las definiciones de esta carpeta.
+
 ## Ruta de lectura
 
 | Documento | Decisión que permite tomar |
