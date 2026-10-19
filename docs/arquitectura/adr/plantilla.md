@@ -3,6 +3,8 @@
 - Estado: propuesto
 - Fecha: AAAA-MM-DD
 - Responsables: nombres o equipo
+- Requisitos afectados: RF/RNF y reglas
+- Revisión: PR, revisores y fecha; pendiente mientras no exista evidencia
 
 ## Contexto
 
@@ -20,3 +22,11 @@ Explicar la opción elegida y por qué responde al contexto. Si la decisión aú
 ## Consecuencias
 
 Registrar los cambios esperados, los costos, los riesgos y las acciones de seguimiento.
+
+## Evidencia y criterio de aceptación
+
+Indicar prueba técnica, escenarios, métricas y resultados necesarios. Separar evidencia ya obtenida de verificaciones por ejecutar.
+
+## Reversión o reemplazo
+
+Describir señales para revisar la decisión, migraciones y contratos afectados, y el ADR que la reemplaza cuando corresponda.
