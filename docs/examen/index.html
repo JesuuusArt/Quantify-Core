@@ -1092,379 +1092,566 @@
     <!-- CANVAS SVG BLUEPRINT INTERACTIVO -->
     <div class="blueprint-card" id="blueprintContainer">
       <div class="svg-scroll-wrap" id="svgContainer">
-        <svg class="arch-canvas" id="mainArchSvg" viewBox="0 0 1320 740" xmlns="http://www.w3.org/2000/svg">
+        <svg class="arch-canvas" id="mainArchSvg" viewBox="0 0 1320 900" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <!-- Marcadores flecha direccional -->
-            <marker id="arr-r" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
-              <path d="M 0 1 L 9 5 L 0 9 Z" fill="var(--border-strong)"/>
+            <marker id="arr-r" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+              <path d="M 0 0.5 L 8 4.5 L 0 8.5 Z" fill="var(--border-strong)"/>
             </marker>
-            <marker id="arr-b" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="5" refY="9" orient="auto">
-              <path d="M 1 0 L 5 9 L 9 0 Z" fill="var(--border-strong)"/>
+            <marker id="arr-l" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="1" refY="4.5" orient="auto">
+              <path d="M 8 0.5 L 0 4.5 L 8 8.5 Z" fill="var(--border-strong)"/>
             </marker>
-            <marker id="arr-active" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
-              <path d="M 0 1 L 9 5 L 0 9 Z" fill="var(--brand-glow)"/>
+            <marker id="arr-b" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="4.5" refY="8" orient="auto">
+              <path d="M 0.5 0 L 4.5 8 L 8.5 0 Z" fill="var(--border-strong)"/>
+            </marker>
+            <marker id="arr-t" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="4.5" refY="1" orient="auto">
+              <path d="M 0.5 8 L 4.5 0 L 8.5 8 Z" fill="var(--border-strong)"/>
+            </marker>
+            <marker id="arr-active" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+              <path d="M 0 0.5 L 8 4.5 L 0 8.5 Z" fill="var(--brand-glow)"/>
+            </marker>
+            <marker id="arr-purple" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+              <path d="M 0 0.5 L 8 4.5 L 0 8.5 Z" fill="#8B5CF6"/>
+            </marker>
+            <marker id="arr-purple-l" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="1" refY="4.5" orient="auto">
+              <path d="M 8 0.5 L 0 4.5 L 8 8.5 Z" fill="#8B5CF6"/>
             </marker>
           </defs>
 
-          <!-- Borde marco de Blueprint técnico -->
-          <rect class="b-frame" x="12" y="12" width="1296" height="716" rx="14"/>
-          <!-- Escuadras en esquinas -->
-          <path class="corner-mark" d="M 12 40 L 12 12 L 40 12"/>
-          <path class="corner-mark" d="M 1280 12 L 1308 12 L 1308 40"/>
-          <path class="corner-mark" d="M 12 688 L 12 716 L 40 716"/>
-          <path class="corner-mark" d="M 1280 716 L 1308 716 L 1308 688"/>
-
-          <text x="48" y="32" class="hud-title">QUANTIFY CORE // ARCHITECTURE SYSTEM V3.0 • UTXJ</text>
-          <text x="1272" y="32" class="hud-title" text-anchor="end">STATUS: HIGH RESILIENT CLOUD ARCHITECTURE</text>
+          <!-- Borde marco exterior -->
+          <rect class="b-frame" x="10" y="10" width="1300" height="880" rx="14"/>
+          <!-- Escuadras técnicas en esquinas -->
+          <path class="corner-mark" d="M 10 38 L 10 10 L 38 10"/>
+          <path class="corner-mark" d="M 1282 10 L 1310 10 L 1310 38"/>
+          <path class="corner-mark" d="M 10 862 L 10 890 L 38 890"/>
+          <path class="corner-mark" d="M 1282 890 L 1310 890 L 1310 862"/>
 
           <!-- ============================================================== -->
-          <!-- DUCTOS Y LÍNEAS DE FLUJO VECTORIAL (BACKGROUND)                -->
+          <!-- ENCABEZADO SUPERIOR (ESTILO EXACTO AL EJEMPLO GAMEHUB)         -->
           <!-- ============================================================== -->
-          <!-- Clientes -> Gateway -->
-          <path class="duct-path" d="M 330 190 L 390 190 L 390 320 L 420 320"/>
-          <path class="duct-pulse" d="M 330 190 L 390 190 L 390 320 L 420 320"/>
+          <!-- Logo & Marca Izquierda -->
+          <g transform="translate(30, 26)">
+            <rect x="0" y="0" width="46" height="46" rx="12" fill="var(--brand-blue)"/>
+            <path d="M 14 24 L 20 24 L 23 16 L 27 32 L 30 20 L 33 24 L 38 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <text x="56" y="26" font-family="var(--font-main)" font-size="22px" font-weight="800" fill="var(--text)" letter-spacing="-0.02em">Quantify Core</text>
+            <text x="56" y="42" font-family="var(--font-mono)" font-size="11px" font-weight="600" fill="var(--brand-light)">Cuantifica · Predice · Transforma</text>
+          </g>
 
-          <path class="duct-path" d="M 330 320 L 420 320"/>
-          <path class="duct-pulse" d="M 330 320 L 420 320"/>
-
-          <path class="duct-path" d="M 330 450 L 390 450 L 390 320 L 420 320"/>
-          <path class="duct-pulse" d="M 330 450 L 390 450 L 390 320 L 420 320"/>
-
-          <!-- Gateway -> Backend Node.js -->
-          <path class="duct-path" d="M 570 320 L 640 260"/>
-          <path class="duct-pulse" d="M 570 320 L 640 260"/>
-
-          <!-- Gateway -> FastAPI ML -->
-          <path class="duct-path" d="M 570 320 L 640 430"/>
-          <path class="duct-pulse" d="M 570 320 L 640 430"/>
-
-          <!-- Backend Node.js <-> FastAPI ML (Intercomunicación) -->
-          <path class="duct-path" d="M 740 330 L 740 360"/>
-          <path class="duct-pulse" d="M 740 330 L 740 360"/>
-
-          <!-- Backends -> Capa de Datos -->
-          <path class="duct-path" d="M 850 240 L 920 180"/>
-          <path class="duct-pulse" d="M 850 240 L 920 180"/>
-
-          <path class="duct-path" d="M 850 260 L 920 280"/>
-          <path class="duct-pulse" d="M 850 260 L 920 280"/>
-
-          <path class="duct-path" d="M 850 450 L 920 400"/>
-          <path class="duct-pulse" d="M 850 450 L 920 400"/>
-
-          <!-- Backend -> Servicios Externos -->
-          <path class="duct-path" d="M 850 210 L 1120 120"/>
-          <path class="duct-pulse" d="M 850 210 L 1120 120"/>
-
-          <path class="duct-path" d="M 850 430 L 1120 240"/>
-          <path class="duct-pulse" d="M 850 430 L 1120 240"/>
+          <!-- Título y Subtítulo Derecha -->
+          <g transform="translate(1280, 26)" text-anchor="end">
+            <text x="0" y="20" font-family="var(--font-main)" font-size="20px" font-weight="800" fill="var(--text)" letter-spacing="-0.02em">Diagrama de Arquitectura</text>
+            <text x="0" y="38" font-family="var(--font-main)" font-size="13px" font-weight="700" fill="var(--brand-glow)">Proyecto Integrador — Ecosistema de Hábitos y Salud</text>
+            <text x="0" y="52" font-family="var(--font-main)" font-size="10.5px" fill="var(--text-muted)">Mismos hábitos, múltiples dispositivos, una sola experiencia</text>
+          </g>
 
           <!-- ============================================================== -->
-          <!-- 1. CAPA: USUARIOS / ACTORES (X: 30, W: 110)                    -->
+          <!-- DUCTOS Y FLECHAS DE CONEXIÓN ENTRE CAPAS                       -->
           <!-- ============================================================== -->
-          <g class="layer-group" data-layer="usuarios">
-            <rect x="30" y="52" width="105" height="520" rx="10" fill="var(--box-bg)" stroke="var(--border)" stroke-dasharray="4 2"/>
-            <text x="82" y="74" class="txt-badge" fill="var(--c-user)" text-anchor="middle">ACTORES</text>
+          <!-- Usuarios -> Frontends -->
+          <path class="duct-path" d="M 115 220 L 138 220" marker-end="url(#arr-r)"/>
+          <path class="duct-pulse" d="M 115 220 L 138 220"/>
 
-            <!-- Usuario Final -->
-            <g class="node-click" data-id="act-user" transform="translate(38, 120)">
-              <rect class="layer-card" x="0" y="0" width="89" height="150"/>
-              <circle cx="44" cy="38" r="18" fill="var(--primary-soft)" stroke="var(--c-user)" stroke-width="1.5"/>
-              <path d="M 37 36 A 7 7 0 1 1 51 36 A 7 7 0 1 1 37 36 Z M 32 50 C 32 44 56 44 56 50" fill="var(--c-user)"/>
-              <text x="44" y="78" class="txt-title" font-size="11.5px" text-anchor="middle">Usuario</text>
-              <text x="44" y="93" class="txt-title" font-size="11.5px" text-anchor="middle">Final</text>
-              <text x="44" y="115" class="txt-item" font-size="9px" text-anchor="middle">• Atleta</text>
-              <text x="44" y="128" class="txt-item" font-size="9px" text-anchor="middle">• Estudiante</text>
-              <text x="44" y="141" class="txt-item" font-size="9px" text-anchor="middle">• Wear OS / Web</text>
+          <!-- Frontends -> Backend (Doble vía central) -->
+          <path class="duct-path" d="M 535 365 L 535 412" marker-end="url(#arr-b)" marker-start="url(#arr-t)"/>
+          <path class="duct-pulse" d="M 535 365 L 535 412"/>
+          <rect class="duct-pill-bg" x="415" y="377" width="240" height="20" rx="10"/>
+          <text class="duct-pill-txt" x="535" y="391">HTTPS (REST / JSON) &amp; WSS (WebSockets)</text>
+
+          <!-- Frontends <-> IdP (Línea morada superior) -->
+          <path d="M 935 200 L 980 200" fill="none" stroke="#8B5CF6" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-purple)" marker-start="url(#arr-purple-l)"/>
+          <rect class="duct-pill-bg" x="938" y="166" width="38" height="16" rx="8" stroke="#8B5CF6"/>
+          <text class="duct-pill-txt" x="957" y="178" fill="#A78BFA" font-size="7.5px">Tokens</text>
+          <text class="duct-pill-txt" x="957" y="215" fill="#A78BFA" font-size="7.5px">JWT / SSO</text>
+
+          <!-- Backend <-> IdP (Línea morada media con curva limpia) -->
+          <path d="M 955 460 L 1040 460 L 1040 370" fill="none" stroke="#8B5CF6" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#arr-purple)"/>
+          <rect class="duct-pill-bg" x="965" y="446" width="115" height="18" rx="9" stroke="#8B5CF6"/>
+          <text class="duct-pill-txt" x="1022.5" y="458" fill="#A78BFA" font-size="8px">Validación tokens (JWKS)</text>
+
+          <!-- Servicios Externos <-> Backend -->
+          <path class="duct-path" d="M 270 490 L 325 490" marker-end="url(#arr-r)" marker-start="url(#arr-l)"/>
+          <path class="duct-pulse" d="M 270 490 L 325 490"/>
+          <rect class="duct-pill-bg" x="272" y="468" width="52" height="16" rx="8"/>
+          <text class="duct-pill-txt" x="298" y="479" font-size="7.5px">HTTPS</text>
+
+          <!-- Backend <-> Monitoreo -->
+          <path d="M 955 520 L 980 520" fill="none" stroke="#06B6D4" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#arr-r)"/>
+          <rect class="duct-pill-bg" x="954" y="504" width="28" height="14" rx="7" stroke="#06B6D4"/>
+          <text class="duct-pill-txt" x="968" y="514" fill="#38BDF8" font-size="7px">Logs</text>
+
+          <!-- Backend <-> Capa de Datos (Doble vía vertical) -->
+          <path class="duct-path" d="M 535 595 L 535 625" marker-end="url(#arr-b)" marker-start="url(#arr-t)"/>
+          <path class="duct-pulse" d="M 535 595 L 535 625"/>
+          <rect class="duct-pill-bg" x="465" y="605" width="140" height="18" rx="9"/>
+          <text class="duct-pill-txt" x="535" y="617">Pool de Conexiones</text>
+
+          <!-- ============================================================== -->
+          <!-- 1. COLUMNA IZQUIERDA: USUARIOS / ACTORES                       -->
+          <!-- ============================================================== -->
+          <g class="node-click" data-id="act-user" transform="translate(25, 95)">
+            <text x="45" y="20" font-family="var(--font-main)" font-size="12px" font-weight="800" fill="var(--text)" text-anchor="middle">Usuarios</text>
+            <text x="45" y="34" font-family="var(--font-main)" font-size="10.5px" fill="var(--text-muted)" text-anchor="middle">Atletas y Alumnos</text>
+
+            <g transform="translate(25, 46)" fill="none" stroke="var(--c-user)" stroke-width="1.8">
+              <circle cx="20" cy="12" r="7"/>
+              <path d="M 6 36 C 6 26 14 22 20 22 C 26 22 34 26 34 36"/>
+              <circle cx="8" cy="10" r="5" stroke-dasharray="2 1"/>
+              <circle cx="32" cy="10" r="5" stroke-dasharray="2 1"/>
             </g>
 
-            <!-- Administrador / ML Ops -->
-            <g class="node-click" data-id="act-adm" transform="translate(38, 320)">
-              <rect class="layer-card" x="0" y="0" width="89" height="150"/>
-              <circle cx="44" cy="38" r="18" fill="rgba(167, 139, 250, 0.15)" stroke="var(--c-data)" stroke-width="1.5"/>
-              <path d="M 44 26 L 55 31 L 55 42 C 55 50 44 54 44 54 C 44 54 33 50 33 42 L 33 31 Z" fill="var(--c-data)"/>
-              <text x="44" y="78" class="txt-title" font-size="11.5px" text-anchor="middle">Admin &amp;</text>
-              <text x="44" y="93" class="txt-title" font-size="11.5px" text-anchor="middle">ML Ops</text>
-              <text x="44" y="115" class="txt-item" font-size="9px" text-anchor="middle">• Monitoreo</text>
-              <text x="44" y="128" class="txt-item" font-size="9px" text-anchor="middle">• Drift IA</text>
-              <text x="44" y="141" class="txt-item" font-size="9px" text-anchor="middle">• Facturación</text>
+            <g transform="translate(28, 96)" fill="none" stroke="var(--text-dim)" stroke-width="1.6">
+              <rect x="7" y="0" width="20" height="24" rx="6"/>
+              <line x1="12" y1="-5" x2="22" y2="-5"/>
+              <line x1="12" y1="29" x2="22" y2="29"/>
+              <rect x="2" y="35" width="30" height="18" rx="2"/>
+              <line x1="-2" y1="53" x2="36" y2="53" stroke-width="2.5"/>
+              <rect x="10" y="64" width="14" height="24" rx="3"/>
+              <circle cx="17" cy="83" r="1" fill="var(--text-dim)"/>
             </g>
           </g>
 
           <!-- ============================================================== -->
-          <!-- 2. CAPA: CLIENTES (FRONTENDS) (X: 160, W: 180)                 -->
+          <!-- 2. CAPA SUPERIOR: CLIENTES (FRONTENDS) — 3 MOCKUPS DE PANTALLA -->
           <!-- ============================================================== -->
-          <g class="layer-group" data-layer="clientes">
-            <rect x="155" y="52" width="185" height="520" rx="10" fill="var(--box-bg)" stroke="var(--border)"/>
-            <text x="247" y="74" class="txt-badge" fill="var(--c-user)" text-anchor="middle">CLIENTES (FRONTENDS)</text>
+          <g transform="translate(140, 85)">
+            <rect x="0" y="0" width="795" height="280" rx="14" fill="var(--card-bg)" stroke="var(--border)" stroke-width="1.5"/>
+            <rect x="0" y="0" width="795" height="34" rx="14" fill="var(--surface-2)"/>
+            <path d="M 0 34 L 795 34" stroke="var(--border)" stroke-width="1"/>
+            <text x="16" y="22" font-family="var(--font-main)" font-size="12px" font-weight="800" fill="var(--text)" letter-spacing="0.01em">
+              Clientes (Frontends) <tspan font-weight="500" fill="var(--text-muted)">— Diferentes experiencias, una misma cuenta</tspan>
+            </text>
 
-            <!-- Wear OS (Smartwatch) -->
-            <g class="node-click" data-id="cl-wear" transform="translate(165, 90)">
-              <rect class="layer-card" x="0" y="0" width="165" height="130"/>
-              <rect x="12" y="12" width="28" height="28" rx="6" fill="var(--primary-soft)"/>
-              <circle cx="26" cy="26" r="8" fill="none" stroke="var(--c-user)" stroke-width="2"/>
-              <text x="48" y="24" class="txt-title">App Wear OS</text>
-              <text x="48" y="37" class="txt-tech">KOTLIN · ROOM DB</text>
-              <line x1="12" y1="48" x2="153" y2="48" stroke="var(--border)"/>
-              <text x="14" y="65" class="txt-item">• Registro táctil &lt; 3 seg</text>
-              <text x="14" y="80" class="txt-item">• Telemetría FC y pasos</text>
-              <text x="14" y="95" class="txt-item">• Cola offline WorkManager</text>
-              <text x="14" y="110" class="txt-item">• Sensores continuos</text>
+            <!-- TARJETA 1: Smartwatch Wear OS (Tinte Rojo/Coral) -->
+            <g class="node-click" data-id="cl-wear" transform="translate(12, 46)">
+              <rect class="layer-card" x="0" y="0" width="248" height="220" rx="10" fill="var(--box-bg)" stroke="#F87171" stroke-width="1.4"/>
+              <rect x="0" y="0" width="248" height="42" rx="10" fill="rgba(239, 68, 68, 0.12)"/>
+              <path d="M 0 42 L 248 42" stroke="rgba(239, 68, 68, 0.25)" stroke-width="1"/>
+              
+              <circle cx="22" cy="21" r="12" fill="#EF4444"/>
+              <text x="22" y="25" font-family="var(--font-mono)" font-size="10px" font-weight="900" fill="#FFF" text-anchor="middle">K</text>
+              <text x="42" y="19" font-family="var(--font-main)" font-size="12px" font-weight="800" fill="var(--text)">Smartwatch</text>
+              <text x="42" y="33" font-family="var(--font-mono)" font-size="8.5px" font-weight="600" fill="#F87171">(Wear OS · Kotlin Compose)</text>
+
+              <!-- MOCKUP PANTALLA CIRCULAR WEAR OS -->
+              <g transform="translate(12, 52)">
+                <circle cx="38" cy="38" r="34" fill="#0B0F19" stroke="#374151" stroke-width="3"/>
+                <circle cx="38" cy="38" r="28" fill="none" stroke="#1F2937" stroke-width="4"/>
+                <circle cx="38" cy="38" r="28" fill="none" stroke="#EF4444" stroke-width="4" stroke-dasharray="130 50" stroke-linecap="round" transform="rotate(-90 38 38)"/>
+                <text x="38" y="30" font-family="var(--font-mono)" font-size="8px" fill="#9CA3AF" text-anchor="middle">10:24 AM</text>
+                <text x="38" y="43" font-family="var(--font-mono)" font-size="10.5px" font-weight="800" fill="#EF4444" text-anchor="middle">78 bpm</text>
+                <text x="38" y="53" font-family="var(--font-mono)" font-size="7.5px" fill="#6EE7B7" text-anchor="middle">8,420 pas</text>
+              </g>
+
+              <g transform="translate(92, 52)" font-family="var(--font-main)" font-size="9px" fill="var(--text-muted)">
+                <text x="0" y="12">• Autenticación biométrica/JWT</text>
+                <text x="0" y="26">• Registro en muñeca (&lt; 3s)</text>
+                <text x="0" y="40">• Sensores de pulso y pasos</text>
+                <text x="0" y="54">• <tspan font-weight="700" fill="#F87171">Offline-First (Room DB)</tspan></text>
+                <text x="0" y="68">• Vibración háptica</text>
+              </g>
+
+              <path d="M 12 142 L 236 142" stroke="var(--border)" stroke-width="1" stroke-dasharray="3 2"/>
+              <text x="14" y="160" font-family="var(--font-main)" font-size="9px" fill="var(--text-dim)">• Sincronización diferida (WorkManager)</text>
+              <text x="14" y="176" font-family="var(--font-main)" font-size="9px" fill="var(--text-dim)">• Detección continua de inactividad</text>
+              <text x="14" y="192" font-family="var(--font-mono)" font-size="8.5px" fill="var(--brand-light)">• Cero pérdida de datos sin internet</text>
             </g>
 
-            <!-- Web Dashboard (React) -->
-            <g class="node-click" data-id="cl-react" transform="translate(165, 240)">
-              <rect class="layer-card" x="0" y="0" width="165" height="130"/>
-              <rect x="12" y="12" width="28" height="28" rx="6" fill="var(--primary-soft)"/>
-              <ellipse cx="26" cy="26" rx="9" ry="3.5" fill="none" stroke="var(--c-user)" stroke-width="1.5" transform="rotate(30 26 26)"/>
-              <ellipse cx="26" cy="26" rx="9" ry="3.5" fill="none" stroke="var(--c-user)" stroke-width="1.5" transform="rotate(90 26 26)"/>
-              <ellipse cx="26" cy="26" rx="9" ry="3.5" fill="none" stroke="var(--c-user)" stroke-width="1.5" transform="rotate(150 26 26)"/>
-              <circle cx="26" cy="26" r="1.8" fill="var(--c-user)"/>
-              <text x="48" y="24" class="txt-title">Dashboard Web</text>
-              <text x="48" y="37" class="txt-tech">REACT · TYPESCRIPT</text>
-              <line x1="12" y1="48" x2="153" y2="48" stroke="var(--border)"/>
-              <text x="14" y="65" class="txt-item">• Mapas de calor y streaks</text>
-              <text x="14" y="80" class="txt-item">• Correlación biométrica</text>
-              <text x="14" y="95" class="txt-item">• WebSockets Socket.IO</text>
-              <text x="14" y="110" class="txt-item">• Tailwind &amp; Recharts</text>
+            <!-- TARJETA 2: Dashboard Web React (Tinte Azul/Cian) -->
+            <g class="node-click" data-id="cl-react" transform="translate(268, 46)">
+              <rect class="layer-card" x="0" y="0" width="260" height="220" rx="10" fill="var(--box-bg)" stroke="#38BDF8" stroke-width="1.4"/>
+              <rect x="0" y="0" width="260" height="42" rx="10" fill="rgba(56, 189, 248, 0.12)"/>
+              <path d="M 0 42 L 260 42" stroke="rgba(56, 189, 248, 0.25)" stroke-width="1"/>
+              
+              <circle cx="22" cy="21" r="12" fill="#0284C7"/>
+              <ellipse cx="22" cy="21" rx="8" ry="3" fill="none" stroke="#FFF" stroke-width="1.2" transform="rotate(30 22 21)"/>
+              <ellipse cx="22" cy="21" rx="8" ry="3" fill="none" stroke="#FFF" stroke-width="1.2" transform="rotate(-30 22 21)"/>
+              <circle cx="22" cy="21" r="1.5" fill="#FFF"/>
+              <text x="42" y="19" font-family="var(--font-main)" font-size="12px" font-weight="800" fill="var(--text)">Dashboard Web</text>
+              <text x="42" y="33" font-family="var(--font-mono)" font-size="8.5px" font-weight="600" fill="#38BDF8">(React 18 + Vite + Tailwind)</text>
+
+              <!-- MOCKUP PANTALLA LAPTOP CON HEATMAP -->
+              <g transform="translate(12, 50)">
+                <rect x="0" y="0" width="98" height="64" rx="4" fill="#0B0F19" stroke="#334155" stroke-width="2"/>
+                <line x1="-6" y1="65" x2="104" y2="65" stroke="#475569" stroke-width="3" stroke-linecap="round"/>
+                <rect x="3" y="3" width="92" height="8" rx="2" fill="#1E293B"/>
+                <circle cx="8" cy="7" r="1.5" fill="#EF4444"/>
+                <circle cx="13" cy="7" r="1.5" fill="#F59E0B"/>
+                <circle cx="18" cy="7" r="1.5" fill="#10B981"/>
+                
+                <g transform="translate(6, 15)">
+                  <rect x="0" y="0" width="6.5" height="6.5" rx="1.5" fill="#10B981"/>
+                  <rect x="9" y="0" width="6.5" height="6.5" rx="1.5" fill="#059669"/>
+                  <rect x="18" y="0" width="6.5" height="6.5" rx="1.5" fill="#10B981"/>
+                  <rect x="27" y="0" width="6.5" height="6.5" rx="1.5" fill="#34D399"/>
+                  <rect x="36" y="0" width="6.5" height="6.5" rx="1.5" fill="#10B981"/>
+                  <rect x="45" y="0" width="6.5" height="6.5" rx="1.5" fill="#059669"/>
+                  <rect x="54" y="0" width="6.5" height="6.5" rx="1.5" fill="#10B981"/>
+
+                  <rect x="0" y="9" width="6.5" height="6.5" rx="1.5" fill="#047857"/>
+                  <rect x="9" y="9" width="6.5" height="6.5" rx="1.5" fill="#10B981"/>
+                  <rect x="18" y="9" width="6.5" height="6.5" rx="1.5" fill="#34D399"/>
+                  <rect x="27" y="9" width="6.5" height="6.5" rx="1.5" fill="#10B981"/>
+                  <rect x="36" y="9" width="6.5" height="6.5" rx="1.5" fill="#059669"/>
+                  <rect x="45" y="9" width="6.5" height="6.5" rx="1.5" fill="#10B981"/>
+                  <rect x="54" y="9" width="6.5" height="6.5" rx="1.5" fill="#34D399"/>
+                </g>
+                <path d="M 8 50 L 22 44 L 40 47 L 65 37 L 90 30" fill="none" stroke="#38BDF8" stroke-width="1.8"/>
+              </g>
+
+              <g transform="translate(120, 52)" font-family="var(--font-main)" font-size="9px" fill="var(--text-muted)">
+                <text x="0" y="12">• Mapas de calor y rachas</text>
+                <text x="0" y="26">• Gráficas de correlación</text>
+                <text x="0" y="40">• Perfil y configuración</text>
+                <text x="0" y="54">• <tspan font-weight="700" fill="#38BDF8">Eventos en vivo (Socket.IO)</tspan></text>
+                <text x="0" y="68">• Modo oscuro y 3 temas</text>
+              </g>
+
+              <path d="M 12 142 L 248 142" stroke="var(--border)" stroke-width="1" stroke-dasharray="3 2"/>
+              <text x="14" y="160" font-family="var(--font-main)" font-size="9px" fill="var(--text-dim)">• Métricas de consistencia circadiana</text>
+              <text x="14" y="176" font-family="var(--font-main)" font-size="9px" fill="var(--text-dim)">• Exportación de historiales en CSV/PDF</text>
+              <text x="14" y="192" font-family="var(--font-mono)" font-size="8.5px" fill="var(--brand-light)">• Reactivo en tiempo real con WebSockets</text>
             </g>
 
-            <!-- Smart TV & PWA (Planeados) -->
-            <g class="node-click planned-node" data-id="cl-planned" transform="translate(165, 390)">
-              <rect class="layer-card" x="0" y="0" width="165" height="120" stroke-dasharray="4 3"/>
-              <rect x="12" y="10" width="28" height="24" rx="4" fill="rgba(255,255,255,0.05)"/>
-              <text x="48" y="22" class="txt-title">Smart TV / PWA</text>
-              <text x="48" y="34" class="txt-badge" fill="#F59E0B">PLANEADO</text>
-              <line x1="12" y1="42" x2="153" y2="42" stroke="var(--border)"/>
-              <text x="14" y="58" class="txt-item">• Android TV &amp; WebOS</text>
-              <text x="14" y="73" class="txt-item">• Visualización grupal</text>
-              <text x="14" y="88" class="txt-item">• Service Workers offline</text>
-              <text x="14" y="103" class="txt-item">• Caché local PWA</text>
+            <!-- TARJETA 3: App Móvil / TV Companion (Tinte Verde/Cian) -->
+            <g class="node-click" data-id="cl-planned" transform="translate(536, 46)">
+              <rect class="layer-card" x="0" y="0" width="247" height="220" rx="10" fill="var(--box-bg)" stroke="#34D399" stroke-width="1.4"/>
+              <rect x="0" y="0" width="247" height="42" rx="10" fill="rgba(52, 211, 153, 0.12)"/>
+              <path d="M 0 42 L 247 42" stroke="rgba(52, 211, 153, 0.25)" stroke-width="1"/>
+              
+              <circle cx="22" cy="21" r="12" fill="#10B981"/>
+              <path d="M 16 16 L 28 16 L 28 26 L 16 26 Z" fill="none" stroke="#FFF" stroke-width="1.5" rx="1"/>
+              <text x="42" y="19" font-family="var(--font-main)" font-size="12px" font-weight="800" fill="var(--text)">App Móvil / TV</text>
+              <text x="42" y="33" font-family="var(--font-mono)" font-size="8.5px" font-weight="600" fill="#34D399">(Android + PWA + Smart TV)</text>
+
+              <!-- MOCKUP PANTALLA SMARTPHONE CON LISTA DE HÁBITOS -->
+              <g transform="translate(12, 50)">
+                <rect x="0" y="0" width="48" height="72" rx="7" fill="#0B0F19" stroke="#334155" stroke-width="2"/>
+                <rect x="17" y="2" width="14" height="2.5" rx="1.2" fill="#475569"/>
+                <rect x="4" y="9" width="40" height="11" rx="3" fill="#1E293B"/>
+                <circle cx="10" cy="14.5" r="2.2" fill="#10B981"/>
+                <rect x="16" y="13" width="24" height="3.5" rx="1" fill="#94A3B8"/>
+                <rect x="4" y="23" width="40" height="11" rx="3" fill="#1E293B"/>
+                <circle cx="10" cy="28.5" r="2.2" fill="#10B981"/>
+                <rect x="16" y="27" width="20" height="3.5" rx="1" fill="#94A3B8"/>
+                <rect x="4" y="38" width="40" height="24" rx="4" fill="rgba(99, 102, 241, 0.25)" stroke="#6366F1" stroke-width="0.8"/>
+                <text x="7" y="48" font-family="var(--font-mono)" font-size="6px" fill="#A5ABFB">IA Coach:</text>
+                <text x="7" y="56" font-family="var(--font-main)" font-size="5px" fill="#E2E8F0">"Vas al 80%"</text>
+              </g>
+
+              <g transform="translate(68, 52)" font-family="var(--font-main)" font-size="9px" fill="var(--text-muted)">
+                <text x="0" y="12">• Historial y registro táctil</text>
+                <text x="0" y="26">• Notificaciones push (FCM)</text>
+                <text x="0" y="40">• <tspan font-weight="700" fill="#34D399">Coaching Gemini AI</tspan></text>
+                <text x="0" y="54">• Smart TV ambiental (Plan)</text>
+                <text x="0" y="68">• Sincronización Wear OS</text>
+              </g>
+
+              <path d="M 12 142 L 235 142" stroke="var(--border)" stroke-width="1" stroke-dasharray="3 2"/>
+              <text x="14" y="160" font-family="var(--font-main)" font-size="9px" fill="var(--text-dim)">• Modo Glanceable sin interacción</text>
+              <text x="14" y="176" font-family="var(--font-main)" font-size="9px" fill="var(--text-dim)">• Acceso instantáneo PWA sin instalar</text>
+              <text x="14" y="192" font-family="var(--font-mono)" font-size="8.5px" fill="var(--brand-light)">• Multiplataforma Android / Web</text>
             </g>
           </g>
 
           <!-- ============================================================== -->
-          <!-- 3. CAPA: GATEWAY Y SEGURIDAD (X: 415, W: 165)                 -->
+          <!-- 3. CAPA SUPERIOR DERECHA: PROVEEDOR DE IDENTIDAD (IDP)         -->
           <!-- ============================================================== -->
-          <g class="layer-group" data-layer="gateway">
-            <rect x="410" y="52" width="165" height="520" rx="10" fill="var(--box-bg)" stroke="var(--border)"/>
-            <text x="492" y="74" class="txt-badge" fill="var(--c-sec)" text-anchor="middle">GATEWAY &amp; SEGURIDAD</text>
+          <g class="node-click" data-id="idp-keycloak" transform="translate(985, 85)">
+            <rect class="layer-card" x="0" y="0" width="300" height="280" rx="14" fill="var(--card-bg)" stroke="#8B5CF6" stroke-width="1.5"/>
+            <rect x="0" y="0" width="300" height="48" rx="14" fill="rgba(139, 92, 246, 0.14)"/>
+            <path d="M 0 48 L 300 48" stroke="rgba(139, 92, 246, 0.3)" stroke-width="1"/>
+            <text x="16" y="22" font-family="var(--font-main)" font-size="12px" font-weight="800" fill="var(--text)">Proveedor de Identidad (IdP)</text>
+            <text x="16" y="38" font-family="var(--font-mono)" font-size="9px" font-weight="700" fill="#A78BFA">KEYCLOAK / JWT AUTH SHIELD</text>
 
-            <g class="node-click" data-id="gw-core" transform="translate(420, 150)">
-              <rect class="layer-card" x="0" y="0" width="145" height="300" stroke="var(--c-sec)"/>
-              <rect x="12" y="14" width="28" height="28" rx="6" fill="rgba(245, 158, 11, 0.15)"/>
-              <path d="M 26 21 L 33 24 L 33 30 C 33 35 26 38 26 38 C 26 38 19 35 19 30 L 19 24 Z" fill="var(--c-sec)"/>
-              <text x="46" y="26" class="txt-title" font-size="12px">API Gateway</text>
-              <text x="46" y="39" class="txt-tech" fill="#FBBF24">NODE.JS / PROXY</text>
+            <g transform="translate(242, 12)">
+              <rect x="0" y="0" width="46" height="26" rx="6" fill="#8B5CF6"/>
+              <text x="23" y="17" font-family="var(--font-mono)" font-size="9px" font-weight="900" fill="#FFF" text-anchor="middle">IdP</text>
+            </g>
 
-              <line x1="10" y1="52" x2="135" y2="52" stroke="var(--border)"/>
+            <g transform="translate(18, 68)" font-family="var(--font-main)" font-size="10px" fill="var(--text-muted)">
+              <g transform="translate(0, 0)">
+                <circle cx="10" cy="8" r="8" fill="rgba(139, 92, 246, 0.2)"/>
+                <text x="10" y="12" font-size="9px" text-anchor="middle">🔒</text>
+                <text x="26" y="12" font-weight="600" fill="var(--text)">Autenticación (OAuth 2.0 / OpenID)</text>
+              </g>
+              <g transform="translate(0, 32)">
+                <circle cx="10" cy="8" r="8" fill="rgba(139, 92, 246, 0.2)"/>
+                <text x="10" y="12" font-size="9px" text-anchor="middle">🔑</text>
+                <text x="26" y="12" font-weight="600" fill="var(--text)">SSO (Una sola cuenta por usuario)</text>
+              </g>
+              <g transform="translate(0, 64)">
+                <circle cx="10" cy="8" r="8" fill="rgba(139, 92, 246, 0.2)"/>
+                <text x="10" y="12" font-size="9px" text-anchor="middle">👥</text>
+                <text x="26" y="12" font-weight="600" fill="var(--text)">Gestión de usuarios y credenciales</text>
+              </g>
+              <g transform="translate(0, 96)">
+                <circle cx="10" cy="8" r="8" fill="rgba(139, 92, 246, 0.2)"/>
+                <text x="10" y="12" font-size="9px" text-anchor="middle">🛡️</text>
+                <text x="26" y="12" font-weight="600" fill="var(--text)">Roles y permisos (RBAC: User, Admin)</text>
+              </g>
+              <g transform="translate(0, 128)">
+                <circle cx="10" cy="8" r="8" fill="rgba(139, 92, 246, 0.2)"/>
+                <text x="10" y="12" font-size="9px" text-anchor="middle">🏥</text>
+                <text x="26" y="12" font-weight="600" fill="#C084FC">Cifrado de Privacidad Médica HIPAA</text>
+              </g>
+            </g>
 
-              <rect x="10" y="62" width="125" height="42" rx="6" fill="var(--surface-2)"/>
-              <text x="18" y="78" class="txt-badge" fill="var(--c-sec)">SEGURIDAD JWT</text>
-              <text x="18" y="93" class="txt-item">Tokens &amp; Refresh con RBAC</text>
+            <path d="M 15 235 L 285 235" stroke="var(--border)" stroke-width="1" stroke-dasharray="3 2"/>
+            <text x="18" y="254" font-family="var(--font-mono)" font-size="8.5px" fill="var(--text-dim)">• Emisión de Access Token (15 min) + Refresh</text>
+            <text x="18" y="268" font-family="var(--font-mono)" font-size="8.5px" fill="var(--text-dim)">• Rotación criptográfica de claves públicas</text>
+          </g>
 
-              <rect x="10" y="112" width="125" height="42" rx="6" fill="var(--surface-2)"/>
-              <text x="18" y="128" class="txt-badge" fill="var(--c-sec)">RATE LIMITING</text>
-              <text x="18" y="143" class="txt-item">Token bucket en Redis</text>
+          <!-- ============================================================== -->
+          <!-- 4. CAPA MEDIA IZQUIERDA: SERVICIOS EXTERNOS (INTEGRACIONES)    -->
+          <!-- ============================================================== -->
+          <g class="node-click" data-id="ext-gemini" transform="translate(25, 415)">
+            <rect class="layer-card" x="0" y="0" width="245" height="180" rx="12" fill="var(--card-bg)" stroke="var(--border)" stroke-width="1.4"/>
+            <rect x="0" y="0" width="245" height="34" rx="12" fill="var(--surface-2)"/>
+            <path d="M 0 34 L 245 34" stroke="var(--border)" stroke-width="1"/>
+            <text x="14" y="22" font-family="var(--font-main)" font-size="11.5px" font-weight="800" fill="var(--text)">
+              Servicios Externos <tspan font-weight="500" font-size="9px" fill="var(--text-muted)">(Integraciones)</tspan>
+            </text>
 
-              <rect x="10" y="162" width="125" height="42" rx="6" fill="var(--surface-2)"/>
-              <text x="18" y="178" class="txt-badge" fill="var(--c-sec)">PRIVACIDAD HIPAA</text>
-              <text x="18" y="193" class="txt-item">Cifrado biométrico extremo</text>
-
-              <rect x="10" y="212" width="125" height="42" rx="6" fill="var(--surface-2)"/>
-              <text x="18" y="228" class="txt-badge" fill="var(--c-sec)">ORQUESTADOR</text>
-              <text x="18" y="243" class="txt-item">Enrutamiento REST y WSS</text>
+            <g transform="translate(14, 46)" font-family="var(--font-main)" font-size="9px" fill="var(--text-muted)">
+              <g transform="translate(0, 0)">
+                <text x="0" y="10">🤖</text>
+                <text x="18" y="10" font-weight="700" fill="var(--text)">Google Gemini AI API</text>
+                <text x="18" y="20" font-size="7.5px" fill="var(--text-dim)">Coaching y explicabilidad causal XAI</text>
+              </g>
+              <g transform="translate(0, 26)">
+                <text x="0" y="10">💓</text>
+                <text x="18" y="10" font-weight="700" fill="var(--text)">Health Connect / Fit API</text>
+                <text x="18" y="20" font-size="7.5px" fill="var(--text-dim)">Pasos, sueño y frecuencia cardíaca</text>
+              </g>
+              <g transform="translate(0, 52)">
+                <text x="0" y="10">💬</text>
+                <text x="18" y="10" font-weight="700" fill="var(--text)">Firebase FCM</text>
+                <text x="18" y="20" font-size="7.5px" fill="var(--text-dim)">Notificaciones push en reloj y web</text>
+              </g>
+              <g transform="translate(0, 78)">
+                <text x="0" y="10">✉️</text>
+                <text x="18" y="10" font-weight="700" fill="var(--text)">Resend / SendGrid</text>
+                <text x="18" y="20" font-size="7.5px" fill="var(--text-dim)">Correos de 2FA y reportes semanales</text>
+              </g>
+              <g transform="translate(0, 104)">
+                <text x="0" y="10">💳</text>
+                <text x="18" y="10" font-weight="700" fill="var(--text)">Stripe &amp; AWS S3 Storage</text>
+                <text x="18" y="20" font-size="7.5px" fill="var(--text-dim)">Suscripciones premium y backups</text>
+              </g>
             </g>
           </g>
 
           <!-- ============================================================== -->
-          <!-- 4. CAPA: BACKEND & DUAL IA (X: 635, W: 220)                   -->
+          <!-- 5. CAPA MEDIA CENTRAL: API PROPIA (BACKEND & DUAL IA)           -->
           <!-- ============================================================== -->
-          <g class="layer-group" data-layer="backend">
-            <rect x="630" y="52" width="225" height="520" rx="10" fill="var(--box-bg)" stroke="var(--border)"/>
-            <text x="742" y="74" class="txt-badge" fill="var(--c-api)" text-anchor="middle">LÓGICA &amp; DUAL CORE IA</text>
+          <g class="node-click" data-id="be-node" transform="translate(325, 415)">
+            <rect class="layer-card" x="0" y="0" width="630" height="180" rx="14" fill="var(--card-bg)" stroke="var(--brand-glow)" stroke-width="1.8"/>
+            <rect x="0" y="0" width="630" height="34" rx="14" fill="var(--surface-2)"/>
+            <path d="M 0 34 L 630 34" stroke="var(--border)" stroke-width="1"/>
+            <text x="18" y="22" font-family="var(--font-main)" font-size="12px" font-weight="800" fill="var(--text)">
+              ⚙️ API Propia (Backend &amp; Dual Core IA)
+            </text>
 
-            <!-- Microservicio Gateway / Ingesta -->
-            <g class="node-click" data-id="be-node" transform="translate(640, 110)">
-              <rect class="layer-card" x="0" y="0" width="205" height="150"/>
-              <rect x="12" y="12" width="28" height="28" rx="6" fill="rgba(52, 211, 153, 0.15)"/>
-              <path d="M 26 18 L 34 23 L 34 31 L 26 36 L 18 31 L 18 23 Z" fill="none" stroke="var(--c-api)" stroke-width="1.8"/>
-              <text x="48" y="24" class="txt-title">Backend Principal</text>
-              <text x="48" y="37" class="txt-tech">NODE.JS · EXPRESS · SOCKET.IO</text>
-              <line x1="12" y1="48" x2="193" y2="48" stroke="var(--border)"/>
-              <text x="14" y="66" class="txt-item">• Ingesta reactiva de telemetría</text>
-              <text x="14" y="82" class="txt-item">• Eventos Socket.IO bidireccionales</text>
-              <text x="14" y="98" class="txt-item">• Sincronización de hábitos &amp; streaks</text>
-              <text x="14" y="114" class="txt-item">• Despachador de notificaciones FCM</text>
-              <text x="14" y="130" class="txt-item">• APIs REST sobre HTTPS/JSON</text>
+            <g transform="translate(20, 52)">
+              <rect x="0" y="0" width="98" height="40" rx="6" fill="#1E293B" stroke="#22C55E" stroke-width="1.2"/>
+              <text x="10" y="25" font-family="var(--font-main)" font-size="14px" font-weight="900" fill="#22C55E">node<tspan fill="#FFF">.js</tspan></text>
+
+              <text x="110" y="25" font-family="var(--font-main)" font-size="11px" font-weight="700" fill="var(--text-muted)">+ IA</text>
+
+              <rect x="135" y="0" width="98" height="40" rx="6" fill="#1E293B" stroke="#009688" stroke-width="1.2"/>
+              <text x="146" y="25" font-family="var(--font-main)" font-size="13px" font-weight="900" fill="#009688">FastAPI</text>
+
+              <text x="0" y="58" font-family="var(--font-mono)" font-size="9px" fill="var(--text-dim)">(Node.js + Express)</text>
+              <text x="0" y="72" font-family="var(--font-mono)" font-size="9px" fill="var(--brand-light)">(FastAPI + Python ML &amp; Gemini)</text>
+              <text x="0" y="90" font-family="var(--font-mono)" font-size="8px" fill="#A78BFA">• Dual Core: Ingesta I/O + Inferencia ML</text>
             </g>
 
-            <!-- Microservicio Python FastAPI + Scikit-Learn + Gemini -->
-            <g class="node-click" data-id="be-fastapi" transform="translate(640, 280)">
-              <rect class="layer-card" x="0" y="0" width="205" height="210" stroke="var(--c-api)"/>
-              <rect x="12" y="12" width="28" height="28" rx="6" fill="rgba(52, 211, 153, 0.15)"/>
-              <path d="M 26 18 L 22 28 L 28 28 L 24 36" fill="none" stroke="var(--c-api)" stroke-width="2"/>
-              <text x="48" y="24" class="txt-title">Motor ML &amp; Gemini</text>
-              <text x="48" y="37" class="txt-tech">FASTAPI · SCIKIT-LEARN · GEMINI</text>
-              <line x1="12" y1="48" x2="193" y2="48" stroke="var(--border)"/>
+            <line x1="270" y1="42" x2="270" y2="170" stroke="var(--border)" stroke-width="1" stroke-dasharray="3 2"/>
 
-              <rect x="12" y="58" width="181" height="38" rx="5" fill="var(--surface-2)"/>
-              <text x="20" y="72" class="txt-badge" fill="var(--c-api)">BURNOUT PREDICTOR</text>
-              <text x="20" y="86" class="txt-item">Modelo supervisado fatiga mental</text>
-
-              <rect x="12" y="104" width="181" height="38" rx="5" fill="var(--surface-2)"/>
-              <text x="20" y="118" class="txt-badge" fill="var(--c-api)">CLUSTERING K-MEANS</text>
-              <text x="20" y="132" class="txt-item">Segmentación arquetipos no supervisado</text>
-
-              <rect x="12" y="150" width="181" height="38" rx="5" fill="var(--surface-2)"/>
-              <text x="20" y="164" class="txt-badge" fill="var(--c-api)">COACHING EXPLICABLE (XAI)</text>
-              <text x="20" y="178" class="txt-item">Síntesis causal con Gemini AI</text>
+            <g transform="translate(285, 48)" font-family="var(--font-main)" font-size="9px" fill="var(--text-muted)">
+              <text x="0" y="14">• <tspan font-weight="700" fill="var(--text)">Endpoints REST (JSON)</tspan> documentados en Swagger / OpenAPI</text>
+              <text x="0" y="30">• <tspan font-weight="700" fill="var(--text)">Validación de tokens JWT</tspan> y Rate Limiting en Redis</text>
+              <text x="0" y="46">• Lógica de negocio de hábitos, rachas, compromisos y metas</text>
+              <text x="0" y="62">• <tspan font-weight="700" fill="#009688">FastAPI Engine:</tspan> Detección temprana de Burnout (Scikit-Learn)</text>
+              <text x="0" y="78">• <tspan font-weight="700" fill="#6366F1">Gemini AI Engine:</tspan> Coaching conductual explicable (XAI)</text>
+              <text x="0" y="94">• <tspan font-weight="700" fill="#38BDF8">WebSockets (Socket.IO):</tspan> Transmisión dúplex en tiempo real</text>
+              <text x="0" y="110">• Ingesta tolerante a desconexión desde terminales Wear OS</text>
             </g>
           </g>
 
           <!-- ============================================================== -->
-          <!-- 5. CAPA: PERSISTENCIA HÍBRIDA (X: 910, W: 155)                 -->
+          <!-- 6. CAPA MEDIA DERECHA: MONITOREO Y LOGS (OBSERVABILIDAD)       -->
           <!-- ============================================================== -->
-          <g class="layer-group" data-layer="datos">
-            <rect x="905" y="52" width="160" height="520" rx="10" fill="var(--box-bg)" stroke="var(--border)"/>
-            <text x="985" y="74" class="txt-badge" fill="var(--c-data)" text-anchor="middle">PERSISTENCIA HÍBRIDA</text>
+          <g class="node-click" data-id="inf-prom" transform="translate(985, 415)">
+            <rect class="layer-card" x="0" y="0" width="300" height="180" rx="14" fill="var(--card-bg)" stroke="#06B6D4" stroke-width="1.4"/>
+            <rect x="0" y="0" width="300" height="34" rx="14" fill="rgba(6, 182, 212, 0.12)"/>
+            <path d="M 0 34 L 300 34" stroke="rgba(6, 182, 212, 0.25)" stroke-width="1"/>
+            <text x="16" y="22" font-family="var(--font-main)" font-size="12px" font-weight="800" fill="var(--text)">Monitoreo y Logs</text>
 
-            <!-- PostgreSQL Relacional -->
-            <g class="node-click" data-id="db-sql" transform="translate(915, 95)">
-              <rect class="layer-card" x="0" y="0" width="140" height="95"/>
-              <text x="12" y="24" class="txt-title">PostgreSQL</text>
-              <text x="12" y="37" class="txt-tech">SQL · TIDB SERVERLESS</text>
-              <line x1="10" y1="46" x2="130" y2="46" stroke="var(--border)"/>
-              <text x="12" y="62" class="txt-item">• Usuarios y auth</text>
-              <text x="12" y="75" class="txt-item">• Hábitos parametrizados</text>
-              <text x="12" y="88" class="txt-item">• Rachas y suscripciones</text>
-            </g>
-
-            <!-- MongoDB Telemetría -->
-            <g class="node-click" data-id="db-mongo" transform="translate(915, 205)">
-              <rect class="layer-card" x="0" y="0" width="140" height="95"/>
-              <text x="12" y="24" class="txt-title">MongoDB</text>
-              <text x="12" y="37" class="txt-tech">NOSQL · TIME SERIES</text>
-              <line x1="10" y1="46" x2="130" y2="46" stroke="var(--border)"/>
-              <text x="12" y="62" class="txt-item">• Telemetría Wear OS</text>
-              <text x="12" y="75" class="txt-item">• Eventos biométricos</text>
-              <text x="12" y="88" class="txt-item">• Logs de inferencia IA</text>
-            </g>
-
-            <!-- Redis Caché -->
-            <g class="node-click" data-id="db-redis" transform="translate(915, 315)">
-              <rect class="layer-card" x="0" y="0" width="140" height="85"/>
-              <text x="12" y="24" class="txt-title">Redis</text>
-              <text x="12" y="37" class="txt-tech">IN-MEMORY · PUBSUB</text>
-              <line x1="10" y1="46" x2="130" y2="46" stroke="var(--border)"/>
-              <text x="12" y="62" class="txt-item">• Sesiones y tokens</text>
-              <text x="12" y="75" class="txt-item">• Caché de streaks</text>
-            </g>
-
-            <!-- Room DB (Smartwatch) -->
-            <g class="node-click" data-id="db-room" transform="translate(915, 415)">
-              <rect class="layer-card" x="0" y="0" width="140" height="95"/>
-              <text x="12" y="24" class="txt-title">Room DB</text>
-              <text x="12" y="37" class="txt-tech">SQLITE LOCAL (WEAR)</text>
-              <line x1="10" y1="46" x2="130" y2="46" stroke="var(--border)"/>
-              <text x="12" y="62" class="txt-item">• Persistencia offline</text>
-              <text x="12" y="75" class="txt-item">• Buffer de telemetría</text>
-              <text x="12" y="88" class="txt-item">• Sincronización diferida</text>
+            <g transform="translate(16, 48)" font-family="var(--font-main)" font-size="9px" fill="var(--text-muted)">
+              <g transform="translate(0, 0)">
+                <circle cx="10" cy="8" r="8" fill="rgba(249, 115, 22, 0.2)"/>
+                <text x="10" y="12" font-size="9px" text-anchor="middle">📈</text>
+                <text x="26" y="11" font-weight="700" fill="var(--text)">Grafana</text>
+                <text x="74" y="11" fill="var(--text-dim)">(Métricas y dashboards)</text>
+              </g>
+              <g transform="translate(0, 30)">
+                <circle cx="10" cy="8" r="8" fill="rgba(239, 68, 68, 0.2)"/>
+                <text x="10" y="12" font-size="9px" text-anchor="middle">⏱️</text>
+                <text x="26" y="11" font-weight="700" fill="var(--text)">Prometheus</text>
+                <text x="94" y="11" fill="var(--text-dim)">(Métricas de API e IA)</text>
+              </g>
+              <g transform="translate(0, 60)">
+                <circle cx="10" cy="8" r="8" fill="rgba(234, 179, 8, 0.2)"/>
+                <text x="10" y="12" font-size="9px" text-anchor="middle">📝</text>
+                <text x="26" y="11" font-weight="700" fill="var(--text)">Winston / Loki</text>
+                <text x="104" y="11" fill="var(--text-dim)">(Logs JSON estructurados)</text>
+              </g>
+              <g transform="translate(0, 90)">
+                <circle cx="10" cy="8" r="8" fill="rgba(16, 185, 129, 0.2)"/>
+                <text x="10" y="12" font-size="9px" text-anchor="middle">🚨</text>
+                <text x="26" y="11" font-weight="700" fill="var(--text)">Alertmanager</text>
+                <text x="104" y="11" fill="var(--text-dim)">(Alertas y disponibilidad)</text>
+              </g>
             </g>
           </g>
 
           <!-- ============================================================== -->
-          <!-- 6. CAPA: SERVICIOS EXTERNOS (X: 1115, W: 175)                  -->
+          <!-- 7. CAPA INFERIOR IZQUIERDA: CAPA DE DATOS (PERSISTENCIA)       -->
           <!-- ============================================================== -->
-          <g class="layer-group" data-layer="externos">
-            <rect x="1110" y="52" width="180" height="520" rx="10" fill="var(--box-bg)" stroke="var(--border)"/>
-            <text x="1200" y="74" class="txt-badge" fill="var(--c-ext)" text-anchor="middle">SERVICIOS EXTERNOS</text>
+          <g transform="translate(200, 625)">
+            <rect x="0" y="0" width="755" height="145" rx="14" fill="var(--card-bg)" stroke="var(--border)" stroke-width="1.5"/>
+            <rect x="0" y="0" width="755" height="32" rx="14" fill="rgba(245, 158, 11, 0.12)"/>
+            <path d="M 0 32 L 755 32" stroke="rgba(245, 158, 11, 0.25)" stroke-width="1"/>
+            <text x="16" y="21" font-family="var(--font-main)" font-size="12px" font-weight="800" fill="var(--text)">
+              Capa de Datos <tspan font-weight="500" font-size="10px" fill="var(--text-muted)">(Persistencia Políglota e Híbrida)</tspan>
+            </text>
 
-            <g class="node-click" data-id="ext-gemini" transform="translate(1120, 90)">
-              <rect class="layer-card" x="0" y="0" width="160" height="65"/>
-              <text x="10" y="22" class="txt-title" font-size="12px">Gemini AI API</text>
-              <text x="10" y="36" class="txt-tech" fill="#F472B6">LO LLAMA: FASTAPI ML</text>
-              <text x="10" y="52" class="txt-item">Coaching generativo explicable</text>
+            <!-- Card 1: Relacional PostgreSQL -->
+            <g class="node-click" data-id="db-sql" transform="translate(12, 42)">
+              <rect class="layer-card" x="0" y="0" width="175" height="92" rx="8" fill="var(--box-bg)" stroke="#3B82F6" stroke-width="1.2"/>
+              <text x="10" y="18" font-family="var(--font-main)" font-size="10px" font-weight="800" fill="var(--text)">🐘 BD Relacional</text>
+              <text x="10" y="30" font-family="var(--font-mono)" font-size="8.5px" font-weight="700" fill="#3B82F6">(PostgreSQL / TiDB)</text>
+              <text x="10" y="48" font-family="var(--font-main)" font-size="8px" fill="var(--text-muted)">• Usuarios y perfiles</text>
+              <text x="10" y="60" font-family="var(--font-main)" font-size="8px" fill="var(--text-muted)">• Hábitos, rachas y metas</text>
+              <text x="10" y="72" font-family="var(--font-main)" font-size="8px" fill="var(--text-muted)">• Pagos y contratos ACID</text>
+              <text x="10" y="84" font-family="var(--font-main)" font-size="8px" fill="var(--text-dim)">• Conexión SSL/TLS</text>
             </g>
 
-            <g class="node-click" data-id="ext-fit" transform="translate(1120, 165)">
-              <rect class="layer-card" x="0" y="0" width="160" height="65"/>
-              <text x="10" y="22" class="txt-title" font-size="12px">Health Connect</text>
-              <text x="10" y="36" class="txt-tech" fill="#F472B6">LO LLAMA: WEAR OS</text>
-              <text x="10" y="52" class="txt-item">Pasos, sueño y frecuencia cardíaca</text>
+            <!-- Card 2: NoSQL MongoDB -->
+            <g class="node-click" data-id="db-mongo" transform="translate(195, 42)">
+              <rect class="layer-card" x="0" y="0" width="175" height="92" rx="8" fill="var(--box-bg)" stroke="#10B981" stroke-width="1.2"/>
+              <text x="10" y="18" font-family="var(--font-main)" font-size="10px" font-weight="800" fill="var(--text)">🍃 BD NoSQL</text>
+              <text x="10" y="30" font-family="var(--font-mono)" font-size="8.5px" font-weight="700" fill="#10B981">(MongoDB Timeseries)</text>
+              <text x="10" y="48" font-family="var(--font-main)" font-size="8px" fill="var(--text-muted)">• Telemetría de sensores</text>
+              <text x="10" y="60" font-family="var(--font-main)" font-size="8px" fill="var(--text-muted)">• Series de tiempo continuas</text>
+              <text x="10" y="72" font-family="var(--font-main)" font-size="8px" fill="var(--text-muted)">• Logs biométricos crudos</text>
+              <text x="10" y="84" font-family="var(--font-main)" font-size="8px" fill="var(--text-dim)">• Índices TTL automáticos</text>
             </g>
 
-            <g class="node-click" data-id="ext-fcm" transform="translate(1120, 240)">
-              <rect class="layer-card" x="0" y="0" width="160" height="65"/>
-              <text x="10" y="22" class="txt-title" font-size="12px">Firebase FCM</text>
-              <text x="10" y="36" class="txt-tech" fill="#F472B6">LO LLAMA: NODE.JS</text>
-              <text x="10" y="52" class="txt-item">Alertas push inteligentes</text>
+            <!-- Card 3: Caché / Sesiones Redis -->
+            <g class="node-click" data-id="db-redis" transform="translate(378, 42)">
+              <rect class="layer-card" x="0" y="0" width="175" height="92" rx="8" fill="var(--box-bg)" stroke="#EF4444" stroke-width="1.2"/>
+              <text x="10" y="18" font-family="var(--font-main)" font-size="10px" font-weight="800" fill="var(--text)">⚡ Caché / Sesiones</text>
+              <text x="10" y="30" font-family="var(--font-mono)" font-size="8.5px" font-weight="700" fill="#EF4444">(Redis In-Memory)</text>
+              <text x="10" y="48" font-family="var(--font-main)" font-size="8px" fill="var(--text-muted)">• Sesiones de usuario y JWT</text>
+              <text x="10" y="60" font-family="var(--font-main)" font-size="8px" fill="var(--text-muted)">• Pub/Sub para WebSockets</text>
+              <text x="10" y="72" font-family="var(--font-main)" font-size="8px" fill="var(--text-muted)">• Ventanas de Rate Limiting</text>
+              <text x="10" y="84" font-family="var(--font-main)" font-size="8px" fill="var(--text-dim)">• Respuestas en &lt; 2 ms</text>
             </g>
 
-            <g class="node-click" data-id="ext-mail" transform="translate(1120, 315)">
-              <rect class="layer-card" x="0" y="0" width="160" height="65"/>
-              <text x="10" y="22" class="txt-title" font-size="12px">Resend / SendGrid</text>
-              <text x="10" y="36" class="txt-tech" fill="#F472B6">LO LLAMA: NODE.JS</text>
-              <text x="10" y="52" class="txt-item">Emails transaccionales y 2FA</text>
-            </g>
-
-            <g class="node-click" data-id="ext-stripe" transform="translate(1120, 390)">
-              <rect class="layer-card" x="0" y="0" width="160" height="65"/>
-              <text x="10" y="22" class="txt-title" font-size="12px">Stripe API</text>
-              <text x="10" y="36" class="txt-tech" fill="#F472B6">LO LLAMA: NODE.JS</text>
-              <text x="10" y="52" class="txt-item">Suscripciones freemium/premium</text>
-            </g>
-
-            <g class="node-click" data-id="ext-s3" transform="translate(1120, 465)">
-              <rect class="layer-card" x="0" y="0" width="160" height="65"/>
-              <text x="10" y="22" class="txt-title" font-size="12px">Cloud Storage / S3</text>
-              <text x="10" y="36" class="txt-tech" fill="#F472B6">LO LLAMA: BACKEND</text>
-              <text x="10" y="52" class="txt-item">Respaldos encriptados de datos</text>
+            <!-- Card 4: Base Local Wearable Room DB -->
+            <g class="node-click" data-id="db-room" transform="translate(561, 42)">
+              <rect class="layer-card" x="0" y="0" width="180" height="92" rx="8" fill="var(--box-bg)" stroke="#8B5CF6" stroke-width="1.2"/>
+              <text x="10" y="18" font-family="var(--font-main)" font-size="10px" font-weight="800" fill="var(--text)">📱 BD Local Wearable</text>
+              <text x="10" y="30" font-family="var(--font-mono)" font-size="8.5px" font-weight="700" fill="#8B5CF6">(Room DB · SQLite)</text>
+              <text x="10" y="48" font-family="var(--font-main)" font-size="8px" fill="var(--text-muted)">• Cola local en Smartwatch</text>
+              <text x="10" y="60" font-family="var(--font-main)" font-size="8px" fill="var(--text-muted)">• Soporte Offline-First total</text>
+              <text x="10" y="72" font-family="var(--font-main)" font-size="8px" fill="var(--text-muted)">• Cifrado en reposo Keystore</text>
+              <text x="10" y="84" font-family="var(--font-main)" font-size="8px" fill="var(--text-dim)">• Sincronización atómica</text>
             </g>
           </g>
 
           <!-- ============================================================== -->
-          <!-- 7. INFRAESTRUCTURA, DESPLIEGUE Y OBSERVABILIDAD (FILA INFERIOR) -->
+          <!-- 8. CAPA INFERIOR DERECHA: CARACTERÍSTICAS CLAVE (CHECKBOXES)   -->
           <!-- ============================================================== -->
-          <g class="layer-group" data-layer="infra" transform="translate(30, 590)">
-            <rect x="0" y="0" width="1260" height="110" rx="12" fill="var(--box-bg)" stroke="var(--border)"/>
-            <text x="24" y="25" class="txt-badge" fill="var(--brand-glow)">INFRAESTRUCTURA, CONTENEDORES Y OBSERVABILIDAD</text>
+          <g transform="translate(985, 625)">
+            <rect x="0" y="0" width="300" height="145" rx="14" fill="var(--card-bg)" stroke="var(--border)" stroke-width="1.5"/>
+            <rect x="0" y="0" width="300" height="32" rx="14" fill="var(--surface-2)"/>
+            <path d="M 0 32 L 300 32" stroke="var(--border)" stroke-width="1"/>
+            <text x="16" y="21" font-family="var(--font-main)" font-size="12px" font-weight="800" fill="var(--text)">Características Clave</text>
 
-            <!-- Docker Compose -->
-            <g class="node-click" data-id="inf-docker" transform="translate(20, 38)">
-              <rect class="layer-card" x="0" y="0" width="220" height="58"/>
-              <text x="14" y="24" class="txt-title" font-size="12.5px">Docker &amp; Compose</text>
-              <text x="14" y="44" class="txt-sub">Un contenedor por servicio · multi-stage</text>
-            </g>
-
-            <!-- Render / Cloud -->
-            <g class="node-click" data-id="inf-cloud" transform="translate(260, 38)">
-              <rect class="layer-card" x="0" y="0" width="220" height="58"/>
-              <text x="14" y="24" class="txt-title" font-size="12.5px">Render / Cloud VPS</text>
-              <text x="14" y="44" class="txt-sub">Despliegue con TLS 1.3 automático</text>
-            </g>
-
-            <!-- Prometheus -->
-            <g class="node-click" data-id="inf-prom" transform="translate(500, 38)">
-              <rect class="layer-card" x="0" y="0" width="220" height="58"/>
-              <text x="14" y="24" class="txt-title" font-size="12.5px">Prometheus Server</text>
-              <text x="14" y="44" class="txt-sub">Métricas de CPU, memoria y latencia</text>
-            </g>
-
-            <!-- Grafana -->
-            <g class="node-click" data-id="inf-graf" transform="translate(740, 38)">
-              <rect class="layer-card" x="0" y="0" width="220" height="58"/>
-              <text x="14" y="24" class="txt-title" font-size="12.5px">Grafana Dashboards</text>
-              <text x="14" y="44" class="txt-sub">Monitoreo en tiempo real y alertas</text>
-            </g>
-
-            <!-- Winston / Loki -->
-            <g class="node-click" data-id="inf-logs" transform="translate(980, 38)">
-              <rect class="layer-card" x="0" y="0" width="260" height="58"/>
-              <text x="14" y="24" class="txt-title" font-size="12.5px">Winston &amp; Central Logs</text>
-              <text x="14" y="44" class="txt-sub">Auditoría, trazabilidad y logs de error</text>
+            <g transform="translate(16, 46)" font-family="var(--font-main)" font-size="9px" fill="var(--text-muted)">
+              <g transform="translate(0, 0)">
+                <circle cx="8" cy="8" r="7" fill="#10B981"/>
+                <path d="M 5 8 L 7.5 10.5 L 11.5 5.5" fill="none" stroke="#FFF" stroke-width="1.8"/>
+                <text x="22" y="11" font-weight="700" fill="var(--text)">Una sola cuenta con sincronización total</text>
+              </g>
+              <g transform="translate(0, 20)">
+                <circle cx="8" cy="8" r="7" fill="#10B981"/>
+                <path d="M 5 8 L 7.5 10.5 L 11.5 5.5" fill="none" stroke="#FFF" stroke-width="1.8"/>
+                <text x="22" y="11" font-weight="700" fill="var(--text)">Modo Offline-First sin pérdida de datos</text>
+              </g>
+              <g transform="translate(0, 40)">
+                <circle cx="8" cy="8" r="7" fill="#10B981"/>
+                <path d="M 5 8 L 7.5 10.5 L 11.5 5.5" fill="none" stroke="#FFF" stroke-width="1.8"/>
+                <text x="22" y="11" font-weight="700" fill="var(--text)">Dual Core IA: Prevención de Burnout + XAI</text>
+              </g>
+              <g transform="translate(0, 60)">
+                <circle cx="8" cy="8" r="7" fill="#10B981"/>
+                <path d="M 5 8 L 7.5 10.5 L 11.5 5.5" fill="none" stroke="#FFF" stroke-width="1.8"/>
+                <text x="22" y="11" font-weight="700" fill="var(--text)">Blindaje y Cifrado médico (HIPAA / GDPR)</text>
+              </g>
+              <g transform="translate(0, 80)">
+                <circle cx="8" cy="8" r="7" fill="#10B981"/>
+                <path d="M 5 8 L 7.5 10.5 L 11.5 5.5" fill="none" stroke="#FFF" stroke-width="1.8"/>
+                <text x="22" y="11" font-weight="700" fill="var(--text)">Arquitectura modular lista para producción</text>
+              </g>
             </g>
           </g>
+
+          <!-- ============================================================== -->
+          <!-- 9. BANDA INFERIOR: INFRAESTRUCTURA / DESPLIEGUE                -->
+          <!-- ============================================================== -->
+          <g class="node-click" data-id="inf-docker" transform="translate(200, 785)">
+            <rect class="layer-card" x="0" y="0" width="1085" height="58" rx="12" fill="var(--card-bg)" stroke="var(--border)" stroke-width="1.4"/>
+            <text x="18" y="24" font-family="var(--font-main)" font-size="11.5px" font-weight="800" fill="var(--text)">
+              Infraestructura / Despliegue
+            </text>
+
+            <g transform="translate(230, 14)">
+              <g transform="translate(0, 0)">
+                <circle cx="16" cy="16" r="14" fill="#0284C7"/>
+                <text x="16" y="21" font-size="13px" text-anchor="middle">🐳</text>
+                <text x="36" y="15" font-family="var(--font-main)" font-size="10px" font-weight="700" fill="var(--text)">Contenedores</text>
+                <text x="36" y="27" font-family="var(--font-mono)" font-size="8.5px" fill="var(--text-dim)">(Docker 26 · Multi-stage)</text>
+              </g>
+
+              <g transform="translate(300, 0)">
+                <circle cx="16" cy="16" r="14" fill="#3B82F6"/>
+                <text x="16" y="21" font-size="13px" text-anchor="middle">☸️</text>
+                <text x="36" y="15" font-family="var(--font-main)" font-size="10px" font-weight="700" fill="var(--text)">Orquestación</text>
+                <text x="36" y="27" font-family="var(--font-mono)" font-size="8.5px" fill="var(--text-dim)">(Docker Compose · Red Privada)</text>
+              </g>
+
+              <g transform="translate(600, 0)">
+                <circle cx="16" cy="16" r="14" fill="#6366F1"/>
+                <text x="16" y="21" font-size="13px" text-anchor="middle">☁️</text>
+                <text x="36" y="15" font-family="var(--font-main)" font-size="10px" font-weight="700" fill="var(--text)">Cloud / VPS</text>
+                <text x="36" y="27" font-family="var(--font-mono)" font-size="8.5px" fill="var(--text-dim)">(Render Cloud · Despliegue CI/CD)</text>
+              </g>
+            </g>
+          </g>
+
+          <!-- ============================================================== -->
+          <!-- 10. SLOGANS INFERIORES DEL PIE (IGUAL AL EJEMPLO)              -->
+          <!-- ============================================================== -->
+          <text x="30" y="872" font-family="var(--font-main)" font-size="11px" font-style="italic" fill="var(--brand-light)">
+            Tecnología que cuantifica hábitos y previene el burnout
+          </text>
+          <text x="1285" y="872" font-family="var(--font-main)" font-size="11px" font-style="italic" fill="var(--brand-light)" text-anchor="end">
+            Construye hábitos hoy, transforma tu bienestar mañana
+          </text>
         </svg>
       </div>
     </div>
@@ -1730,6 +1917,20 @@
     (() => {
       // Base de datos de componentes para el modal
       const COMPONENT_DB = {
+        'idp-keycloak': {
+          tag: 'SEGURIDAD & AUTENTICACIÓN',
+          title: 'Proveedor de Identidad (IdP / Keycloak)',
+          tech: 'Keycloak 24 · OAuth 2.0 · OpenID Connect · JWKS · HIPAA Shield',
+          desc: 'Servicio centralizado de gestión de identidades y control de acceso. Permite inicio de sesión único (SSO) en todas las plataformas y emite tokens JWT firmados asimétricamente.',
+          list: [
+            'Autenticación federada y SSO: Una misma cuenta para Smartwatch, Web y Móvil.',
+            'Emisión de Access Tokens (15 min) y Refresh Tokens con rotación segura.',
+            'Validación asimétrica mediante JWKS sin saturar la base de datos de usuarios.',
+            'Control de acceso basado en roles (RBAC): Usuario, Administrador e Ingeniero MLOps.',
+            'Blindaje perimetral para cumplimiento estricto de privacidad médica HIPAA y GDPR.'
+          ],
+          code: 'GET /realms/quantify-core/protocol/openid-connect/certs'
+        },
         'act-user': {
           tag: 'USUARIOS / ACTORES',
           title: 'Usuario Final (Atletas, Estudiantes y Profesionales)',
@@ -2138,7 +2339,7 @@
         img.onload = function () {
           const canvas = document.createElement('canvas');
           canvas.width = 2640;
-          canvas.height = 1480;
+          canvas.height = 1800;
           const ctx = canvas.getContext('2d');
           ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() || '#0B0F17';
           ctx.fillRect(0, 0, canvas.width, canvas.height);
