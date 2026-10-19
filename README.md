@@ -58,6 +58,7 @@ Los diagramas y secciones desplegables de los README ayudan a recorrer estas gu�
 - [Datos, IA y biometría](#datos-ia-y-biometría)
 - [Seguridad y privacidad](#seguridad-y-privacidad)
 - [Roadmap](#roadmap)
+- [Diagrama de Gantt en Jira](#diagrama-de-gantt-en-jira)
 - [Estructura propuesta del proyecto](#estructura-propuesta-del-proyecto)
 - [Instalación y ejecución](#instalación-y-ejecución)
 - [Documentación y prácticas académicas](#documentación-y-prácticas-académicas)
@@ -371,6 +372,14 @@ El equipo deberá validar la normativa y las políticas institucionales aplicabl
 ## Roadmap
 
 Las fechas y responsables se gestionarán en Jira. Este roadmap expresa orden y criterios de avance, no compromisos de entrega.
+
+### Diagrama de Gantt en Jira
+
+El cronograma del proyecto se organiza en Jira por sprints y actividades. Estas dos capturas muestran la planificación en formato de Gantt: la primera presenta el arranque de los trabajos y la segunda continúa hasta las etapas de integración y entrega. Para consultar fechas, asignaciones y avances vigentes, revisar Jira; las capturas muestran el plan al momento de tomarlas.
+
+![Diagrama de Gantt de Quantify Core en Jira: inicio de los sprints y actividades de documentación, arquitectura, identidad, datos, API, web, móvil, IA, Wear OS y pruebas.](gannt.png)
+
+![Continuación del diagrama de Gantt de Quantify Core en Jira: sprints de backend, integración y entrega, con las actividades del proyecto.](gannt2.png)
 
 ### Fase 0 — Definición
 
