@@ -18,6 +18,8 @@ flowchart LR
 | Elegir rama, integrar y preparar versiones | [Git Flow](git-flow.md). |
 | Revisar y presentar un cambio | [Contribución](../../CONTRIBUTING.md). |
 | Consultar las comprobaciones de esta entrega documental | [Validación documental](validacion-documental.md). |
+| Seguir el proceso técnico de una tarea | [Manual del equipo](../Manual/README.md). |
+| Explorar la experiencia disponible | [Manual de usuario](../UserManual/README.md). |
 
 <details>
 <summary>Qué debe incluir una nueva guía</summary>

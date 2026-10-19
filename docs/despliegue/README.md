@@ -20,5 +20,6 @@ flowchart LR
 | Diagnosticar, revertir y restaurar | [Incidentes y recuperación](recuperacion.md). |
 | Preparar dependencias de desarrollo | [Docker](../../infrastructure/docker/README.md). |
 | Consultar señales y alertas | [Observabilidad](../../infrastructure/observability/README.md). |
+| Preparar la copia local y saber qué falta instalar | [Installation](../Installation/README.md). |
 
 Antes de ejecutar un procedimiento, completar ambiente, responsable, versión, accesos, comandos verificados, recursos afectados y criterio de éxito. Las referencias a consolas o proveedores se incorporan cuando exista una elección; nunca se documentan credenciales reales.

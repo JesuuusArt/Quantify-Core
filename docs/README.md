@@ -4,6 +4,21 @@ Mapa de referencia para que el equipo y sus agentes implementen el mismo product
 
 **Estado:** base de desarrollo y contratos propuestos. El prototipo académico es ejecutable; los clientes y servicios del producto siguen pendientes de implementación. Cada módulo debe actualizar su estado y aportar evidencia cuando cambie esta situación.
 
+## Carpetas por tipo de documento
+
+| Carpeta | Contenido y referencia |
+|---|---|
+| [BRs](BRs/README.md) | Reglas de negocio y enlace a su definición `RN-P`. |
+| [FRs](FRs/README.md) | Requisitos funcionales `RF-01` a `RF-10`. |
+| [GUI](GUI/README.md) | Pantallas, estados, prototipo y diseño del producto. |
+| [Installation](Installation/README.md) | Preparación comprobable y requisitos de instalación futura. |
+| [Manual](Manual/README.md) | Guía técnica para diseñar, programar y entregar cambios. |
+| [NFRs](NFRs/README.md) | Requisitos no funcionales `RNF-01` a `RNF-10`. |
+| [UHs](UHs/README.md) | Historias de usuario y [primer recorrido](UHs/primer-flujo.md). |
+| [UserManual](UserManual/README.md) | Uso del prototipo disponible y alcance del manual futuro. |
+
+Estas carpetas organizan la lectura solicitada. Los requisitos, reglas y contratos mantienen sus fuentes canónicas enlazadas desde cada README; la misma definición no se vuelve a editar en ocho lugares.
+
 ## Cómo se conectan las decisiones
 
 ```mermaid
