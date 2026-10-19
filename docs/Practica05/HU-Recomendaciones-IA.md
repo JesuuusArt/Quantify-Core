@@ -1,5 +1,7 @@
 # HU-QC-05 — Recomendaciones de Hábitos Impulsadas por IA
 
+> **Contexto histórico:** esta historia documenta la Práctica 05. La definición de producto para recomendaciones es [RF-07](../requerimientos/catalogo.md), con [reglas](../requerimientos/reglas-negocio.md) y [decisiones pendientes](../arquitectura/decisiones-pendientes.md). Sus umbrales, estado de completitud y elecciones de bibliotecas no se trasladan automáticamente a la implementación.
+
 ## 1. Identificación
 
 | Atributo                 | Detalle                                                              |
