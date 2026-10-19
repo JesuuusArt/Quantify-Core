@@ -7,13 +7,13 @@
 Este documento presenta el **Business Model Canvas del proyecto Quantify Core**, una aplicación de seguimiento y refuerzo de hábitos con inteligencia artificial. El modelo describe cómo la aplicación llega a sus usuarios, qué problema resuelve, qué propuesta de valor ofrece, qué recursos requiere y cómo genera ingresos sostenibles. Fue estructurado de forma colaborativa por el equipo y transformado en un diagrama interactivo con Archify.
 
 <p align="center">
-  <a href="https://jesuuusart.github.io/Quantify-Core/docs/modelo-canvas/business-model-canvas.html">
+  <a href="https://jesuuusart.github.io/Quantify-Core/docs/Practica04/business-model-canvas.html">
     <img src="https://img.shields.io/badge/Ver%20el%20Modelo%20Canvas%20Interactivo%20en%20vivo-1E54C9?style=for-the-badge&logo=github&logoColor=white" alt="Abrir canvas"/>
   </a>
 </p>
 
 <p align="center">
-  <a href="https://jesuuusart.github.io/Quantify-Core/docs/modelo-canvas/business-model-canvas.html">
+  <a href="https://jesuuusart.github.io/Quantify-Core/docs/Practica04/business-model-canvas.html">
     <img src="business-model-canvas.visual-check.2048x1320.light.png" alt="Modelo Canvas Interactivo" width="800"/>
   </a>
 </p>
@@ -56,7 +56,7 @@ Analizar el contexto del Proyecto Integrador y representar formalmente su propue
 ## Enlaces
 
 - **Portal principal del proyecto:** https://jesuuusart.github.io/Quantify-Core/
-- **Canvas interactivo directo:** https://jesuuusart.github.io/Quantify-Core/docs/modelo-canvas/business-model-canvas.html
+- **Canvas interactivo directo:** https://jesuuusart.github.io/Quantify-Core/docs/Practica04/business-model-canvas.html
 
 ## Equipo
 

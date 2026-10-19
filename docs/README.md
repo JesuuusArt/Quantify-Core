@@ -23,13 +23,23 @@ Este directorio reúne la documentación funcional y técnica del proyecto, adem
 | `../.github/` | Plantillas de colaboración y automatización del repositorio. |
 | `Practica04/` | Material correspondiente a la Práctica 04. |
 | `Practica05/` | Material correspondiente a la Práctica 05. |
+| `practica-07/` | Material correspondiente a la Práctica 07. |
 
 Las secciones temáticas se irán incorporando conforme avance la definición del sistema. Los documentos de prácticas existentes se conservan en sus directorios actuales.
 
-## Documentos disponibles
+## Entregables interactivos en vivo (GitHub Pages)
 
-- [Práctica 04: README](Practica04/README.md)
-- [Práctica 05: README](Practica05/README.md)
+- [Portal principal](https://jesuuusart.github.io/Quantify-Core/)
+- [Práctica 04 — Business Model Canvas Interactivo](https://jesuuusart.github.io/Quantify-Core/docs/Practica04/business-model-canvas.html)
+- [Práctica 05 — Diagrama de Roles de Usuario Interactivo](https://jesuuusart.github.io/Quantify-Core/docs/Practica05/diagrama-roles-quantify.html)
+- [Práctica 07 — Prototipo Interactivo de Sketches](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/)
+- [Práctica 07 — Mapa de Navegación de Sketches](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/navegacion.html)
+
+## Documentos técnicos disponibles
+
+- [Práctica 04: Documentación](Practica04/README.md)
+- [Práctica 05: Documentación](Practica05/README.md)
+- [Práctica 07: Documentación](practica-07/README.md)
 - [Portal de documentación](index.html)
 
 ## Estado de la estructura
