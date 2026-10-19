@@ -19,6 +19,14 @@ Mapa de referencia para que el equipo y sus agentes implementen el mismo product
 
 Estas carpetas organizan la lectura solicitada. Los requisitos, reglas y contratos mantienen sus fuentes canónicas enlazadas desde cada README; la misma definición no se vuelve a editar en ocho lugares.
 
+## Entregables interactivos en vivo (GitHub Pages)
+
+- [Portal principal](https://jesuuusart.github.io/Quantify-Core/)
+- [Práctica 04 — Business Model Canvas Interactivo](https://jesuuusart.github.io/Quantify-Core/docs/Practica04/business-model-canvas.html)
+- [Práctica 05 — Diagrama de Roles de Usuario Interactivo](https://jesuuusart.github.io/Quantify-Core/docs/Practica05/diagrama-roles-quantify.html)
+- [Práctica 07 — Prototipo Interactivo de Sketches](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/)
+- [Práctica 07 — Mapa de Navegación de Sketches](https://jesuuusart.github.io/Quantify-Core/docs/practica-07/navegacion.html)
+
 ## Cómo se conectan las decisiones
 
 ```mermaid
