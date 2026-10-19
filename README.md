@@ -557,7 +557,9 @@ Los colores no deben ser el único medio para comunicar estados; toda interfaz d
 ### Organigrama
 
 <p align="center">
-  <img src="ORGANIGRAMA.jpg" alt="Organigrama del equipo de Quantify Core" width="900" />
+  <a href="https://angeljesus13.github.io/Quantify-Core/ORGANIGRAMA.jpg" target="_blank" title="Ver organigrama en alta resolución en GitHub Pages">
+    <img src="ORGANIGRAMA.jpg" alt="Organigrama del equipo de Quantify Core" width="900" />
+  </a>
 </p>
 
 ### Equipo de desarrollo
