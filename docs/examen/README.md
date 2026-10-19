@@ -59,26 +59,50 @@ A continuación se presenta el mapa arquitectónico global del ecosistema **Quan
 
 ---
 
-## 3. Justificación de Patrones y Decisiones Arquitectónicas
+## 3. Guía en Lenguaje Claro: ¿Cómo entender esta arquitectura si no eres técnico?
 
-### 3.1. Arquitectura en Capas y Microservicios Desacoplados
+Para cualquier persona, docente o evaluador que no provenga del área de sistemas o ingeniería de software, la arquitectura de **Quantify Core** puede entenderse fácilmente mediante **la analogía del cuerpo humano y su sistema nervioso**:
+
+| Componente en la Arquitectura | Analogía del Cuerpo Humano | ¿Qué hace en la vida real? | ¿Por qué beneficia al usuario? |
+| :--- | :--- | :--- | :--- |
+| **Smartwatch Wear OS & Sensores** | **Los Sentidos (Ojos, Piel)** | Detecta pasos, horas de sueño, pulsaciones y registros rápidos tocando la pantalla. | Puedes registrar tu progreso en 2 segundos mientras corres o entrenas sin distracciones. |
+| **Room DB (Offline-First)** | **La Memoria Inmediata** | Guarda tus hábitos en el reloj aunque salgas a la montaña o al parque sin internet ni señal celular. | **Cero pérdida de datos:** tus rachas y logros nunca se borran por falta de señal. |
+| **API Gateway & HIPAA Shield** | **El Sistema Inmune & Aduana** | Filtra accesos no autorizados y cifra la información como si fuera una transferencia bancaria. | **Privacidad total:** tus datos de salud y hábitos están blindados legalmente. |
+| **FastAPI ML & Scikit-Learn** | **El Instinto de Fatiga** | Modela matemáticamente si estás agotado o durmiendo mal antes de que colapses. | **Prevención del Burnout:** te avisa a tiempo si tu meta de hábitos es insostenible. |
+| **Google Gemini AI Engine** | **El Entrenador Personal Empático** | Escribe consejos personalizados en lenguaje humano y motivador adaptados a tu contexto. | **Consejos útiles y cálidos**, en lugar de alertas frías, robóticas o genéricas. |
+| **React Dashboard & WebSockets** | **El Reflejo en el Espejo** | Muestra tus gráficos, rachas y mapas de calor en la computadora al instante. | Ves tus logros cambiar en tiempo real sin tener que recargar la página web. |
+| **Bases de Datos (SQL / NoSQL / Redis)** | **La Biblioteca de Recuerdos** | Organiza tus datos en estanterías ultra-rápidas, seguras y con copias de respaldo continuas. | Tu información vive para siempre y tus consultas cargan en milisegundos. |
+| **Docker & Nube (Render)** | **La Casa Segura** | Empaqueta cada servicio en módulos independientes que nunca se caen todos juntos. | La plataforma siempre está en línea y operativa las 24 horas del día. |
+
+### El Viaje del Hábito en 4 Pasos Simples
+
+1. **Paso 1 (Tu muñeca):** Sales a entrenar o estudias. Tocas el reloj inteligente. Si no hay internet, la memoria interna del reloj retiene tu logro de forma segura.
+2. **Paso 2 (El viaje protegido):** Al llegar a casa y conectarte a Wi-Fi, los datos viajan por un túnel cifrado con los más altos estándares de privacidad médica (HIPAA).
+3. **Paso 3 (El análisis inteligente):** Nuestro doble cerebro de IA evalúa si mantienes un ritmo sano y redacta un consejo motivacional realista.
+4. **Paso 4 (El resultado en vivo):** El reloj vibra con una felicitación y tu computadora actualiza tus mapas de consistencia al instante.
+
+---
+
+## 4. Justificación de Patrones y Decisiones Arquitectónicas
+
+### 4.1. Arquitectura en Capas y Microservicios Desacoplados
 La separación entre la capa de **Presentación** (React/Kotlin), **Seguridad/Gateway** (Node.js), **Lógica de Negocio** (Node.js) e **Inferencia de IA** (Python FastAPI) obedece al principio de responsabilidad única (*Single Responsibility Principle*):
 * **Independencia de Escalabilidad:** La ingesta masiva de telemetría de wearables requiere alta concurrencia I/O (resuelta por el *Event Loop* asíncrono de Node.js), mientras que los cálculos matriciales y modelos de ML requieren las librerías científicas de Python (`scikit-learn`, `numpy`). Separarlos previene que un cuello de botella de CPU bloquee la API Gateway.
 * **Tolerancia a Fallos:** Si el servicio de IA requiere mantenimiento o actualización de dependencias, la plataforma sigue registrando hábitos y telemetría sin interrupción.
 
-### 3.2. Estrategia Offline-First en Wearables (Room DB + WorkManager)
+### 4.2. Estrategia Offline-First en Wearables (Room DB + WorkManager)
 Los usuarios registran actividad física en gimnasios, piscinas o pistas sin cobertura garantizada de internet:
 * El Smartwatch Wear OS almacena las marcas de micro-progreso en una base local **SQLite** gestionada con **Android Room DB**.
 * El componente **Android WorkManager** encola las solicitudes y las despacha con reintentos exponenciales (*exponential backoff*) únicamente cuando se detecta conectividad Wi-Fi, Bluetooth o LTE.
 
-### 3.3. Dual Core de Inteligencia Artificial (ML Supervisado + LLM Generativo)
+### 4.3. Dual Core de Inteligencia Artificial (ML Supervisado + LLM Generativo)
 Para evitar el problema de "caja negra" y reducir costos de cómputo:
 1. **Filtro Estadístico (Scikit-Learn):** Evalúa series de tiempo de cumplimiento, sueño y frecuencia cardíaca para clasificar en milisegundos si existe riesgo inminente de abandono (*Burnout Risk Score* entre 0.0 y 1.0).
 2. **Síntesis Motivacional (Gemini AI API):** Solo cuando el riesgo supera el umbral crítico (> 0.70) o en el resumen circadiano vespertino, se invoca a Gemini AI con un *prompt* enriquecido con el arquetipo del usuario para redactar recomendaciones empáticas y explicables (*Explainable AI - XAI*).
 
 ---
 
-## 4. Desglose Detallado por Capas
+## 5. Desglose Detallado por Capas
 
 ### Capa 1: Usuarios / Actores del Sistema
 * **Usuario Final:** Individuo que utiliza la plataforma para construir y consolidar hábitos saludables. Interactúa prioritariamente desde el reloj inteligente para registros ultrarrápidos (< 3 segundos) y acude al dashboard web para análisis detallado y correlaciones de bienestar.
@@ -140,7 +164,7 @@ Para maximizar el rendimiento y la durabilidad, cada tipo de dato reside en el m
 
 ---
 
-## 5. Matriz de Flujos de Datos Principales
+## 6. Matriz de Flujos de Datos Principales
 
 ```mermaid
 sequenceDiagram
@@ -178,7 +202,7 @@ sequenceDiagram
 
 ---
 
-## 6. Métricas Cuantitativas de la Arquitectura
+## 7. Métricas Cuantitativas de la Arquitectura
 
 | Parámetro de Arquitectura | Valor de Diseño | Justificación Técnica |
 | :--- | :--- | :--- |
@@ -192,7 +216,7 @@ sequenceDiagram
 
 ---
 
-## 7. Verificación y Evidencia de Entregables
+## 8. Verificación y Evidencia de Entregables
 
 Dentro de esta carpeta (`docs/examen/`) se encuentran los tres entregables solicitados:
 
