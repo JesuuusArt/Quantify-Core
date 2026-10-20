@@ -149,7 +149,7 @@ Desarrollar un sistema integral web, móvil y compatible de forma progresiva con
 
 ## Arquitectura propuesta
 
-La siguiente arquitectura es la **base recomendada**, no una declaración de implementación. Se selecciona una opción principal por capa para evitar que el repositorio comunique stacks incompatibles como si todos fueran definitivos.
+La siguiente arquitectura es la **base recomendada**, no una declaración de implementación. Se selecciona una opción principal por capa para evitar que el repositorio comunique stacks incompatibles como si todos fueran definitivos. Sus nodos usan la [paleta de Quantify Core](#identidad-visual): azul Laser para la API, Cobalt para clientes y superficies Obsidian para datos y servicios.
 
 ```mermaid
 flowchart TB
@@ -197,6 +197,27 @@ flowchart TB
     API -.-> OBS
     WORKER -.-> OBS
     ML -.-> OBS
+
+    classDef usuario fill:#275BC0,stroke:#4A7DE8,color:#FFFFFF,stroke-width:2px
+    classDef cliente fill:#183D87,stroke:#4A7DE8,color:#FFFFFF,stroke-width:2px
+    classDef identidad fill:#161F2E,stroke:#4A7DE8,color:#FFFFFF,stroke-width:2px
+    classDef principal fill:#275BC0,stroke:#4A7DE8,color:#FFFFFF,stroke-width:2px
+    classDef servicio fill:#161F2E,stroke:#275BC0,color:#FFFFFF,stroke-width:2px
+    classDef analitica fill:#161F2E,stroke:#0EA5E9,color:#FFFFFF,stroke-width:2px
+    classDef dato fill:#161F2E,stroke:#4A7DE8,color:#FFFFFF,stroke-width:2px
+    classDef apoyo fill:#161F2E,stroke:#8A99AD,color:#FFFFFF,stroke-width:2px
+
+    class U usuario
+    class WEB,MOB,WEAR cliente
+    class IDP identidad
+    class API principal
+    class WORKER servicio
+    class ML analitica
+    class PG,MONGO,REDIS,OBJ dato
+    class OBS,EXT apoyo
+    style Clients fill:#0B0F17,stroke:#283548,color:#FFFFFF
+    style Data fill:#0B0F17,stroke:#283548,color:#FFFFFF
+    linkStyle default stroke:#8A99AD,stroke-width:1.5px
 ```
 
 > El diagrama excluye de manera intencional el videojuego Unity de la referencia original.
@@ -532,8 +553,8 @@ Los colores no deben ser el único medio para comunicar estados; toda interfaz d
 ### Organigrama
 
 <p align="center">
-  <a href="https://angeljesus13.github.io/Quantify-Core/ORGANIGRAMA.jpg" target="_blank" title="Ver organigrama en alta resolución en GitHub Pages">
-    <img src="ORGANIGRAMA.jpg" alt="Organigrama del equipo de Quantify Core" width="900" />
+  <a href="assets/images/organigrama-quantify-core.png" title="Ver organigrama en alta resolución">
+    <img src="assets/images/organigrama-quantify-core.png" alt="Organigrama en tonos Obsidian y Laser Blue: jefe de proyecto, desarrollo backend y frontend, administración de BD y documentación" width="900" />
   </a>
 </p>
 
