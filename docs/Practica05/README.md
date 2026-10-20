@@ -1,5 +1,9 @@
 # Practica 05 - Diagrama de Roles de Usuario y Funcionalidades Principales
 
+[![Vista previa del diagrama interactivo de roles de Quantify Core: Usuario Final, Sistema y Administración](./diagrama-roles-quantify.jpg)](https://angeljesus13.github.io/Quantify-Core/docs/Practica05/diagrama-roles-quantify.html)
+
+*Vista previa de la Práctica 05. Haz clic en la imagen para abrir el diagrama interactivo en GitHub Pages.*
+
 **Proyecto Integrador:** Quantify Core  
 **Asignatura / Contexto:** Desarrollo de Aplicaciones Multiplataforma / Ingenieria de Software  
 **Caso de Estudio de Referencia:** MecaGest (Sistema de Gestion de Talleres Mecanicos)
