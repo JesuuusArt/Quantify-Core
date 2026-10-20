@@ -9,8 +9,11 @@ Esta carpeta conserva recursos visuales compartidos del repositorio. Los recurso
 | [quantifyLogo.jpeg](quantifyLogo.jpeg) | Cabecera del proyecto | “Logotipo de Quantify Core” |
 | [productLogo.jpeg](productLogo.jpeg) | Identidad del producto | “Logotipo del producto Quantify Core” |
 | [enterpriseLogo.jpeg](enterpriseLogo.jpeg) | Identidad empresarial del equipo | “Logotipo empresarial del equipo Quantify” |
+| [organigrama-quantify-core.png](organigrama-quantify-core.png) | Organigrama del README principal con la paleta V2.0, sin logotipo | “Jerarquía del equipo: jefatura, backend, frontend, base de datos y documentación” |
 
 La autoría, licencia o autorización de distribución de los recursos heredados debe documentarse cuando se confirme; no atribuir una licencia por su presencia en el repositorio. Conservar sus nombres actuales mientras existan referencias. Una eventual deduplicación requiere comprobar referencias y acordar un archivo canónico.
+
+El organigrama PNG se generó el 19 de octubre de 2026 con la herramienta de edición de imágenes a partir del `ORGANIGRAMA.jpg` heredado. Es una visualización derivada; los nombres y cargos del equipo se mantienen como texto en el [README principal](../../README.md). La autorización sobre los retratos sigue vinculada al archivo de origen.
 
 ## Incorporar un recurso
 
