@@ -161,80 +161,7 @@ Desarrollar un sistema integral web, móvil y compatible de forma progresiva con
 | Administración | Catálogos, soporte, auditoría y métricas operativas según rol | Propuesto |
 | Observabilidad | Métricas, logs, trazas y alertas técnicas | Propuesto |
 
-## Arquitectura propuesta
 
-La siguiente arquitectura es la **base recomendada**, no una declaración de implementación. Se selecciona una opción principal por capa para evitar que el repositorio comunique stacks incompatibles como si todos fueran definitivos. Sus nodos usan la [paleta de Quantify Core](#identidad-visual): azul Laser para la API, Cobalt para clientes y superficies Obsidian para datos y servicios.
-
-```mermaid
-flowchart TB
-    U[Usuario]
-
-    subgraph Clients[Clientes]
-        WEB[Web PWA\nReact + Vite]
-        MOB[App móvil\nFlutter]
-        WEAR[Wear OS\nIntegración progresiva]
-    end
-
-    IDP[Keycloak\nOIDC / OAuth 2.0]
-    API[API principal\nNestJS / REST]
-    WORKER[Procesamiento asíncrono\ny notificaciones]
-    ML[Servicio de analítica e IA\nPython / FastAPI]
-
-    subgraph Data[Capa de datos]
-        PG[(PostgreSQL\nDatos transaccionales)]
-        MONGO[(MongoDB\nEventos y telemetría)]
-        REDIS[(Redis\nCache, colas y rate limiting)]
-        OBJ[(Almacenamiento de objetos\nEvidencias autorizadas)]
-    end
-
-    OBS[Observabilidad\nMétricas, logs y alertas]
-    EXT[Servicios externos\nPush, correo y proveedor LLM]
-
-    U --> WEB
-    U --> MOB
-    U --> WEAR
-    WEB <-->|OIDC + PKCE| IDP
-    MOB <-->|OIDC + PKCE| IDP
-    WEB -->|HTTPS / JSON| API
-    MOB -->|HTTPS / JSON| API
-    WEAR -->|Sincronización segura| API
-    IDP -.->|JWKS / validación de tokens| API
-    API --> PG
-    API --> MONGO
-    API --> REDIS
-    API --> OBJ
-    API --> WORKER
-    WORKER --> ML
-    WORKER --> EXT
-    ML -->|Lectura autorizada| PG
-    ML -->|Lectura autorizada| MONGO
-    API -.-> OBS
-    WORKER -.-> OBS
-    ML -.-> OBS
-
-    classDef usuario fill:#275BC0,stroke:#4A7DE8,color:#FFFFFF,stroke-width:2px
-    classDef cliente fill:#183D87,stroke:#4A7DE8,color:#FFFFFF,stroke-width:2px
-    classDef identidad fill:#161F2E,stroke:#4A7DE8,color:#FFFFFF,stroke-width:2px
-    classDef principal fill:#275BC0,stroke:#4A7DE8,color:#FFFFFF,stroke-width:2px
-    classDef servicio fill:#161F2E,stroke:#275BC0,color:#FFFFFF,stroke-width:2px
-    classDef analitica fill:#161F2E,stroke:#0EA5E9,color:#FFFFFF,stroke-width:2px
-    classDef dato fill:#161F2E,stroke:#4A7DE8,color:#FFFFFF,stroke-width:2px
-    classDef apoyo fill:#161F2E,stroke:#8A99AD,color:#FFFFFF,stroke-width:2px
-
-    class U usuario
-    class WEB,MOB,WEAR cliente
-    class IDP identidad
-    class API principal
-    class WORKER servicio
-    class ML analitica
-    class PG,MONGO,REDIS,OBJ dato
-    class OBS,EXT apoyo
-    style Clients fill:#0B0F17,stroke:#283548,color:#FFFFFF
-    style Data fill:#0B0F17,stroke:#283548,color:#FFFFFF
-    linkStyle default stroke:#8A99AD,stroke-width:1.5px
-```
-
-> El diagrama excluye de manera intencional el videojuego Unity de la referencia original.
 
 ### Stack tecnológico base propuesto
 
@@ -527,6 +454,16 @@ Los modelos, diagramas y prototipos interactivos enlazan a su versión en **GitH
 - ADR para decisiones que afecten arquitectura, seguridad o datos;
 - diagramas y documentación actualizados junto con el cambio de código;
 - evidencias académicas separadas de secretos y datos personales.
+
+### Diagrama de roles
+
+---
+
+<p align="center">
+  <a href="assets/images/diagrama-roles-infografia.png" title="Ver diagrama de roles y funcionalidades en alta resolución">
+    <img src="assets/images/diagrama-roles-infografia.png" alt="Diagrama de roles de usuario, funcionalidades principales y plataformas conectadas de Quantify Core" width="900" />
+  </a>
+</p>
 
 ## Identidad visual
 
