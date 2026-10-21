@@ -29,6 +29,7 @@
 - [Página principal del proyecto (Portal Web en GitHub Pages)](https://angeljesus13.github.io/Quantify-Core/)
 - [Práctica 04 — Business Model Canvas Interactivo](https://angeljesus13.github.io/Quantify-Core/docs/Practica04/business-model-canvas.html)
 - [Práctica 05 — Diagrama Interactivo de Roles de Usuario](https://angeljesus13.github.io/Quantify-Core/docs/Practica05/diagrama-roles-quantify.html)
+- [Examen de arquitectura — Plano interactivo](https://angeljesus13.github.io/Quantify-Core/docs/examen/index.html)
 - [Práctica 07 — Prototipo Interactivo de Sketches](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/)
 - [Práctica 07 — Mapa de Navegación de Sketches](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/navegacion.html)
 
@@ -64,6 +65,7 @@ Los diagramas y secciones desplegables de los README ayudan a recorrer estas gu�
 - [Estructura propuesta del proyecto](#estructura-propuesta-del-proyecto)
 - [Instalación y ejecución](#instalación-y-ejecución)
 - [Documentación y prácticas académicas](#documentación-y-prácticas-académicas)
+- [Diagrama de roles y funcionalidades](#diagrama-de-roles-y-funcionalidades)
 - [Identidad visual](#identidad-visual)
 - [Equipo e información académica](#equipo-e-información-académica)
 - [Decisiones pendientes](#decisiones-pendientes)
@@ -515,8 +517,15 @@ La documentación general se organiza en [docs/](docs/), separando el producto y
 | Práctica 04 | [Modelo Canvas Interactivo](https://angeljesus13.github.io/Quantify-Core/docs/Practica04/business-model-canvas.html) · [Doc](docs/Practica04/README.md) | Elaboración asistida del Business Model Canvas del proyecto integrador | 20 | Terminado |
 | Práctica 05 | [Diagrama de roles de usuario](https://angeljesus13.github.io/Quantify-Core/docs/Practica05/diagrama-roles-quantify.html) · [Doc](docs/Practica05/README.md) | Diagrama interactivo de roles de usuario del proyecto | 15 | Terminado |
 | Práctica 07 | [Prototipo interactivo](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/) · [Mapa de navegación](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/navegacion.html) · [Doc](docs/practica-07/README.md) | Prototipo interactivo de navegación de sketches para Usuario y Administrador en móvil y PWA | 20 | Terminado |
+| Examen de arquitectura | [Plano interactivo](https://angeljesus13.github.io/Quantify-Core/docs/examen/index.html) · [Doc](docs/examen/README.md) | Entregable académico de arquitectura; sus alternativas no sustituyen la base tecnológica de este README | — | Terminado |
 
 Los modelos, diagramas y prototipos interactivos enlazan a su versión en **GitHub Pages**. Los enlaces de documentación técnica dirigen a los archivos correspondientes en el repositorio.
+
+### Diagrama de roles y funcionalidades
+
+[![Infografía de los roles y las cinco funcionalidades principales de Quantify Core](assets/images/diagrama-roles-infografia.png)](docs/Practica05/diagrama-roles-quantify.html)
+
+La [infografía en alta resolución](assets/images/diagrama-roles-infografia.png) resume la Práctica 05. El [diagrama HTML](docs/Practica05/diagrama-roles-quantify.html) permite explorar los roles; ambos son material académico de referencia para los [requerimientos del producto](docs/requerimientos/README.md).
 
 ### Prácticas de trabajo
 

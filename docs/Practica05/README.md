@@ -1,8 +1,8 @@
 # Practica 05 - Diagrama de Roles de Usuario y Funcionalidades Principales
 
-[![Vista previa del diagrama interactivo de roles de Quantify Core: Usuario Final, Sistema y Administración](./diagrama-roles-quantify.jpg)](https://angeljesus13.github.io/Quantify-Core/docs/Practica05/diagrama-roles-quantify.html)
+[![Infografía de roles y funcionalidades de Quantify Core](./diagrama-roles-infografia.png)](https://angeljesus13.github.io/Quantify-Core/docs/Practica05/diagrama-roles-quantify.html)
 
-*Vista previa de la Práctica 05. Haz clic en la imagen para abrir el diagrama interactivo en GitHub Pages.*
+*Vista previa de la Práctica 05. Haz clic en la imagen para abrir el diagrama interactivo en GitHub Pages. [Abrir infografía en alta resolución](./diagrama-roles-infografia.png).*
 
 > **Contexto:** esta práctica conserva decisiones y ejemplos de su entrega académica. Para implementar V2.0, consultar [requisitos](../requerimientos/README.md), [arquitectura](../arquitectura/README.md), [contratos](../../packages/contracts/README.md) y [diseño](../diseno/README.md). Librerías, umbrales y colores de esta práctica no quedan aprobados para el producto por aparecer aquí.
 

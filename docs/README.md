@@ -24,6 +24,7 @@ Estas carpetas organizan la lectura solicitada. Los requisitos, reglas y contrat
 - [Portal principal](https://angeljesus13.github.io/Quantify-Core/)
 - [Práctica 04 — Business Model Canvas Interactivo](https://angeljesus13.github.io/Quantify-Core/docs/Practica04/business-model-canvas.html)
 - [Práctica 05 — Diagrama de Roles de Usuario Interactivo](https://angeljesus13.github.io/Quantify-Core/docs/Practica05/diagrama-roles-quantify.html)
+- [Examen de arquitectura — Plano interactivo](https://angeljesus13.github.io/Quantify-Core/docs/examen/index.html)
 - [Práctica 07 — Prototipo Interactivo de Sketches](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/)
 - [Práctica 07 — Mapa de Navegación de Sketches](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/navegacion.html)
 
@@ -96,6 +97,7 @@ Un documento aceptado define una decisión; no demuestra por sí mismo que la im
 
 - [Práctica 04 — Business Model Canvas](Practica04/README.md).
 - [Práctica 05 — Roles y funcionalidades](Practica05/README.md).
+- [Examen de arquitectura — plano y memoria técnica](examen/README.md).
 - [Práctica 07 — Prototipo y navegación](practica-07/README.md).
 - [Portal académico](index.html).
 
