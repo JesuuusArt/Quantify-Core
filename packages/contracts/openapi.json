@@ -1,0 +1,1320 @@
+{
+  "openapi": "3.1.1",
+  "info": {
+    "title": "Quantify Core — primer flujo",
+    "version": "0.1.0-draft",
+    "description": "BORRADOR para desarrollo. Ninguna operación acredita una API desplegada. RF-01 a RF-05; decisiones pendientes en docs/arquitectura/decisiones-pendientes.md."
+  },
+  "jsonSchemaDialect": "https://json-schema.org/draft/2020-12/schema",
+  "servers": [
+    {
+      "url": "/api/v1",
+      "description": "Ruta relativa; dominio y ambiente pendientes"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Profile",
+      "description": "RF-01/RF-02 — perfil propio"
+    },
+    {
+      "name": "Habits",
+      "description": "RF-03 — hábitos propios"
+    },
+    {
+      "name": "CheckIns",
+      "description": "RF-04 — progreso absoluto e idempotente"
+    },
+    {
+      "name": "Metrics",
+      "description": "RF-05 — métricas de periodos cerrados"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/me": {
+      "get": {
+        "tags": [
+          "Profile"
+        ],
+        "operationId": "getOwnProfile",
+        "summary": "Leer perfil propio",
+        "description": "No crea perfil de forma implícita; provisión de primer acceso pendiente.",
+        "responses": {
+          "200": {
+            "description": "Perfil propio",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Profile"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      }
+    },
+    "/habits": {
+      "get": {
+        "tags": [
+          "Habits"
+        ],
+        "operationId": "listOwnHabits",
+        "summary": "Listar hábitos propios",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Cursor opaco vinculado a actor y filtros"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "active",
+                "paused",
+                "archived"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista paginada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HabitList"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Habits"
+        ],
+        "operationId": "createOwnHabit",
+        "summary": "Crear hábito propio",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "UUID estable para una intención; repetir el mismo cuerpo y precondición"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "Comando validado y autorizado por la API",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HabitCreate"
+              },
+              "examples": {
+                "synthetic": {
+                  "summary": "Ejemplo sintético",
+                  "value": {
+                    "name": "Lectura",
+                    "targetValue": 20,
+                    "unit": "min",
+                    "schedule": {
+                      "weekdays": [
+                        1,
+                        3,
+                        5
+                      ],
+                      "effectiveFrom": "2026-10-20"
+                    },
+                    "timeZone": "America/Mexico_City"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Hábito creado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Habit"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Versión fuerte del recurso para If-Match",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "422": {
+            "$ref": "#/components/responses/Unprocessable"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      }
+    },
+    "/habits/{habitId}": {
+      "parameters": [
+        {
+          "name": "habitId",
+          "in": "path",
+          "required": true,
+          "description": "Identificador del hábito propio",
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "Habits"
+        ],
+        "operationId": "getOwnHabit",
+        "summary": "Leer hábito propio",
+        "responses": {
+          "200": {
+            "description": "Hábito propio",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Habit"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Versión fuerte del recurso para If-Match",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Habits"
+        ],
+        "operationId": "patchOwnHabit",
+        "summary": "Editar, pausar o archivar hábito",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "UUID estable para una intención; repetir el mismo cuerpo y precondición"
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ETag fuerte recibido en GET del hábito"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "Comando validado y autorizado por la API",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HabitPatch"
+              },
+              "examples": {
+                "synthetic": {
+                  "summary": "Ejemplo sintético",
+                  "value": {
+                    "status": "paused"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Hábito actualizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Habit"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Versión fuerte del recurso para If-Match",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "412": {
+            "$ref": "#/components/responses/PreconditionFailed"
+          },
+          "422": {
+            "$ref": "#/components/responses/Unprocessable"
+          },
+          "428": {
+            "$ref": "#/components/responses/PreconditionRequired"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      }
+    },
+    "/habits/{habitId}/check-ins": {
+      "parameters": [
+        {
+          "name": "habitId",
+          "in": "path",
+          "required": true,
+          "description": "Identificador del hábito propio",
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "CheckIns"
+        ],
+        "operationId": "listOwnCheckIns",
+        "summary": "Listar registros propios",
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "description": "Fecha de negocio YYYY-MM-DD"
+            },
+            "description": "Primera fecha inclusiva de la ventana"
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "description": "Fecha de negocio YYYY-MM-DD"
+            },
+            "description": "Última fecha inclusiva de la ventana"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Cursor opaco vinculado a actor y filtros"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Registros paginados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CheckInList"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "CheckIns"
+        ],
+        "operationId": "recordOwnCheckIn",
+        "summary": "Crear o corregir progreso absoluto",
+        "description": "expectedVersion=0 crea y responde 201; corrección requiere revisión vigente, motivo y responde 200. Dedupe por clave y clientEventId. Sólo periodos programados autorizados.",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "UUID estable para una intención; repetir el mismo cuerpo y precondición"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "Comando validado y autorizado por la API",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckInCommand"
+              },
+              "examples": {
+                "synthetic": {
+                  "summary": "Ejemplo sintético",
+                  "value": {
+                    "clientEventId": "925ed4ea-6e06-493c-a3c1-26052d0f61b5",
+                    "businessDate": "2026-10-20",
+                    "occurredAt": "2026-10-20T14:00:00Z",
+                    "timeZone": "America/Mexico_City",
+                    "value": 15,
+                    "expectedVersion": 0
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Registro corregido o repetición confirmada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CheckIn"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Registro creado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CheckIn"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "422": {
+            "$ref": "#/components/responses/Unprocessable"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      }
+    },
+    "/habits/{habitId}/metrics": {
+      "parameters": [
+        {
+          "name": "habitId",
+          "in": "path",
+          "required": true,
+          "description": "Identificador del hábito propio",
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "Metrics"
+        ],
+        "operationId": "getOwnHabitMetrics",
+        "summary": "Consultar métricas en ventana",
+        "description": "Sólo oportunidades programadas cerradas; hoy abierto queda fuera. Rachas limitadas a la ventana.",
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "description": "Fecha de negocio YYYY-MM-DD"
+            },
+            "description": "Primera fecha inclusiva de la ventana"
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "description": "Fecha de negocio YYYY-MM-DD"
+            },
+            "description": "Última fecha inclusiva de la ventana"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Métricas del intervalo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Metrics"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Access token emitido por Keycloak mediante OIDC; la API valida emisor, audiencia, firma, vigencia, rol y pertenencia. No usar ID token."
+      }
+    },
+    "schemas": {
+      "Problem": {
+        "type": "object",
+        "required": [
+          "type",
+          "title",
+          "status",
+          "code",
+          "requestId"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "URI del tipo de problema o about:blank"
+          },
+          "title": {
+            "type": "string",
+            "description": "Resumen seguro"
+          },
+          "status": {
+            "type": "integer",
+            "minimum": 400,
+            "maximum": 599
+          },
+          "detail": {
+            "type": "string",
+            "description": "Explicación sin información sensible"
+          },
+          "code": {
+            "type": "string",
+            "description": "Código estable para cliente"
+          },
+          "requestId": {
+            "type": "string",
+            "description": "Identificador no sensible de correlación"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "field": {
+                  "type": "string",
+                  "description": "Nombre de campo"
+                },
+                "code": {
+                  "type": "string",
+                  "description": "Código de validación"
+                }
+              },
+              "required": [
+                "field",
+                "code"
+              ]
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "Profile": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "Identificador de zona IANA; validar contra base IANA"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "user",
+                "admin"
+              ]
+            },
+            "uniqueItems": true
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "suspended"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "timeZone",
+          "roles",
+          "status"
+        ],
+        "description": "Perfil de negocio propio; la identidad y credenciales son de Keycloak"
+      },
+      "Schedule": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "weekdays": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 7
+            },
+            "minItems": 1,
+            "maxItems": 7,
+            "uniqueItems": true
+          },
+          "effectiveFrom": {
+            "type": "string",
+            "format": "date",
+            "description": "Fecha de negocio YYYY-MM-DD"
+          }
+        },
+        "required": [
+          "weekdays",
+          "effectiveFrom"
+        ],
+        "description": "Lunes=1 a domingo=7; cambios futuros crean revisión"
+      },
+      "HabitCreate": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 60
+          },
+          "targetValue": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "unit": {
+            "type": "string",
+            "description": "Unidad; catálogo pendiente",
+            "minLength": 1
+          },
+          "schedule": {
+            "$ref": "#/components/schemas/Schedule"
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "Identificador de zona IANA; validar contra base IANA"
+          }
+        },
+        "required": [
+          "name",
+          "targetValue",
+          "unit",
+          "schedule",
+          "timeZone"
+        ],
+        "description": "Crear un hábito personal; dueño derivado del token"
+      },
+      "HabitPatch": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 60
+          },
+          "targetValue": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "unit": {
+            "type": "string",
+            "description": "Unidad",
+            "minLength": 1
+          },
+          "schedule": {
+            "$ref": "#/components/schemas/Schedule"
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "Identificador de zona IANA; validar contra base IANA"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "paused",
+              "archived"
+            ]
+          }
+        },
+        "required": [],
+        "description": "Al menos un campo; la API valida transiciones y vigencia futura",
+        "minProperties": 1
+      },
+      "Habit": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nombre",
+            "minLength": 1
+          },
+          "targetValue": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "unit": {
+            "type": "string",
+            "description": "Unidad",
+            "minLength": 1
+          },
+          "schedule": {
+            "$ref": "#/components/schemas/Schedule"
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "Identificador de zona IANA; validar contra base IANA"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "paused",
+              "archived"
+            ]
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Instante UTC RFC 3339 con Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Instante UTC RFC 3339 con Z"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "targetValue",
+          "unit",
+          "schedule",
+          "timeZone",
+          "status",
+          "version",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "HabitList": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Habit"
+            }
+          },
+          "nextCursor": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "nextCursor"
+        ]
+      },
+      "CheckInCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "clientEventId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "businessDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Fecha de negocio YYYY-MM-DD"
+          },
+          "occurredAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Instante UTC RFC 3339 con Z"
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "Identificador de zona IANA; validar contra base IANA"
+          },
+          "value": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Cantidad decimal en la unidad del hábito; precisión por definir"
+          },
+          "expectedVersion": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "correctionReason": {
+            "type": "string",
+            "description": "Obligatorio para corregir una revisión existente"
+          }
+        },
+        "required": [
+          "clientEventId",
+          "businessDate",
+          "occurredAt",
+          "timeZone",
+          "value",
+          "expectedVersion"
+        ],
+        "description": "Valor absoluto del día; expectedVersion=0 crea, >0 corrige con motivo"
+      },
+      "CheckIn": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "habitId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "clientEventId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "businessDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Fecha de negocio YYYY-MM-DD"
+          },
+          "occurredAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Instante UTC RFC 3339 con Z"
+          },
+          "recordedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Instante UTC RFC 3339 con Z"
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "Identificador de zona IANA; validar contra base IANA"
+          },
+          "value": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Cantidad decimal en la unidad del hábito; precisión por definir"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "progressStatus": {
+            "type": "string",
+            "enum": [
+              "zero",
+              "partial",
+              "completed"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "habitId",
+          "clientEventId",
+          "businessDate",
+          "occurredAt",
+          "recordedAt",
+          "timeZone",
+          "value",
+          "version",
+          "progressStatus"
+        ]
+      },
+      "CheckInList": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CheckIn"
+            }
+          },
+          "nextCursor": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "nextCursor"
+        ]
+      },
+      "Metrics": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "habitId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "from": {
+            "type": "string",
+            "format": "date",
+            "description": "Fecha de negocio YYYY-MM-DD"
+          },
+          "to": {
+            "type": "string",
+            "format": "date",
+            "description": "Fecha de negocio YYYY-MM-DD"
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "Identificador de zona IANA; validar contra base IANA"
+          },
+          "ruleVersion": {
+            "type": "string",
+            "description": "Versión de cálculo"
+          },
+          "calculatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Instante UTC RFC 3339 con Z"
+          },
+          "eligiblePeriods": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "completedPeriods": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "completionRate": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 100,
+            "description": "null si no hay oportunidades cerradas"
+          },
+          "currentStreak": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Limitada al intervalo consultado"
+          },
+          "longestStreak": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Limitada al intervalo consultado"
+          },
+          "noDataReason": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Razón cuando completionRate es null"
+          }
+        },
+        "required": [
+          "habitId",
+          "from",
+          "to",
+          "timeZone",
+          "ruleVersion",
+          "calculatedAt",
+          "eligiblePeriods",
+          "completedPeriods",
+          "completionRate",
+          "currentStreak",
+          "longestStreak",
+          "noDataReason"
+        ]
+      }
+    },
+    "responses": {
+      "BadRequest": {
+        "description": "Formato, cursor o parámetro inválido",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        }
+      },
+      "Unauthorized": {
+        "description": "Token ausente o inválido",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        }
+      },
+      "Forbidden": {
+        "description": "Operación global sin permiso o cuenta suspendida",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "Recurso ausente o ajeno",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        }
+      },
+      "Conflict": {
+        "description": "Conflicto de versión, estado o clave reutilizada",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        }
+      },
+      "PreconditionFailed": {
+        "description": "ETag obsoleto",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        }
+      },
+      "PreconditionRequired": {
+        "description": "If-Match requerido",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        }
+      },
+      "Unprocessable": {
+        "description": "Regla de negocio incumplida",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        }
+      },
+      "TooManyRequests": {
+        "description": "Límite de solicitudes",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        },
+        "headers": {
+          "Retry-After": {
+            "description": "Tiempo sugerido antes de reintentar",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "ServerError": {
+        "description": "Error interno",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        }
+      },
+      "Unavailable": {
+        "description": "Dependencia temporalmente no disponible",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        }
+      }
+    }
+  }
+}

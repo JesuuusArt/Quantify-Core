@@ -1,5 +1,21 @@
 # Decisiones de arquitectura (ADR)
 
-Aquí se registrarán las decisiones que afecten de manera importante la arquitectura, los datos, la seguridad o la operación.
+Un ADR conserva el motivo de una decisión que afecta arquitectura, datos, seguridad u operación. No reemplaza el contrato ni el requisito; enlaza ambos y deja visible su revisión.
 
-Cada ADR deberá incluir título, estado, contexto, opciones consideradas, decisión y consecuencias. Los estados recomendados son propuesto, aceptado, reemplazado o rechazado.
+| ADR | Asunto | Estado |
+|---|---|---|
+| [0001](0001-limites-y-propiedad-de-datos.md) | Límites de componentes y propiedad de datos | Propuesto |
+
+Copiar la [plantilla](plantilla.md), usar el siguiente número libre y abrir PR hacia `develop` desde la rama correspondiente al cambio. Una propuesta puramente documental usa `docs/<tema>`; una decisión incluida en una funcionalidad puede acompañar su rama y PR.
+
+```mermaid
+stateDiagram-v2
+    [*] --> propuesto
+    propuesto --> aceptado: Evidencia y revisión registradas
+    propuesto --> rechazado: Motivo registrado
+    aceptado --> reemplazado: Nuevo ADR enlazado
+```
+
+No cambiar a `aceptado` sin evidencia de revisión del equipo. Una decisión reemplazada conserva su contexto y enlaza a la nueva; no se reescribe el pasado para simular aprobación.
+
+Consultar el [registro de pendientes](../decisiones-pendientes.md) antes de añadir tecnologías, proveedores o parámetros globales.

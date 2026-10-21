@@ -28,12 +28,29 @@
 
 - [Página principal del proyecto (Portal Web en GitHub Pages)](https://angeljesus13.github.io/Quantify-Core/)
 - [Práctica 04 — Business Model Canvas Interactivo](https://angeljesus13.github.io/Quantify-Core/docs/Practica04/business-model-canvas.html)
+- [Manual móvil integral](docs/manual%20de%20instalacion/MANUAL_MOVIL_INTEGRAL.pdf)
 - [Práctica 05 — Diagrama Interactivo de Roles de Usuario](https://angeljesus13.github.io/Quantify-Core/docs/Practica05/diagrama-roles-quantify.html)
+- [Examen de arquitectura — Plano interactivo](https://angeljesus13.github.io/Quantify-Core/docs/examen/index.html)
 - [Práctica 07 — Prototipo Interactivo de Sketches](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/)
 - [Práctica 07 — Mapa de Navegación de Sketches](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/navegacion.html)
 
+## Documentación para desarrollar
+
+La base de trabajo del equipo está en el **[mapa de documentación](docs/README.md)**. Incluye requisitos, arquitectura, contratos de API, datos, seguridad, diseño, guías por componente y criterios de pruebas y operación.
+
+| Quiero empezar por… | Referencia |
+|---|---|
+| Entender el proyecto y preparar una tarea | [Incorporación](docs/guias/incorporacion.md). |
+| Conocer las reglas que deben compartir los módulos | [Requerimientos](docs/requerimientos/README.md) y [arquitectura](docs/arquitectura/README.md). |
+| Implementar clientes o servicios | [Aplicaciones](apps/README.md), [servicios](services/README.md) y [contratos](packages/contracts/README.md). |
+| Mantener consistencia visual | [Diseño](docs/diseno/README.md) y [tokens](packages/design-tokens/README.md). |
+| Trabajar con agentes o enviar cambios | [AGENTS.md](AGENTS.md), [contribución](CONTRIBUTING.md) y [Git Flow](docs/guias/git-flow.md). |
+
+Los diagramas y secciones desplegables de los README ayudan a recorrer estas guías en GitHub. Su estado distingue el producto previsto del prototipo académico y de las partes verificadas.
+
 ## Contenido
 
+- [Documentación para desarrollar](#documentación-para-desarrollar)
 - [Descripción](#descripción)
 - [Planteamiento del problema](#planteamiento-del-problema)
 - [Propuesta de solución](#propuesta-de-solución)
@@ -45,14 +62,14 @@
 - [Datos, IA y biometría](#datos-ia-y-biometría)
 - [Seguridad y privacidad](#seguridad-y-privacidad)
 - [Roadmap](#roadmap)
+- [Diagrama de Gantt en Jira](#diagrama-de-gantt-en-jira)
 - [Estructura propuesta del proyecto](#estructura-propuesta-del-proyecto)
 - [Instalación y ejecución](#instalación-y-ejecución)
 - [Documentación y prácticas académicas](#documentación-y-prácticas-académicas)
+- [Diagrama de roles y funcionalidades](#diagrama-de-roles-y-funcionalidades)
 - [Identidad visual](#identidad-visual)
 - [Equipo e información académica](#equipo-e-información-académica)
 - [Decisiones pendientes](#decisiones-pendientes)
-- [Estado y licencia](#estado-y-licencia)
-- [Stack tecnológico](#stack-tecnológico)
 
 ## Descripción
 
@@ -149,76 +166,11 @@ Desarrollar un sistema integral web, móvil y compatible de forma progresiva con
 
 ## Arquitectura propuesta
 
-La siguiente arquitectura es la **base recomendada**, no una declaración de implementación. Se selecciona una opción principal por capa para evitar que el repositorio comunique stacks incompatibles como si todos fueran definitivos. Sus nodos usan la [paleta de Quantify Core](#identidad-visual): azul Laser para la API, Cobalt para clientes y superficies Obsidian para datos y servicios.
+La arquitectura base del producto se define en el [stack propuesto](#stack-tecnológico-base-propuesto) y en [docs/arquitectura](docs/arquitectura/README.md). El siguiente plano es un entregable académico: muestra el ecosistema con la paleta de Quantify Core, pero sus integraciones y metas son propuestas, no servicios implementados ni decisiones que sustituyan esa base.
 
-```mermaid
-flowchart TB
-    U[Usuario]
+[![Diagrama de Arquitectura de Software V2.0 de Quantify Core: clientes, identidad, API, datos y observabilidad](docs/examen/arquitectura-quantify.png)](docs/examen/index.html)
 
-    subgraph Clients[Clientes]
-        WEB[Web PWA\nReact + Vite]
-        MOB[App móvil\nFlutter]
-        WEAR[Wear OS\nIntegración progresiva]
-    end
-
-    IDP[Keycloak\nOIDC / OAuth 2.0]
-    API[API principal\nNestJS / REST]
-    WORKER[Procesamiento asíncrono\ny notificaciones]
-    ML[Servicio de analítica e IA\nPython / FastAPI]
-
-    subgraph Data[Capa de datos]
-        PG[(PostgreSQL\nDatos transaccionales)]
-        MONGO[(MongoDB\nEventos y telemetría)]
-        REDIS[(Redis\nCache, colas y rate limiting)]
-        OBJ[(Almacenamiento de objetos\nEvidencias autorizadas)]
-    end
-
-    OBS[Observabilidad\nMétricas, logs y alertas]
-    EXT[Servicios externos\nPush, correo y proveedor LLM]
-
-    U --> WEB
-    U --> MOB
-    U --> WEAR
-    WEB <-->|OIDC + PKCE| IDP
-    MOB <-->|OIDC + PKCE| IDP
-    WEB -->|HTTPS / JSON| API
-    MOB -->|HTTPS / JSON| API
-    WEAR -->|Sincronización segura| API
-    IDP -.->|JWKS / validación de tokens| API
-    API --> PG
-    API --> MONGO
-    API --> REDIS
-    API --> OBJ
-    API --> WORKER
-    WORKER --> ML
-    WORKER --> EXT
-    ML --> PG
-    ML --> MONGO
-    API -.-> OBS
-    WORKER -.-> OBS
-    ML -.-> OBS
-
-    classDef usuario fill:#275BC0,stroke:#4A7DE8,color:#FFFFFF,stroke-width:2px
-    classDef cliente fill:#183D87,stroke:#4A7DE8,color:#FFFFFF,stroke-width:2px
-    classDef identidad fill:#161F2E,stroke:#4A7DE8,color:#FFFFFF,stroke-width:2px
-    classDef principal fill:#275BC0,stroke:#4A7DE8,color:#FFFFFF,stroke-width:2px
-    classDef servicio fill:#161F2E,stroke:#275BC0,color:#FFFFFF,stroke-width:2px
-    classDef analitica fill:#161F2E,stroke:#0EA5E9,color:#FFFFFF,stroke-width:2px
-    classDef dato fill:#161F2E,stroke:#4A7DE8,color:#FFFFFF,stroke-width:2px
-    classDef apoyo fill:#161F2E,stroke:#8A99AD,color:#FFFFFF,stroke-width:2px
-
-    class U usuario
-    class WEB,MOB,WEAR cliente
-    class IDP identidad
-    class API principal
-    class WORKER servicio
-    class ML analitica
-    class PG,MONGO,REDIS,OBJ dato
-    class OBS,EXT apoyo
-    style Clients fill:#0B0F17,stroke:#283548,color:#FFFFFF
-    style Data fill:#0B0F17,stroke:#283548,color:#FFFFFF
-    linkStyle default stroke:#8A99AD,stroke-width:1.5px
-```
+[Abrir plano interactivo en GitHub Pages](https://angeljesus13.github.io/Quantify-Core/docs/examen/index.html).
 
 > El diagrama excluye de manera intencional el videojuego Unity de la referencia original.
 
@@ -253,6 +205,8 @@ flowchart TB
 | MySQL/PostgreSQL + MongoDB | **PostgreSQL + MongoDB**, con propiedad clara de datos | Solo PostgreSQL si el volumen no justifica dos motores | Medición de volumen, consistencia requerida y carga de mantenimiento |
 
 La adopción final de cualquier componente requiere un registro de decisión arquitectónica (ADR), una prueba técnica y aprobación del equipo.
+
+Las alternativas de la tabla son antecedentes para decisiones futuras. La documentación de desarrollo utiliza la selección base indicada; no autoriza combinar stacks incompatibles. Los límites de acceso a datos y las decisiones por resolver se detallan en [arquitectura](docs/arquitectura/README.md).
 
 ### Principios técnicos
 
@@ -380,6 +334,14 @@ El equipo deberá validar la normativa y las políticas institucionales aplicabl
 
 Las fechas y responsables se gestionarán en Jira. Este roadmap expresa orden y criterios de avance, no compromisos de entrega.
 
+### Diagrama de Gantt en Jira
+
+El cronograma del proyecto se organiza en Jira por sprints y actividades. Estas dos capturas muestran la planificación en formato de Gantt: la primera presenta el arranque de los trabajos y la segunda continúa hasta las etapas de integración y entrega. Para consultar fechas, asignaciones y avances vigentes, revisar Jira; las capturas muestran el plan al momento de tomarlas.
+
+![Diagrama de Gantt de Quantify Core en Jira: inicio de los sprints y actividades de documentación, arquitectura, identidad, datos, API, web, móvil, IA, Wear OS y pruebas.](gannt.png)
+
+![Continuación del diagrama de Gantt de Quantify Core en Jira: sprints de backend, integración y entrega, con las actividades del proyecto.](gannt2.png)
+
 ### Fase 0 — Definición
 
 - cerrar alcance, requisitos y criterios de aceptación;
@@ -452,7 +414,8 @@ Quantify-Core/
 │   ├── guias/
 │   ├── despliegue/
 │   ├── Practica04/
-│   └── Practica05/
+│   ├── Practica05/
+│   └── practica-07/
 ├── assets/
 │   └── images/                 # Logos y recursos visuales
 ├── tests/                      # Pruebas de integración y sistema
@@ -483,15 +446,22 @@ No deben agregarse credenciales, datos biométricos reales ni archivos `.env` al
 
 ## Documentación y prácticas académicas
 
-La documentación general se organizará en [docs/](docs/), separando el producto y el desarrollo de los entregables académicos. El índice se encuentra disponible en [docs/README.md](docs/README.md).
+La documentación general se organiza en [docs/](docs/), separando el producto y el desarrollo de los entregables académicos. El índice se encuentra en [docs/README.md](docs/README.md).
 
 | Práctica | Título y recurso interactivo (GitHub Pages) | Descripción | Firmas | Estatus |
 |---|---|---|---:|---|
 | Práctica 04 | [Modelo Canvas Interactivo](https://angeljesus13.github.io/Quantify-Core/docs/Practica04/business-model-canvas.html) · [Doc](docs/Practica04/README.md) | Elaboración asistida del Business Model Canvas del proyecto integrador | 20 | Terminado |
 | Práctica 05 | [Diagrama de roles de usuario](https://angeljesus13.github.io/Quantify-Core/docs/Practica05/diagrama-roles-quantify.html) · [Doc](docs/Practica05/README.md) | Diagrama interactivo de roles de usuario del proyecto | 15 | Terminado |
 | Práctica 07 | [Prototipo interactivo](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/) · [Mapa de navegación](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/navegacion.html) · [Doc](docs/practica-07/README.md) | Prototipo interactivo de navegación de sketches para Usuario y Administrador en móvil y PWA | 20 | Terminado |
+| Examen de arquitectura | [Plano interactivo](https://angeljesus13.github.io/Quantify-Core/docs/examen/index.html) · [Doc](docs/examen/README.md) | Entregable académico de arquitectura; sus alternativas no sustituyen la base tecnológica de este README | — | Terminado |
 
-Los modelos, diagramas y prototipos interactivos enlazan directamente a su versión desplegada en **GitHub Pages** para su ejecución interactiva en vivo. Los enlaces de documentación técnica dirigen a los archivos correspondientes en el repositorio.
+Los modelos, diagramas y prototipos interactivos enlazan a su versión en **GitHub Pages**. Los enlaces de documentación técnica dirigen a los archivos correspondientes en el repositorio.
+
+### Diagrama de roles y funcionalidades
+
+[![Infografía de los roles y las cinco funcionalidades principales de Quantify Core](assets/images/diagrama-roles-infografia.png)](docs/Practica05/diagrama-roles-quantify.html)
+
+La [infografía en alta resolución](assets/images/diagrama-roles-infografia.png) resume la Práctica 05. El [diagrama HTML](docs/Practica05/diagrama-roles-quantify.html) permite explorar los roles; ambos son material académico de referencia para los [requerimientos del producto](docs/requerimientos/README.md).
 
 ### Prácticas de trabajo
 

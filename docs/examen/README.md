@@ -1,5 +1,7 @@
 # Examen de Unidad — Arquitectura de Software del Proyecto Integrador
 
+> **Alcance:** este plano y su memoria son un entregable académico propuesto. Las tecnologías, integraciones, métricas y garantías descritas aquí no acreditan una implementación. Para desarrollar el producto se siguen el [stack y estado del README principal](../../README.md), las [decisiones de arquitectura](../arquitectura/README.md) y los [contratos compartidos](../../packages/contracts/README.md).
+
 **Proyecto:** Quantify Core — Ecosistema Inteligente de Hábitos Cuantitativos y Bienestar  
 **Universidad:** Universidad Tecnológica de Xicotepec de Juárez (UTXJ)  
 **Programa Educativo:** Ingeniería en Desarrollo y Gestión de Software  
@@ -23,7 +25,7 @@
 
 El presente documento constituye la memoria técnica del **Examen de Unidad**, en el que se formaliza la arquitectura de software integral de **Quantify Core**. 
 
-A diferencia de las aplicaciones monolíticas convencionales de seguimiento de hábitos, Quantify Core implementa una **arquitectura distribuida cliente-servidor en capas y microservicios**, con enfoque **Offline-First** en terminales wearables (Wear OS), ingestión reactiva mediante WebSockets y un **Dual Core de Inteligencia Artificial** que combina machine learning supervisado (*Scikit-Learn*) para la detección temprana de *Burnout* con modelos de lenguaje generativo (*Google Gemini AI*) para coaching conductual explicable (*Explainable AI - XAI*).
+A diferencia de las aplicaciones monolíticas convencionales de seguimiento de hábitos, el examen propone una **arquitectura distribuida cliente-servidor en capas y microservicios**, con enfoque **Offline-First** en terminales wearables (Wear OS), ingestión reactiva mediante WebSockets y un **Dual Core de Inteligencia Artificial** que combina machine learning supervisado (*Scikit-Learn*) para la detección temprana de *Burnout* con modelos de lenguaje generativo (*Google Gemini AI*) para coaching conductual explicable (*Explainable AI - XAI*).
 
 > ### 🧭 Explorar el Plano Arquitectónico Interactivo
 > 
