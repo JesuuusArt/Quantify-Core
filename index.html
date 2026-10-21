@@ -1291,6 +1291,35 @@
             { nombre: 'Evidencia de validación', ruta: 'docs/practica-07/VALIDACION.md', url: REPO + 'docs/practica-07/VALIDACION.md', tag: 'MD' }
           ],
           conclusion: 'Se completó la simulación interactiva con 24 sketches conectando los flujos de bienvenida, autenticación, hábitos, telemetría y panel de administración, validando la experiencia en móvil y PWA.'
+        },
+        {
+          id: 'examen-unidad',
+          numero: 'EX',
+          titulo: 'Arquitectura de Software (Examen)',
+          tipo: 'Examen de Unidad',
+          estatus: 'Terminado',
+          firmas: 'Evaluación',
+          carpeta: 'docs/examen',
+          descripcion: 'Diagrama integral de arquitectura de software para el ecosistema Quantify Core: clientes multi-dispositivo (Wear OS, Web, Smart TV), API Gateway, Dual Core de IA (FastAPI + Gemini), persistencia políglota y observabilidad.',
+          accion: { label: 'Abrir plano de arquitectura', url: 'docs/examen/index.html' },
+          documentacion: REPO + 'docs/examen/README.md',
+          objetivos: [
+            'Diseñar la arquitectura integral de software en capas y microservicios para Quantify Core.',
+            'Modelar el flujo de telemetría offline-first desde el Smartwatch Wear OS hasta el backend.',
+            'Integrar el Dual Core de IA con predicción de burnout (Scikit-Learn) y coaching explicable (Gemini AI).',
+            'Definir la persistencia híbrida, seguridad perimetral y stack de observabilidad con Docker.'
+          ],
+          entregables: [
+            'Plano interactivo en HTML/SVG con diseño de blueprint y 3 temas adaptativos.',
+            'Gráfico rasterizado en alta resolución (PNG) del plano general.',
+            'Memoria técnica completa documentando decisiones arquitectónicas y flujos de datos.'
+          ],
+          archivos: [
+            { nombre: 'Plano interactivo de arquitectura (GitHub Pages)', ruta: 'docs/examen/index.html', url: PAGES + 'docs/examen/index.html', tag: 'HTML' },
+            { nombre: 'Diagrama en alta resolución', ruta: 'docs/examen/arquitectura-quantify.png', url: PAGES + 'docs/examen/arquitectura-quantify.png', tag: 'PNG' },
+            { nombre: 'Documentación técnica del examen', ruta: 'docs/examen/README.md', url: REPO + 'docs/examen/README.md', tag: 'MD' }
+          ],
+          conclusion: 'Se formalizó la arquitectura de software completa de Quantify Core, garantizando escalabilidad, resiliencia ante desconexiones y explicabilidad de IA para la formación sustentable de hábitos.'
         }
       ];
 
