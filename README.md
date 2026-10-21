@@ -169,7 +169,7 @@ La arquitectura base del producto se define en el [stack propuesto](#stack-tecno
 
 [![Diagrama de Arquitectura de Software V2.0 de Quantify Core: clientes, identidad, API, datos y observabilidad](docs/examen/arquitectura-quantify.png)](docs/examen/index.html)
 
-[Abrir plano interactivo en GitHub Pages](https://angeljesus13.github.io/Quantify-Core/docs/examen/index.html) · [Consultar HTML corregido en esta rama](docs/examen/index.html).
+[Abrir plano interactivo en GitHub Pages](https://angeljesus13.github.io/Quantify-Core/docs/examen/index.html).
 
 > El diagrama excluye de manera intencional el videojuego Unity de la referencia original.
 
