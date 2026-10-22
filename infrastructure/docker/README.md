@@ -2,7 +2,7 @@
 
 Esta carpeta definirá cómo construir imágenes y levantar las dependencias de Quantify Core para desarrollo y pruebas. El resultado esperado es que un integrante nuevo pueda preparar el entorno siguiendo una única guía y obtener los mismos componentes y versiones que el resto del equipo.
 
-**Estado actual:** solo documentación; no existen Dockerfiles ni archivos de Compose en esta carpeta. Leer primero las [convenciones de infraestructura](../README.md). Los artefactos y pasos descritos a continuación son requisitos de la futura implementación.
+**Estado actual:** base de persistencia relacional implementada. Disponibles `compose.yaml` y `.env.example` para levantar PostgreSQL 16 local con inicialización automática de esquema y semillas. Los Dockerfiles de los microservicios continúan en desarrollo. Leer primero las [convenciones de infraestructura](../README.md).
 
 ## Alcance
 

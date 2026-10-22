@@ -48,10 +48,14 @@ Registrar runtime, herramienta, commit, configuración no sensible, comandos y r
 Desde la raíz y con Node.js disponible:
 
 ```bash
+# 1. Pruebas del modelo relacional e integridad de base de datos (P0)
+node --test tests/database/schema.test.cjs
+
+# 2. Pruebas del prototipo académico
 node --test docs/practica-07/tests/prototipo.test.cjs
 ```
 
-Este conjunto utiliza la lógica del prototipo en memoria. Sus mocks de navegador y almacenamiento no validan accesibilidad real, un servidor, autenticación productiva ni sincronización entre dispositivos. Ver [evidencia de la práctica](../docs/practica-07/VALIDACION.md) y [validación de esta documentación](../docs/guias/validacion-documental.md).
+Este conjunto verifica la integridad de claves, relaciones y restricciones de base de datos relacional (P0) así como la lógica del prototipo en memoria. Ver [evidencia del modelo relacional](../docs/datos-ia/evidencia-modelo-relacional.md), [evidencia de la práctica](../docs/practica-07/VALIDACION.md) y [validación de esta documentación](../docs/guias/validacion-documental.md).
 
 ## Condiciones de revisión
 

@@ -1,0 +1,29 @@
+# ==============================================================================
+# Quantify Core - Docker Compose Local Development
+# Servicio de Persistencia Relacional Core (PostgreSQL 16)
+# ==============================================================================
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: quantify-postgres
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:5432:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-quantify_core}
+      POSTGRES_USER: ${POSTGRES_USER:-quantify_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-quantify_dev_password}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ../../services/api/src/database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ../../services/api/src/database/seeds.sql:/docker-entrypoint-initdb.d/02-seeds.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-quantify_user} -d ${POSTGRES_DB:-quantify_core}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+    name: quantify_postgres_data
