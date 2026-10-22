@@ -28,6 +28,7 @@
 
 - [Página principal del proyecto (Portal Web en GitHub Pages)](https://angeljesus13.github.io/Quantify-Core/)
 - [Práctica 04 — Business Model Canvas Interactivo](https://angeljesus13.github.io/Quantify-Core/docs/Practica04/business-model-canvas.html)
+- [Manual móvil integral](docs/manual%20de%20instalacion/MANUAL_MOVIL_INTEGRAL.pdf)
 - [Práctica 05 — Diagrama Interactivo de Roles de Usuario](https://angeljesus13.github.io/Quantify-Core/docs/Practica05/diagrama-roles-quantify.html)
 - [Examen de arquitectura — Plano interactivo](https://angeljesus13.github.io/Quantify-Core/docs/examen/index.html)
 - [Práctica 07 — Prototipo Interactivo de Sketches](https://angeljesus13.github.io/Quantify-Core/docs/practica-07/)
