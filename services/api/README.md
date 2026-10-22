@@ -62,6 +62,10 @@ NestJS permite implementar políticas mediante guards y validación mediante pip
 ## Persistencia y consistencia
 
 - La API mantiene migraciones, índices y restricciones de PostgreSQL. Los demás servicios reciben vistas de solo lectura, exportaciones minimizadas o interfaces internas autorizadas.
+- El modelo relacional núcleo (P0) se encuentra implementado en:
+  - `src/database/schema.sql`: Definición DDL con tipos nativos, claves foráneas y restricciones de unicidad e integridad.
+  - `src/database/seeds.sql`: Semillas sintéticas reproducibles para pruebas y demostración académica.
+  - `src/database/verify.sql`: Script de verificación formal de integridad relacional y pruebas negativas.
 - MongoDB contiene telemetría/eventos derivados con `eventId` único y `schemaVersion`; no reemplaza la transacción principal ni el registro durable de auditoría requerido para una escritura.
 - Redis soporta caché, limitación de frecuencia y colas. La pérdida de Redis no debe borrar hábitos, correcciones ni trabajos de negocio pendientes de publicar.
 - Las llamadas a Keycloak, analítica, objetos o notificaciones usan adaptadores con plazo máximo. No mantener una transacción abierta durante una llamada remota.
