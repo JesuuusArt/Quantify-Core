@@ -22,6 +22,11 @@
             mode = 'light';
           }
         } catch (_) {}
+        // ?theme=light|dark tiene prioridad sobre la preferencia guardada
+        try {
+          var requested = new URLSearchParams(window.location.search).get('theme');
+          if (requested === 'light' || requested === 'dark') mode = requested;
+        } catch (_) {}
         root.dataset.palette = palette;
         root.dataset.mode = mode;
         root.dataset.theme = palette === 'tech' ? 'tech-' + mode : palette;
@@ -5485,72 +5490,650 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     transform: translateX(-2px);
   }
 
-  /* Modal de detalles rediseñado */
+  /* ======================================================================
+     CAPA DE DETALLE DEL CANVAS
+     Modal editorial con ficha ampliada por bloque del Business Model
+     Canvas: ilustración vectorial propia, lectura descriptiva, traza-
+     bilidad a requisitos, indicadores, riesgos y bloques relacionados.
+     ====================================================================== */
   .focus-chip, .semantic-passport, .relationship-lens { display: none !important; }
+
   #qc-modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(11, 15, 23, 0.78);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: rgba(6, 10, 18, 0.76);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     display: none;
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    padding: 4vh 4vw;
+    padding: 3vh 3vw;
   }
+  #qc-modal-overlay.is-open { display: flex; }
+
   #qc-modal {
+    --qc-accent: var(--brand-glow);
     background: var(--surface);
     border: 1px solid var(--border-strong);
-    border-radius: 20px;
+    border-radius: 22px;
     color: var(--text);
-    max-width: 860px;
-    width: 92vw;
-    max-height: 86vh;
-    overflow-y: auto;
-    padding: 32px 36px;
-    box-shadow: 0 24px 64px -16px rgba(0, 0, 0, 0.75);
+    width: min(1120px, 95vw);
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 30px 90px -28px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.05);
     position: relative;
-    animation: modalIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: modalIn 0.28s cubic-bezier(0.16, 1, 0.3, 1);
   }
   @keyframes modalIn {
-    from { opacity: 0; transform: scale(0.96) translateY(12px); }
-    to { opacity: 1; transform: scale(1) translateY(0); }
+    from { opacity: 0; transform: translateY(16px) scale(0.985); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
   }
-  #qc-modal h2 { margin: 0 0 10px; color: var(--text); font-size: 1.6rem; font-weight: 700; }
-  #qc-modal h3 { color: var(--brand-glow); margin: 20px 0 8px; font-size: 1.1rem; }
-  #qc-modal p, #qc-modal li { color: var(--text-muted); line-height: 1.6; font-size: 0.95rem; }
-  #qc-modal ul { padding-left: 20px; margin-top: 6px; }
-  #qc-modal .qc-tag {
-    display: inline-block;
-    background: var(--brand-blue);
-    color: #fff;
-    border-radius: 999px;
-    padding: 3px 14px;
-    font-size: 0.75rem;
+
+  /* --- Barra superior ---------------------------------------------------- */
+  .qc-m__head {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 11px 14px 11px 18px;
+    border-bottom: 1px solid var(--border);
+    background: color-mix(in srgb, var(--surface-2) 88%, transparent);
+  }
+  .qc-m__head-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .qc-m__head-right { display: flex; align-items: center; gap: 8px; flex: 0 0 auto; }
+  .qc-m__step {
+    font-size: 0.72rem;
     font-weight: 700;
-    margin-bottom: 12px;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
+    color: var(--text-faint);
+    white-space: nowrap;
   }
-  #qc-modal-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: var(--surface-2);
+  #qc-modal .qc-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: color-mix(in srgb, var(--qc-accent) 20%, var(--surface));
+    border: 1px solid color-mix(in srgb, var(--qc-accent) 45%, transparent);
+    color: var(--text);
+    border-radius: 999px;
+    padding: 4px 13px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  #qc-modal .qc-tag::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--qc-accent);
+    flex: 0 0 auto;
+  }
+  .qc-m__nav {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 34px;
+    min-width: 34px;
+    padding: 0 9px;
+    background: var(--surface);
     color: var(--text);
     border: 1px solid var(--border);
     border-radius: 10px;
-    padding: 6px 14px;
     cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 600;
-    transition: all 0.2s;
+    font-size: 0.8rem;
+    font-weight: 700;
+    transition: background 0.18s ease, border-color 0.18s ease;
+  }
+  .qc-m__nav:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--qc-accent) 22%, var(--surface));
+    border-color: var(--qc-accent);
+  }
+  .qc-m__nav:disabled { opacity: 0.35; cursor: not-allowed; }
+  .qc-m__nav:focus-visible, #qc-modal-close:focus-visible,
+  .qc-related button:focus-visible, .qc-m__rail button:focus-visible {
+    outline: 2px solid var(--brand-glow);
+    outline-offset: 2px;
+  }
+  #qc-modal-close {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 7px 14px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 700;
+    transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
   }
   #qc-modal-close:hover {
     background: var(--brand-blue);
     color: #FFFFFF;
     border-color: var(--brand-glow);
+  }
+
+  /* --- Riel de progreso por bloque --------------------------------------- */
+  .qc-m__rail {
+    flex: 0 0 auto;
+    display: flex;
+    gap: 4px;
+    padding: 9px 18px 10px;
+    background: color-mix(in srgb, var(--surface-2) 88%, transparent);
+  }
+  .qc-m__rail button {
+    flex: 1 1 0;
+    height: 3px;
+    padding: 0;
+    border: 0;
+    border-radius: 2px;
+    background: color-mix(in srgb, var(--text-faint) 38%, transparent);
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  .qc-m__rail button:hover { background: color-mix(in srgb, var(--qc-accent) 60%, transparent); }
+  .qc-m__rail button.is-done { background: color-mix(in srgb, var(--qc-accent) 55%, transparent); }
+  .qc-m__rail button.is-current {
+    background: var(--qc-accent);
+    box-shadow: 0 0 10px color-mix(in srgb, var(--qc-accent) 55%, transparent);
+  }
+
+  /* --- Área desplazable -------------------------------------------------- */
+  .qc-m__scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-bottom: 4px;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--text-faint) 45%, transparent) transparent;
+  }
+  .qc-m__scroll::-webkit-scrollbar { width: 10px; }
+  .qc-m__scroll::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--text-faint) 45%, transparent);
+    border-radius: 8px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+
+  /* --- Cabecera editorial ------------------------------------------------ */
+  .qc-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+    gap: 30px;
+    align-items: center;
+    padding: 28px 32px 26px;
+    border-bottom: 1px solid var(--border);
+    background:
+      radial-gradient(130% 150% at 100% 0%, color-mix(in srgb, var(--qc-accent) 20%, transparent) 0%, transparent 62%),
+      linear-gradient(180deg, color-mix(in srgb, var(--surface-2) 62%, transparent) 0%, transparent 100%);
+  }
+  .qc-hero__kicker {
+    margin: 0 0 8px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--qc-accent);
+  }
+  .qc-hero h2 {
+    margin: 0 0 12px;
+    color: var(--text);
+    font-size: clamp(1.55rem, 2.3vw, 2.1rem);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -0.018em;
+  }
+  .qc-hero__lead {
+    margin: 0;
+    max-width: 60ch;
+    color: var(--text-muted);
+    font-size: 0.99rem;
+    line-height: 1.68;
+  }
+  .qc-chips {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 18px 0 0;
+    padding: 0;
+  }
+  .qc-chips li {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 13px 5px 10px;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text);
+    background: color-mix(in srgb, var(--qc-accent) 15%, var(--surface));
+    border: 1px solid color-mix(in srgb, var(--qc-accent) 40%, transparent);
+  }
+  .qc-chips li::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--qc-accent);
+    flex: 0 0 auto;
+  }
+  .qc-hero__art { margin: 0; }
+  .qc-hero__art svg { display: block; width: 100%; height: auto; }
+
+  /* --- Lenguaje de las ilustraciones vectoriales ------------------------- */
+  .il-plate {
+    fill: color-mix(in srgb, var(--surface-2) 72%, transparent);
+    stroke: var(--border);
+    stroke-width: 1.2;
+  }
+  .il-line {
+    fill: none;
+    stroke: var(--qc-accent);
+    stroke-width: 2.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .il-line-soft {
+    fill: none;
+    stroke: color-mix(in srgb, var(--qc-accent) 40%, transparent);
+    stroke-width: 1.9;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 4 5;
+  }
+  .il-muted {
+    fill: none;
+    stroke: color-mix(in srgb, var(--text-faint) 80%, transparent);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .il-fill {
+    fill: color-mix(in srgb, var(--qc-accent) 22%, transparent);
+    stroke: var(--qc-accent);
+    stroke-width: 2.4;
+  }
+  .il-fill-soft {
+    fill: color-mix(in srgb, var(--qc-accent) 11%, transparent);
+    stroke: color-mix(in srgb, var(--qc-accent) 52%, transparent);
+    stroke-width: 2;
+  }
+  .il-ghost {
+    fill: color-mix(in srgb, var(--text-faint) 18%, transparent);
+    stroke: color-mix(in srgb, var(--text-faint) 62%, transparent);
+    stroke-width: 1.8;
+  }
+  .il-dot { fill: var(--qc-accent); }
+  .il-dot-soft { fill: color-mix(in srgb, var(--text-faint) 75%, transparent); }
+  .il-txt {
+    fill: var(--text-muted);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+  }
+  .il-txt-strong {
+    fill: var(--text);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+  }
+  .il-cap {
+    fill: var(--text-dim);
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  /* --- Cuerpo en dos columnas -------------------------------------------- */
+  .qc-cols {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 28px;
+    align-items: start;
+    padding: 26px 32px 0;
+  }
+  .qc-block { margin: 0 0 28px; }
+  .qc-block h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 14px;
+    color: var(--text-dim);
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .qc-block h3::before {
+    content: "";
+    width: 18px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--qc-accent);
+    flex: 0 0 auto;
+  }
+  .qc-pillars {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(238px, 1fr));
+    gap: 12px;
+  }
+  .qc-pillar {
+    padding: 15px 17px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--surface-2) 74%, transparent);
+  }
+  .qc-pillar h4 {
+    margin: 0 0 6px;
+    color: var(--text);
+    font-size: 0.95rem;
+    font-weight: 800;
+    line-height: 1.3;
+  }
+  .qc-pillar p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    line-height: 1.58;
+  }
+
+  /* --- Tablas de datos ---------------------------------------------------- */
+  .qc-tablewrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--surface-2) 60%, transparent);
+  }
+  .qc-table {
+    width: 100%;
+    min-width: 400px;
+    border-collapse: collapse;
+    font-size: 0.79rem;
+  }
+  .qc-table--compact { font-size: 0.735rem; min-width: 0; }
+  .qc-table--compact th,
+  .qc-table--compact td { padding: 8px 11px; }
+  .qc-table th,
+  .qc-table td {
+    padding: 10px 14px;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border);
+  }
+  .qc-table thead th {
+    color: var(--text-dim);
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.35;
+  }
+  .qc-table tbody th {
+    color: var(--text);
+    font-weight: 700;
+  }
+  .qc-table tbody td {
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .qc-table tbody td.qc-num,
+  .qc-table tbody th.qc-num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .qc-table thead th.qc-num { text-align: right; }
+  .qc-table tbody td.qc-num { color: var(--text); font-weight: 700; }
+  .qc-table tbody tr:last-child th,
+  .qc-table tbody tr:last-child td { border-bottom: 0; }
+  .qc-table tbody tr.qc-total th,
+  .qc-table tbody tr.qc-total td {
+    color: var(--text);
+    font-weight: 800;
+    background: color-mix(in srgb, var(--qc-accent) 12%, transparent);
+    border-top: 1px solid color-mix(in srgb, var(--qc-accent) 45%, transparent);
+  }
+  .qc-note {
+    margin: 11px 0 0;
+    color: var(--text-dim);
+    font-size: 0.775rem;
+    line-height: 1.6;
+  }
+  .qc-note b { color: var(--text-muted); font-weight: 700; }
+
+  /* --- Trazabilidad a requisitos ----------------------------------------- */
+  .qc-refs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+  }
+  .qc-refs li {
+    display: grid;
+    grid-template-columns: 104px minmax(0, 1fr);
+    gap: 14px;
+    align-items: start;
+    padding: 13px 15px;
+    border-radius: 13px;
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--surface-2) 48%, transparent);
+  }
+  .qc-refs code {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.71rem;
+    font-weight: 700;
+    color: var(--text);
+    background: color-mix(in srgb, var(--qc-accent) 20%, transparent);
+    border: 1px solid color-mix(in srgb, var(--qc-accent) 40%, transparent);
+    border-radius: 8px;
+    padding: 5px 8px;
+    text-align: center;
+    overflow-wrap: anywhere;
+  }
+  .qc-refs b {
+    display: block;
+    color: var(--text);
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 3px;
+  }
+  .qc-refs span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    line-height: 1.55;
+  }
+
+  /* --- Columna lateral ---------------------------------------------------- */
+  .qc-side { display: grid; gap: 14px; }
+  .qc-panel {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 16px 18px;
+    background: color-mix(in srgb, var(--surface-2) 62%, transparent);
+  }
+  .qc-panel h3 {
+    margin: 0 0 12px;
+    color: var(--text-dim);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .qc-metrics {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 11px;
+  }
+  .qc-metrics li {
+    display: grid;
+    grid-template-columns: 92px minmax(0, 1fr);
+    gap: 12px;
+    align-items: center;
+  }
+  .qc-metrics b {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 30px;
+    padding: 4px 8px;
+    border-radius: 9px;
+    color: var(--text);
+    background: color-mix(in srgb, var(--qc-accent) 18%, transparent);
+    border: 1px solid color-mix(in srgb, var(--qc-accent) 38%, transparent);
+    font-size: 0.69rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    text-align: center;
+  }
+  .qc-metrics span {
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+  .qc-risks {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 13px;
+  }
+  .qc-risks li {
+    padding-left: 13px;
+    border-left: 2px solid color-mix(in srgb, var(--qc-accent) 55%, transparent);
+    color: var(--text-muted);
+    font-size: 0.835rem;
+    line-height: 1.55;
+  }
+  .qc-risks b {
+    display: block;
+    color: var(--text);
+    font-weight: 700;
+    margin-bottom: 3px;
+  }
+  .qc-related { display: flex; flex-wrap: wrap; gap: 8px; }
+  .qc-related button {
+    font: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text);
+    background: color-mix(in srgb, var(--surface) 78%, transparent);
+    border: 1px solid var(--border);
+    transition: background 0.18s ease, border-color 0.18s ease;
+  }
+  .qc-related button:hover {
+    background: color-mix(in srgb, var(--qc-accent) 16%, transparent);
+    border-color: var(--qc-accent);
+  }
+  .qc-related button::after {
+    content: "\2192";
+    color: var(--qc-accent);
+    font-weight: 800;
+  }
+  .qc-sources {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 7px;
+  }
+  .qc-sources li {
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.72rem;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+
+  /* --- Pie del modal ------------------------------------------------------ */
+  .qc-foot {
+    margin: 0 32px;
+    padding: 16px 0 22px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 18px;
+    color: var(--text-faint);
+    font-size: 0.77rem;
+    line-height: 1.5;
+  }
+  .qc-foot kbd {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.68rem;
+    padding: 2px 7px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--surface-2) 80%, transparent);
+    color: var(--text-muted);
+  }
+
+  /* --- Afordancia de clic sobre las tarjetas del canvas -------------------- */
+  .qc-card-hint {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease;
+  }
+  svg [data-node-id]:hover .qc-card-hint,
+  svg [data-node-id]:focus-visible .qc-card-hint { opacity: 1; }
+  .qc-card-hint rect {
+    fill: var(--brand-glow);
+    stroke: var(--mask);
+    stroke-width: 1;
+  }
+  .qc-card-hint path {
+    fill: none;
+    stroke: var(--mask);
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* --- Responsive --------------------------------------------------------- */
+  @media (max-width: 980px) {
+    .qc-cols { grid-template-columns: minmax(0, 1fr); }
+    .qc-hero { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+    .qc-hero__art { max-width: 460px; }
+  }
+  @media (max-width: 640px) {
+    #qc-modal-overlay { padding: 0; }
+    #qc-modal {
+      width: 100vw;
+      max-width: 100vw;
+      height: 100vh;
+      max-height: 100vh;
+      border-radius: 0;
+      border: 0;
+    }
+    .qc-hero, .qc-cols { padding-left: 18px; padding-right: 18px; }
+    .qc-foot { margin: 0 18px; }
+    .qc-m__step { display: none; }
+    .qc-refs li { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+    .qc-metrics li { grid-template-columns: 84px minmax(0, 1fr); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #qc-modal { animation: none; }
+    .qc-card-hint { transition: none; }
   }
 
   /* Responsive progresivo: evita desbordes y cortes a cualquier ancho */
@@ -5841,6 +6424,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           </g>
           <text data-node-label="" data-detail-anchor="" x="130" y="113" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Socios Clave</text>
         <text data-detail="context" x="130" y="129" class="t-muted" font-size="6.2" text-anchor="middle">Universidad Tecnológica de Xicotepec de Juárez</text>
+          <g class="qc-card-hint" aria-hidden="true" transform="translate(196 86)"><rect width="18" height="18" rx="6"/><path d="M5 13 13 5M7 5h6v6"/></g>
         </g>
 
         <g id="node-actividades" data-node-id="actividades" data-node-label="Actividades Clave" tabindex="0" role="button" aria-label="Focus Actividades Clave, Desarrollo de software e integración de IA, Architecture component" aria-pressed="false" data-node-kind="backend" data-node-sublabel="Desarrollo de software e integración de IA" data-node-context="Architecture component">
@@ -5852,6 +6436,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           </g>
           <text data-node-label="" data-detail-anchor="" x="130" y="247" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Actividades Clave</text>
         <text data-detail="context" x="130" y="263" class="t-muted" font-size="6.8" text-anchor="middle">Desarrollo de software e integración de IA</text>
+          <g class="qc-card-hint" aria-hidden="true" transform="translate(196 220)"><rect width="18" height="18" rx="6"/><path d="M5 13 13 5M7 5h6v6"/></g>
         </g>
 
         <g id="node-costos" data-node-id="costos" data-node-label="Estructura de Costos" tabindex="0" role="button" aria-label="Focus Estructura de Costos, Servidores, APIs de IA y marketing, Architecture component" aria-pressed="false" data-node-kind="database" data-node-sublabel="Servidores, APIs de IA y marketing" data-node-context="Architecture component">
@@ -5864,6 +6449,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           </g>
           <text data-node-label="" data-detail-anchor="" x="130" y="381" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Estructura de Costos</text>
         <text data-detail="context" x="130" y="397" class="t-muted" font-size="8.4" text-anchor="middle">Servidores, APIs de IA y marketing</text>
+          <g class="qc-card-hint" aria-hidden="true" transform="translate(196 354)"><rect width="18" height="18" rx="6"/><path d="M5 13 13 5M7 5h6v6"/></g>
         </g>
 
         <g id="node-recursos" data-node-id="recursos" data-node-label="Recursos Clave" tabindex="0" role="button" aria-label="Focus Recursos Clave, Equipo, APIs de IA y diseño UX/UI, Architecture component" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="Equipo, APIs de IA y diseño UX/UI" data-node-context="Architecture component">
@@ -5875,6 +6461,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           </g>
           <text data-node-label="" data-detail-anchor="" x="410" y="113" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Recursos Clave</text>
         <text data-detail="context" x="410" y="129" class="t-muted" font-size="8.6" text-anchor="middle">Equipo, APIs de IA y diseño UX/UI</text>
+          <g class="qc-card-hint" aria-hidden="true" transform="translate(476 86)"><rect width="18" height="18" rx="6"/><path d="M5 13 13 5M7 5h6v6"/></g>
         </g>
 
         <g id="node-propuesta" data-node-id="propuesta" data-node-label="Propuesta de Valor" tabindex="0" role="button" aria-label="Focus Propuesta de Valor, Seguimiento y refuerzo de hábitos con IA, Architecture component" aria-pressed="false" data-node-kind="backend" data-node-sublabel="Seguimiento y refuerzo de hábitos con IA" data-node-tag="Core" data-node-context="Architecture component">
@@ -5886,6 +6473,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           </g>
           <text data-node-label="" data-detail-anchor="" x="415" y="252" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Propuesta de Valor</text>
         <text data-detail="context" x="415" y="268" class="t-muted" font-size="7.5" text-anchor="middle">Seguimiento y refuerzo de hábitos con IA</text>
+          <g class="qc-card-hint" aria-hidden="true" transform="translate(486 220)"><rect width="18" height="18" rx="6"/><path d="M5 13 13 5M7 5h6v6"/></g>
         <text data-detail="fine" x="415" y="286" class="t-backend" font-size="7" text-anchor="middle">Core</text>
         </g>
 
@@ -5901,6 +6489,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           </g>
           <text data-node-label="" data-detail-anchor="" x="410" y="381" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Fuentes de Ingreso</text>
         <text data-detail="context" x="410" y="397" class="t-muted" font-size="9" text-anchor="middle">Suscripción premium</text>
+          <g class="qc-card-hint" aria-hidden="true" transform="translate(476 354)"><rect width="18" height="18" rx="6"/><path d="M5 13 13 5M7 5h6v6"/></g>
         </g>
 
         <g id="node-relacion" data-node-id="relacion" data-node-label="Relación con Clientes" tabindex="0" role="button" aria-label="Focus Relación con Clientes, Recordatorios y acompañamiento personalizado, Architecture component" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="Recordatorios y acompañamiento personalizado" data-node-context="Architecture component">
@@ -5915,6 +6504,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           </g>
           <text data-node-label="" data-detail-anchor="" x="690" y="113" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Relación con Clientes</text>
         <text data-detail="context" x="690" y="129" class="t-muted" font-size="6.5" text-anchor="middle">Recordatorios y acompañamiento personalizado</text>
+          <g class="qc-card-hint" aria-hidden="true" transform="translate(756 86)"><rect width="18" height="18" rx="6"/><path d="M5 13 13 5M7 5h6v6"/></g>
         </g>
 
         <g id="node-canales" data-node-id="canales" data-node-label="Canales" tabindex="0" role="button" aria-label="Focus Canales, App web, app móvil y redes sociales, Architecture component" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="App web, app móvil y redes sociales" data-node-context="Architecture component">
@@ -5929,6 +6519,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           </g>
           <text data-node-label="" data-detail-anchor="" x="690" y="247" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Canales</text>
         <text data-detail="context" x="690" y="263" class="t-muted" font-size="8.1" text-anchor="middle">App web, app móvil y redes sociales</text>
+          <g class="qc-card-hint" aria-hidden="true" transform="translate(756 220)"><rect width="18" height="18" rx="6"/><path d="M5 13 13 5M7 5h6v6"/></g>
         </g>
 
         <g id="node-segmentos" data-node-id="segmentos" data-node-label="Segmentos de Clientes" tabindex="0" role="button" aria-label="Focus Segmentos de Clientes, Público general, Architecture component" aria-pressed="false" data-node-kind="external" data-node-sublabel="Público general" data-node-context="Architecture component">
@@ -5941,6 +6532,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           </g>
           <text data-node-label="" data-detail-anchor="" x="690" y="381" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Segmentos de Clientes</text>
         <text data-detail="context" x="690" y="397" class="t-muted" font-size="9" text-anchor="middle">Público general</text>
+          <g class="qc-card-hint" aria-hidden="true" transform="translate(756 354)"><rect width="18" height="18" rx="6"/><path d="M5 13 13 5M7 5h6v6"/></g>
         </g>
 
         <!-- Connection labels -->
@@ -15656,10 +16248,21 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 
 
 
-<div id="qc-modal-overlay" role="dialog" aria-modal="true">
-  <div id="qc-modal">
-    <button id="qc-modal-close" type="button">Cerrar &#215;</button>
-    <div id="qc-modal-content"></div>
+<div id="qc-modal-overlay">
+  <div id="qc-modal" role="dialog" aria-modal="true" aria-labelledby="qc-m-title" tabindex="-1">
+    <div class="qc-m__head">
+      <div class="qc-m__head-left">
+        <span class="qc-tag" id="qc-m-tag">Cliente</span>
+        <span class="qc-m__step" id="qc-m-step">Bloque 01 de 09</span>
+      </div>
+      <div class="qc-m__head-right">
+        <button class="qc-m__nav" type="button" id="qc-m-prev" aria-label="Ver el bloque anterior" title="Bloque anterior">&#8592;</button>
+        <button class="qc-m__nav" type="button" id="qc-m-next" aria-label="Ver el bloque siguiente" title="Bloque siguiente">&#8594;</button>
+        <button id="qc-modal-close" type="button" aria-label="Cerrar el detalle del bloque">Cerrar <span aria-hidden="true">&#10005;</span></button>
+      </div>
+    </div>
+    <div class="qc-m__rail" id="qc-m-rail" role="group" aria-label="Bloques del modelo canvas"></div>
+    <div class="qc-m__scroll" id="qc-modal-content"></div>
   </div>
 </div>
 <script id="qc-theme-and-physics">
@@ -15804,38 +16407,792 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 </script>
 <script id="qc-modal-script">
 (function () {
-  var info = {
-    segmentos: { tag: 'Cliente', title: 'Segmentos de Clientes', body: '<p><strong>Público general</strong>: cualquier persona que busque mejorar su disciplina, productividad o bienestar mediante hábitos sostenibles.</p><h3>¿Quiénes nos usan?</h3><ul><li>Estudiantes que quieren constancia en sus rutinas.</li><li>Profesionales que buscan productividad.</li><li>Personas con metas de salud o desarrollo personal.</li></ul>' },
-    propuesta: { tag: 'Core', title: 'Propuesta de Valor', body: '<p>Seguimiento y refuerzo inteligente de hábitos impulsado por IA: creación de hábitos, recordatorios, rachas, estadísticas y recomendaciones personalizadas de nuevos hábitos según tu actividad actual.</p>' },
-    canales: { tag: 'Distribución', title: 'Canales', body: '<p>Nuestra solución llega al público en general a través de:</p><ul><li>Aplicación web</li><li>Aplicación móvil (Android / iOS)</li><li>Redes sociales para comunidad y marketing</li></ul>' },
-    relacion: { tag: 'Experiencia', title: 'Relación con Clientes', body: '<p>Relación cercana y personalizada mediante recordatorios inteligentes, acompañamiento con IA y métricas que motivan al usuario a mantener sus rachas.</p>' },
-    ingresos: { tag: 'Monetización', title: 'Fuentes de Ingreso', body: '<p>Modelo <strong>freemium con suscripción premium</strong>: funciones básicas gratuitas y funciones avanzadas (IA avanzada, reportes detallados, sincronización multi-dispositivo) mediante suscripción.</p>' },
-    recursos: { tag: 'Recursos', title: 'Recursos Clave', body: '<ul><li>Equipo de desarrollo (4 integrantes)</li><li>Modelos de IA e integraciones API</li><li>Diseño UX/UI</li><li>Infraestructura en la nube</li></ul>' },
-    actividades: { tag: 'Operación', title: 'Actividades Clave', body: '<ul><li>Desarrollo y mantenimiento de software</li><li>Entrenamiento e integración de modelos de IA</li><li>Mejora continua de la experiencia de usuario</li></ul>' },
-    socios: { tag: 'Alianzas', title: 'Socios Clave', body: '<p>Universidad Tecnológica de Xicotepec de Juárez como institución formadora y aliada académica del proyecto integrador.</p>' },
-    costos: { tag: 'Finanzas', title: 'Estructura de Costos', body: '<ul><li>Servidores e infraestructura en la nube</li><li>Consumo de APIs de IA</li><li>Marketing y adquisición de usuarios</li></ul>' }
+  'use strict';
+
+  /* Orden de lectura del modelo: público -> valor -> canal -> relación ->
+     ingreso -> recursos -> actividades -> socios -> costos. */
+  var ORDER = ['segmentos', 'propuesta', 'canales', 'relacion', 'ingresos', 'recursos', 'actividades', 'socios', 'costos'];
+
+  /* ------------------------------------------------------------------ */
+  /* Ilustraciones vectoriales propias (SVG en línea, sin dependencias) */
+  /* ------------------------------------------------------------------ */
+  var PLATE = '<rect class="il-plate" x="6" y="6" width="408" height="248" rx="20"/>';
+
+  function svg(label, inner) {
+    return '<svg viewBox="0 0 420 260" role="img" aria-label="' + label + '" focusable="false">' + inner + '</svg>';
+  }
+
+  var ART = {};
+
+  /* Cada ilustración es un SVG propio, con etiquetas de texto visibles:
+     el objetivo es que se entienda sin leer la ficha. */
+
+  ART.segmentos = svg('Tres perfiles de persona en tarjetas separadas: estudio, trabajo y bienestar, con el perfil central destacado', PLATE +
+    '<g class="il-ghost"><rect x="24" y="52" width="106" height="156" rx="18"/></g>' +
+    '<g class="il-fill-soft"><rect x="157" y="52" width="106" height="156" rx="18"/></g>' +
+    '<g class="il-ghost"><rect x="290" y="52" width="106" height="156" rx="18"/></g>' +
+    '<circle class="il-line-soft" cx="210" cy="98" r="36"/>' +
+    '<g class="il-ghost"><circle cx="77" cy="98" r="22"/><path d="M45 148c0-18 14-32 32-32s32 14 32 32"/></g>' +
+    '<g class="il-fill"><circle cx="210" cy="98" r="24"/><path d="M172 148c0-21 17-38 38-38s38 17 38 38"/></g>' +
+    '<g class="il-ghost"><circle cx="343" cy="98" r="22"/><path d="M311 148c0-18 14-32 32-32s32 14 32 32"/></g>' +
+    '<text class="il-txt" x="77" y="180" text-anchor="middle">Estudio</text>' +
+    '<text class="il-cap" x="77" y="198" text-anchor="middle">Rutina y exámenes</text>' +
+    '<text class="il-txt-strong" x="210" y="180" text-anchor="middle">Trabajo</text>' +
+    '<text class="il-cap" x="210" y="198" text-anchor="middle">Jornada y foco</text>' +
+    '<text class="il-txt" x="343" y="180" text-anchor="middle">Bienestar</text>' +
+    '<text class="il-cap" x="343" y="198" text-anchor="middle">Sueño y actividad</text>' +
+    '<text class="il-cap" x="210" y="234" text-anchor="middle">Un mismo producto, necesidades distintas</text>');
+
+  ART.propuesta = svg('Núcleo de IA con tres funciones conectadas: registrar, medir y sugerir', PLATE +
+    '<circle class="il-dot-soft" cx="42" cy="190" r="3"/>' +
+    '<circle class="il-dot-soft" cx="382" cy="186" r="4"/>' +
+    '<g class="il-line-soft"><path d="M126 78 L176 124"/><path d="M294 78 L244 124"/><path d="M210 166 L210 187"/></g>' +
+    '<circle class="il-fill-soft" cx="210" cy="130" r="54"/>' +
+    '<g class="il-line"><path d="M210 94 L250 130 L210 166 L170 130 Z"/></g>' +
+    '<path class="il-fill" d="M210 112c3 12 7 16 19 19c-12 3-16 7-19 19c-3-12-7-16-19-19c12-3 16-7 19-19z"/>' +
+    '<text class="il-txt-strong" x="210" y="80" text-anchor="middle">IA que acompaña</text>' +
+    '<g class="il-fill-soft"><circle cx="98" cy="56" r="23"/></g>' +
+    '<g class="il-line"><path d="M88 56l7 7l12-15"/></g>' +
+    '<text class="il-txt" x="98" y="102" text-anchor="middle">Registrar</text>' +
+    '<g class="il-fill-soft"><circle cx="322" cy="56" r="23"/></g>' +
+    '<g class="il-line"><path d="M312 64v-10M319 64v-18M326 64v-7"/></g>' +
+    '<text class="il-txt" x="322" y="102" text-anchor="middle">Medir</text>' +
+    '<g class="il-fill-soft"><circle cx="210" cy="210" r="23"/></g>' +
+    '<g class="il-line"><path d="M210 198v24M198 210h24"/></g>' +
+    '<text class="il-txt" x="210" y="247" text-anchor="middle">Sugerir</text>');
+
+  ART.canales = svg('Navegador web, teléfono móvil y reloj inteligente como canales de distribución', PLATE +
+    '<g class="il-fill-soft"><rect x="24" y="52" width="164" height="112" rx="14"/></g>' +
+    '<path class="il-muted" d="M24 78h164"/>' +
+    '<circle class="il-dot-soft" cx="42" cy="65" r="3.4"/>' +
+    '<circle class="il-dot-soft" cx="55" cy="65" r="3.4"/>' +
+    '<circle class="il-dot-soft" cx="68" cy="65" r="3.4"/>' +
+    '<g class="il-line"><rect x="42" y="96" width="58" height="10" rx="5"/><rect x="42" y="118" width="124" height="8" rx="4"/><rect x="42" y="136" width="88" height="8" rx="4"/></g>' +
+    '<g class="il-fill-soft"><rect x="214" y="56" width="70" height="120" rx="17"/></g>' +
+    '<rect class="il-line" x="230" y="74" width="38" height="64" rx="10" fill="none"/>' +
+    '<path class="il-line" d="M236 122l9-12l7 7l11-14"/>' +
+    '<path class="il-muted" d="M236 160h26"/>' +
+    '<g class="il-fill-soft"><rect x="304" y="64" width="54" height="96" rx="20"/></g>' +
+    '<circle class="il-line" cx="331" cy="112" r="19" fill="none"/>' +
+    '<path class="il-muted" d="M310 68l-5-14M352 68l5-14M358 104h8"/>' +
+    '<text class="il-txt-strong" x="106" y="196" text-anchor="middle">Web y PWA</text>' +
+    '<text class="il-cap" x="106" y="214" text-anchor="middle">React y Vite</text>' +
+    '<text class="il-txt-strong" x="249" y="196" text-anchor="middle">App móvil</text>' +
+    '<text class="il-cap" x="249" y="214" text-anchor="middle">Flutter</text>' +
+    '<text class="il-txt-strong" x="331" y="196" text-anchor="middle">Wear OS</text>' +
+    '<text class="il-cap" x="331" y="214" text-anchor="middle">Por fases</text>' +
+    '<text class="il-cap" x="210" y="240" text-anchor="middle">Un mismo dato, tres puntos de contacto</text>');
+
+  ART.relacion = svg('Conversación, recordatorio y seguimiento del hábito como los tres pilares de la relación', PLATE +
+    '<g class="il-fill-soft"><rect x="18" y="54" width="126" height="84" rx="18"/></g>' +
+    '<path class="il-line" d="M58 138L58 164L82 138"/>' +
+    '<circle class="il-dot" cx="66" cy="96" r="6.5"/>' +
+    '<circle class="il-dot" cx="90" cy="96" r="6.5"/>' +
+    '<circle class="il-dot" cx="114" cy="96" r="6.5"/>' +
+    '<circle class="il-fill" cx="210" cy="94" r="42"/>' +
+    '<g class="il-line"><path d="M196 102v-11a14 14 0 0 1 28 0v11l6 7h-40z"/><path d="M203 114a7 7 0 0 0 14 0"/></g>' +
+    '<path class="il-muted" d="M296 138h82"/>' +
+    '<g class="il-fill-soft"><rect x="300" y="110" width="18" height="28" rx="5"/></g>' +
+    '<g class="il-fill-soft"><rect x="326" y="94" width="18" height="44" rx="5"/></g>' +
+    '<g class="il-fill"><rect x="352" y="78" width="18" height="60" rx="5"/></g>' +
+    '<text class="il-txt-strong" x="81" y="192" text-anchor="middle">Conversación</text>' +
+    '<text class="il-cap" x="81" y="210" text-anchor="middle">Registro con contexto</text>' +
+    '<text class="il-txt-strong" x="210" y="192" text-anchor="middle">Recordatorio</text>' +
+    '<text class="il-cap" x="210" y="210" text-anchor="middle">Push y correo</text>' +
+    '<text class="il-txt-strong" x="335" y="192" text-anchor="middle">Seguimiento</text>' +
+    '<text class="il-cap" x="335" y="210" text-anchor="middle">Progreso visible</text>' +
+    '<text class="il-cap" x="210" y="238" text-anchor="middle">Menos ruido, más trazabilidad</text>');
+
+  ART.ingresos = svg('Planes de suscripción en freemium con la barra premium destacada y símbolo de crecimiento', PLATE +
+    '<g class="il-ghost"><rect x="24" y="44" width="112" height="140" rx="18"/></g>' +
+    '<g class="il-fill-soft"><rect x="154" y="44" width="112" height="140" rx="18"/></g>' +
+    '<g class="il-fill"><rect x="284" y="44" width="112" height="140" rx="18"/></g>' +
+    '<g class="il-fill-soft"><circle cx="80" cy="80" r="18"/></g>' +
+    '<g class="il-fill-soft"><circle cx="210" cy="80" r="18"/></g>' +
+    '<g class="il-fill-soft"><circle cx="340" cy="80" r="18"/></g>' +
+    '<text class="il-txt-strong" x="80" y="86" text-anchor="middle">$</text>' +
+    '<text class="il-txt-strong" x="210" y="86" text-anchor="middle">$</text>' +
+    '<text class="il-txt-strong" x="340" y="86" text-anchor="middle">$</text>' +
+    '<g class="il-muted"><rect x="50" y="110" width="60" height="7" rx="3.5"/><rect x="50" y="124" width="42" height="7" rx="3.5"/></g>' +
+    '<g class="il-muted"><rect x="180" y="110" width="60" height="7" rx="3.5"/><rect x="180" y="124" width="42" height="7" rx="3.5"/></g>' +
+    '<g class="il-muted"><rect x="310" y="110" width="60" height="7" rx="3.5"/><rect x="310" y="124" width="42" height="7" rx="3.5"/></g>' +
+    '<text class="il-txt" x="80" y="152" text-anchor="middle">Gratis</text>' +
+    '<text class="il-cap" x="80" y="170" text-anchor="middle">Registro y métricas</text>' +
+    '<text class="il-txt-strong" x="210" y="152" text-anchor="middle">Premium</text>' +
+    '<text class="il-cap" x="210" y="170" text-anchor="middle">Analítica e IA</text>' +
+    '<text class="il-txt-strong" x="340" y="152" text-anchor="middle">Institucional</text>' +
+    '<text class="il-cap" x="340" y="170" text-anchor="middle">Grupos gestionados</text>' +
+    '<path class="il-line-soft" d="M40 222L140 218L240 212L346 192"/>' +
+    '<path class="il-line" d="M334 188L348 191L346 204"/>' +
+    '<text class="il-cap" x="210" y="240" text-anchor="middle">Más usuarios, más ingreso recurrente</text>');
+
+  ART.recursos = svg('Equipo, infraestructura en la nube y diseño como los tres recursos que sostienen el modelo', PLATE +
+    '<g class="il-fill-soft"><rect x="20" y="44" width="120" height="136" rx="18"/></g>' +
+    '<g class="il-fill-soft"><rect x="150" y="44" width="120" height="136" rx="18"/></g>' +
+    '<g class="il-fill-soft"><rect x="280" y="44" width="120" height="136" rx="18"/></g>' +
+    '<g class="il-fill"><circle cx="92" cy="80" r="11"/><path d="M76 112c0-11 7-19 16-19s16 8 16 19"/></g>' +
+    '<g class="il-fill-soft"><circle cx="66" cy="86" r="10"/><path d="M52 114c0-10 6-16 14-16s14 6 14 16"/></g>' +
+    '<g class="il-fill"><circle cx="324" cy="92" r="14"/><circle cx="344" cy="84" r="20"/><circle cx="364" cy="94" r="12"/><rect x="310" y="94" width="64" height="16" rx="8"/></g>' +
+    '<g class="il-line"><path d="M312 120l28-36a9 9 0 0 1 13 13l-28 36l-17 6z"/><path d="M330 94l13 13"/></g>' +
+    '<text class="il-txt-strong" x="80" y="146" text-anchor="middle">Equipo</text>' +
+    '<text class="il-cap" x="80" y="166" text-anchor="middle">4 integrantes</text>' +
+    '<text class="il-txt-strong" x="210" y="146" text-anchor="middle">Infraestructura</text>' +
+    '<text class="il-cap" x="210" y="166" text-anchor="middle">Nube y datos</text>' +
+    '<text class="il-txt-strong" x="340" y="146" text-anchor="middle">Diseño</text>' +
+    '<text class="il-cap" x="340" y="166" text-anchor="middle">Tokens y a11y</text>' +
+    '<text class="il-cap" x="210" y="212" text-anchor="middle">Los contratos compartidos alinean web, móvil y servicios</text>');
+
+  ART.actividades = svg('Engranaje de construcción junto a una lista de tareas daily: cumplir, analizar y operar', PLATE +
+    '<circle class="il-dot-soft" cx="40" cy="214" r="3"/>' +
+    '<circle class="il-dot-soft" cx="386" cy="206" r="4"/>' +
+    '<g transform="translate(112 104)">' +
+    '<g class="il-fill">' +
+    '<rect x="-8" y="-52" width="16" height="22" rx="5"/>' +
+    '<rect x="-8" y="-52" width="16" height="22" rx="5" transform="rotate(45)"/>' +
+    '<rect x="-8" y="-52" width="16" height="22" rx="5" transform="rotate(90)"/>' +
+    '<rect x="-8" y="-52" width="16" height="22" rx="5" transform="rotate(135)"/>' +
+    '<rect x="-8" y="-52" width="16" height="22" rx="5" transform="rotate(180)"/>' +
+    '<rect x="-8" y="-52" width="16" height="22" rx="5" transform="rotate(225)"/>' +
+    '<rect x="-8" y="-52" width="16" height="22" rx="5" transform="rotate(270)"/>' +
+    '<rect x="-8" y="-52" width="16" height="22" rx="5" transform="rotate(315)"/>' +
+    '</g>' +
+    '<circle class="il-line" r="34" fill="none"/>' +
+    '<circle class="il-line" r="15" fill="none"/>' +
+    '<path class="il-fill" d="M0-9c2 6 3 7 9 9c-6 2-7 3-9 9c-2-6-3-7-9-9c6-2 7-3 9-9z"/>' +
+    '</g>' +
+    '<path class="il-line-soft" d="M222 80L222 98M222 126L222 144"/>' +
+    '<g class="il-fill-soft"><circle cx="222" cy="66" r="14"/></g>' +
+    '<g class="il-line"><path d="M216 66l4 4l8-9"/></g>' +
+    '<g class="il-fill-soft"><circle cx="222" cy="112" r="14"/></g>' +
+    '<g class="il-line"><path d="M215 118v-7M222 118v-13M229 118v-5"/></g>' +
+    '<g class="il-ghost"><circle cx="222" cy="158" r="14"/></g>' +
+    '<g class="il-muted"><path d="M216 156h12v8h-12z"/><path d="M218 160h8"/></g>' +
+    '<text class="il-txt" x="248" y="71">Cumplir</text>' +
+    '<text class="il-txt" x="248" y="117">Analizar</text>' +
+    '<text class="il-txt" x="248" y="163">Operar</text>' +
+    '<text class="il-txt-strong" x="112" y="184" text-anchor="middle">Construir</text>' +
+    '<text class="il-cap" x="112" y="202" text-anchor="middle">Producto y reglas</text>' +
+    '<text class="il-cap" x="210" y="232" text-anchor="middle">Cada actividad deja una salida verificable</text>');
+
+  ART.socios = svg('Alianza entre una institución académica, un proveedor de nube y el proveedor de identidad', PLATE +
+    '<g class="il-line"><path d="M44 96L84 58L124 96Z"/><path d="M38 102h92"/><path d="M42 152h84"/></g>' +
+    '<g class="il-muted"><rect x="50" y="110" width="13" height="40" rx="4"/><rect x="78" y="110" width="13" height="40" rx="4"/><rect x="106" y="110" width="13" height="40" rx="4"/></g>' +
+    '<g class="il-fill-soft"><rect x="42" y="152" width="84" height="12" rx="5"/></g>' +
+    '<path class="il-line-soft" d="M140 122h32M248 122h28"/>' +
+    '<g class="il-fill"><circle cx="192" cy="100" r="15"/><circle cx="210" cy="90" r="20"/><circle cx="230" cy="102" r="14"/><rect x="178" y="100" width="64" height="18" rx="9"/></g>' +
+    '<g class="il-line"><circle cx="330" cy="96" r="17" fill="none"/><circle cx="330" cy="96" r="6" fill="none"/><path d="M344 104l28 28"/><path d="M362 122l-8 8M370 130l-8 8"/></g>' +
+    '<text class="il-txt-strong" x="84" y="190" text-anchor="middle">Universidad</text>' +
+    '<text class="il-cap" x="84" y="208" text-anchor="middle">Equipo y casos</text>' +
+    '<text class="il-txt-strong" x="210" y="190" text-anchor="middle">Nube y datos</text>' +
+    '<text class="il-cap" x="210" y="208" text-anchor="middle">Alojamiento</text>' +
+    '<text class="il-txt-strong" x="344" y="190" text-anchor="middle">Identidad</text>' +
+    '<text class="il-cap" x="344" y="208" text-anchor="middle">Keycloak</text>' +
+    '<text class="il-cap" x="210" y="236" text-anchor="middle">Cada alianza reduce un riesgo distinto</text>');
+
+  ART.costos = svg('Cuatro partidas de costo mensual: equipo, infraestructura, inferencia de IA y difusión', PLATE +
+    '<g class="il-fill-soft"><rect x="26" y="40" width="178" height="82" rx="16"/></g>' +
+    '<g class="il-fill-soft"><rect x="216" y="40" width="178" height="82" rx="16"/></g>' +
+    '<g class="il-fill-soft"><rect x="26" y="132" width="178" height="82" rx="16"/></g>' +
+    '<g class="il-fill-soft"><rect x="216" y="132" width="178" height="82" rx="16"/></g>' +
+    '<g class="il-fill"><circle cx="52" cy="72" r="7"/><path d="M40 92c0-7 5-12 12-12s12 5 12 12"/></g>' +
+    '<g class="il-line"><rect x="230" y="62" width="32" height="9" rx="3"/><rect x="230" y="76" width="32" height="9" rx="3"/><rect x="230" y="90" width="32" height="9" rx="3"/></g>' +
+    '<path class="il-fill" d="M52 152c3 10 6 13 16 16c-10 3-13 6-16 16c-3-10-6-13-16-16c10-3 13-6 16-16z"/>' +
+    '<g class="il-line"><circle cx="242" cy="170" r="5"/><path d="M250 160a14 14 0 0 1 0 20M257 153a22 22 0 0 1 0 34"/></g>' +
+    '<text class="il-txt-strong" x="80" y="76">Equipo</text>' +
+    '<text class="il-cap" x="80" y="96">costo fijo dominante</text>' +
+    '<text class="il-txt-strong" x="274" y="76">Infraestructura</text>' +
+    '<text class="il-cap" x="274" y="96">nube, base y objetos</text>' +
+    '<text class="il-txt-strong" x="80" y="168">Inferencia de IA</text>' +
+    '<text class="il-cap" x="80" y="188">costo variable</text>' +
+    '<text class="il-txt-strong" x="274" y="168">Difusión</text>' +
+    '<text class="il-cap" x="274" y="188">adquisición</text>' +
+    '<g class="il-fill-soft"><circle cx="42" cy="232" r="14"/></g>' +
+    '<text class="il-txt-strong" x="42" y="238" text-anchor="middle">$</text>' +
+    '<text class="il-cap" x="68" y="236">El variable es pequeño; el fijo decide la viabilidad</text>');
+
+  /* ------------------------------------------------------------------ */
+  /* Contenido descriptivo de cada bloque del modelo                     */
+  /* ------------------------------------------------------------------ */
+  var BLOCKS = {};
+
+  BLOCKS.segmentos = {
+    tag: 'Cliente',
+    accent: '#4A7DE8',
+    kicker: 'A quién sirve el modelo',
+    title: 'Segmentos de Clientes',
+    lead: 'Quantify Core se dirige a personas que quieren convertir la intención en rutina comprobable. El mercado de referencia es amplio: cualquiera que registre hábitos con la intención de mejorarlos. Pero el valor del producto solo aparece cuando existe continuidad en el registro y el sistema devuelve una lectura comprensible del propio comportamiento.',
+    chips: ['Público general', 'Usuario final', 'Administración operativa'],
+    pillars: [
+      { h: 'Estudiantes y profesionales con agenda cargada', p: 'Necesitan sostener rutinas de estudio, ejercicio o descanso en paralelo a obligaciones que compiten por el mismo tiempo. Buscan saber qué se cumplió de verdad, no una lista de tareas pendientes.' },
+      { h: 'Personas que retoman un hábito', p: 'Quién dejó de hacer algo y quiere reconstruir la rutina sin perder el historial. El sistema conserva el pasado y permite pausar o archivar sin borrar evidencia.' },
+      { h: 'Usuarios con metas de bienestar', p: 'Buscan señales de descanso, carga y constancia en lugar de un contador de racha aislado. Necesitan que el sistema se abstenga cuando los datos no son suficientes.' },
+      { h: 'Administración académica u operativa', p: 'Perfil interno que mantiene catálogos, políticas de suscripción y auditoría de modelos. Opera sobre métricas agregadas y no accede por defecto a rutinas privadas.' }
+    ],
+    refs: [
+      { code: 'RF-03', t: 'Catálogo de hábitos', d: 'Alta, edición, pausa y archivo con meta, unidad y frecuencia validadas en cliente y API. El historial se conserva en los tres estados.' },
+      { code: 'RF-05', t: 'Métricas y rachas', d: 'El usuario consulta cumplimiento, rachas e histórico con reglas versionadas y ventana explícita, no una cifra global sin contexto.' },
+      { code: 'RN-P01', t: 'Pertenencia', d: 'El usuario solo opera sobre recursos propios; el identificador de dueño se deriva de la sesión y no de un campo enviado por el cliente.' },
+      { code: 'P05', t: 'Roles de usuario', d: 'Tres actores con alcances distintos: usuario final, sistema con IA y administración con alcance agregado sobre la plataforma.' }
+    ],
+    metrics: [
+      { v: 'Activación', d: 'Usuarios que crean un hábito y registran su primer avance confirmado.' },
+      { v: 'Retención', d: 'Usuarios activos por semana con al menos una oportunidad cerrada y un dato confirmado.' },
+      { v: 'Cobertura', d: 'Oportunidades con dato confirmado frente a las esperadas en la ventana consultada.' }
+    ],
+    risks: [
+      { t: 'Segmento demasiado amplio', d: 'Sin una prioridad declarada, la adquisición dispersa presupuesto y mensaje. Mitigación: entrar por los perfiles con la agenda más competida y medir activación por segmento.' },
+      { t: 'El acceso administrativo a lo privado', d: 'Abrir un panel administrativo no concede acceso a las rutinas de los usuarios. La regla vigente lo impide: solo métricas agregadas autorizadas (RN-P24).' },
+      { t: 'Adopción sin continuidad', d: 'Un usuario que registra una sola vez no genera valor ni evidencia. El alta debe conducir a un segundo registro antes de presentar métricas que dependan del histórico.' }
+    ],
+    related: ['propuesta', 'canales', 'ingresos'],
+    paths: ['docs/requerimientos/catalogo.md', 'docs/Practica05/README.md', 'docs/requerimientos/reglas-negocio.md']
   };
+
+  BLOCKS.propuesta = {
+    tag: 'Núcleo',
+    accent: '#0EA5E9',
+    kicker: 'El centro del modelo',
+    title: 'Propuesta de Valor',
+    lead: 'Seguimiento y refuerzo inteligente de hábitos con inteligencia artificial. La promesa no es contar días: es devolver una lectura verificable del propio comportamiento, qué se registró, con qué evidencia, qué cambió y qué se puede hacer ahora. La IA asiste, no sustituye el criterio de la persona ni la revisión profesional.',
+    chips: ['Trazabilidad', 'Contexto autorizado', 'Explicabilidad'],
+    pillars: [
+      { h: 'Evidencia antes que conteo', p: 'Cada registro conserva origen, instante de ocurrencia y de recepción, zona y versión de esquema. La trazabilidad se entiende como reconstruible y auditable, no como una promesa de inalterabilidad absoluta.' },
+      { h: 'Contexto solo con permiso', p: 'Las señales contextuales y biométricas se capturan de forma opcional, granular y revocable. Autorizar una captura no autoriza un entrenamiento ni la cesión a un proveedor externo.' },
+      { h: 'Recomendaciones explicables', p: 'Cada sugerencia muestra evidencia, ventana temporal, versión de la regla o del modelo y sus limitaciones. Si los datos no son suficientes, el sistema se abstiene y explica por qué.' },
+      { h: 'Indicadores preventivos, no diagnóstico', p: 'Riesgo de desgaste, descanso y carga acumulada se presentan como apoyo informativo con límites explícitos. El producto no emite diagnósticos clínicos ni recomendaciones de emergencia.' }
+    ],
+    refs: [
+      { code: 'RF-04', t: 'Registros con evidencia', d: 'Existe un resultado diario consolidado por hábito y fecha de negocio; el reintento no duplica progreso ni eventos, y toda corrección queda trazada.' },
+      { code: 'RF-05', t: 'Métricas reproducibles', d: 'Los agregados conservan ventana, zona, versión de reglas y fecha de cálculo. Una corrección invalida lo afectado y puede dejar visible un recálculo pendiente.' },
+      { code: 'RF-07', t: 'Recomendaciones', d: 'El consentimiento y la suficiencia de datos se verifican al generar y servir. Solo guardar explícitamente la propuesta crea un hábito; cancelar no la acepta.' },
+      { code: 'RN-P19', t: 'Uso responsable de la inferencia', d: 'Un score se etiqueta según su significado validado y no se convierte automáticamente en probabilidad o certeza clínica.' }
+    ],
+    metrics: [
+      { v: 'Trazabilidad', d: 'Registros con origen, instante y versión de esquema verificables de punta a punta.' },
+      { v: 'Cobertura', d: 'Oportunidades con dato confirmado sobre las oportunidades esperadas en la ventana.' },
+      { v: 'Abstención', d: 'Sugerencias no emitidas por datos insuficientes, con el motivo visible para la persona.' }
+    ],
+    risks: [
+      { t: 'Sobreinterpretación del score', d: 'Un número sin contexto se lee como un diagnóstico. Mitigación: etiqueta explícita del significado, ventana visible, versión del modelo y abstención explicada cuando la evidencia no alcanza.' },
+      { t: 'Promesa de inalterabilidad', d: 'La trazabilidad verificable no es la inalterabilidad absoluta y no se apoya en blockchain. Mitigación: explicar la diferencia en el propio material y en la interfaz de auditoría.' },
+      { t: 'Explicaciones que inventan evidencia', d: 'Una capa de lenguaje que añade justificaciones no presentes en los datos rompe la confianza. Mitigación: la explicación se genera a partir de la evidencia almacenada y de la versión registrada del modelo.' }
+    ],
+    related: ['segmentos', 'relacion', 'recursos', 'actividades'],
+    paths: ['docs/requerimientos/catalogo.md', 'docs/requerimientos/reglas-negocio.md', 'docs/datos-ia/README.md']
+  };
+
+  BLOCKS.canales = {
+    tag: 'Distribución',
+    accent: '#7EA3F0',
+    kicker: 'Cómo llega el producto',
+    title: 'Canales',
+    lead: 'La propuesta se entrega primero en la web como PWA y en el móvil con Flutter; la integración con Wear OS llega por fases. Los canales no son solo ventanas de distribución: cada uno define cómo se registra el dato, qué zona de negocio se aplica y qué se puede hacer sin conexión.',
+    chips: ['Web PWA', 'Móvil Flutter', 'Wear OS por fases', 'Comunidad'],
+    pillars: [
+      { h: 'Web (React + Vite, PWA)', p: 'Cliente desacoplado de la API, con compilación ligera y despliegue estático. Permite instalar la experiencia en el escritorio y el móvil sin pasar por una tienda de aplicaciones.' },
+      { h: 'Móvil (Flutter)', p: 'Aplicación para Android e iOS con captura rápida, micro-hábitos y respuesta inmediata. Es el canal principal del registro diario y el que exige la cola local de sincronización.' },
+      { h: 'Wear OS, por fases', p: 'Integración progresiva de señales autorizadas. El SDK, el protocolo y el modelo de amenazas siguen pendientes; no se presupone un mecanismo de emparejamiento concreto.' },
+      { h: 'Comunidad y contenido educativo', p: 'Redes y guías públicas que explican el método y sus límites, con énfasis en que el producto es apoyo informativo y no diagnóstico clínico.' }
+    ],
+    refs: [
+      { code: 'RF-08', t: 'Dispositivos y biometría', d: 'La vinculación prueba pertenencia y capacidades. Desvincular impide nueva ingesta y el uso de credenciales previas.' },
+      { code: 'RF-06', t: 'Recordatorios', d: 'Se validan horario, zona, canal y días compatibles. Denegar los permisos del dispositivo mantiene utilizable el registro manual.' },
+      { code: 'RN-P16', t: 'Cola local del cliente', d: 'Los clientes distinguen pending, synced, conflict y failed. Lo pendiente puede mostrarse como provisional, pero solo la API confirma la persistencia oficial.' },
+      { code: 'README', t: 'Stack tecnológico base', d: 'React y Vite para web, Flutter para móvil, NestJS para la API y FastAPI para analítica, con Docker Compose como entorno reproducible.' }
+    ],
+    metrics: [
+      { v: 'Origen', d: 'Porcentaje de registros creados desde móvil, web o un dispositivo vinculado.' },
+      { v: 'Entrega', d: 'Avisos entregados frente a los programados, con los reintentos contados por separado.' },
+      { v: 'Canal', d: 'Sesiones y altas de usuario por canal, para detectar dónde se pierde la conversión.' }
+    ],
+    risks: [
+      { t: 'Cobertura de Wear OS desigual', d: 'La integración depende de capacidades y permisos que no todos los dispositivos ofrecen. Mitigación: tratarla por fases y mantener el registro manual como camino válido.' },
+      { t: 'Cola local que promete de más', d: 'Un registro guardado en el dispositivo y todavía no sincronizado no es un registro confirmado. Mitigación: estados visibles y una única confirmación desde la API.' },
+      { t: 'Múltiples clientes, una sola lógica', d: 'Web, móvil y servicios pueden divergir en el cálculo de una métrica. Mitigación: contratos compartidos y reglas versionadas en el servidor.' }
+    ],
+    related: ['segmentos', 'relacion', 'socios'],
+    paths: ['docs/arquitectura/README.md', 'docs/practica-07/README.md', 'README.md']
+  };
+
+  BLOCKS.relacion = {
+    tag: 'Experiencia',
+    accent: '#10B981',
+    kicker: 'La conversación con la persona',
+    title: 'Relación con Clientes',
+    lead: 'La relación es de acompañamiento: autoservicio, recordatorios que respetan la agenda y explicaciones que la persona puede leer. Quantify Core no compite por la atención. La relación se sostiene en menos ruido, más trazabilidad y control explícito sobre el uso de los datos.',
+    chips: ['Autoservicio', 'Recordatorios', 'Feedback', 'Control del dato'],
+    pillars: [
+      { h: 'Registro sin fricción', p: 'Un check-in con clave idempotente, valor absoluto del día y corrección auditable. Reintentar no duplica, y una edición concurrente obsoleta produce un conflicto visible, no una pérdida silenciosa.' },
+      { h: 'Recordatorios que no saturan', p: 'Horarios, días y zona los elige la persona. Los reintentos de entrega no generan avisos duplicados para la misma ocurrencia y canal, y archivar un hábito impide nuevos envíos.' },
+      { h: 'Acompañamiento explicable', p: 'La respuesta del sistema dice qué evidencia vio, en qué ventana y con qué limitaciones. La persona acepta o descarta; solo guardar la propuesta crea el hábito.' },
+      { h: 'Control y portabilidad', p: 'La persona consulta, exporta o solicita la eliminación de sus datos y revoca finalidades en un solo lugar. La revocación bloquea usos futuros y tareas pendientes antes de ejecutarse.' }
+    ],
+    refs: [
+      { code: 'RF-06', t: 'Recordatorios', d: 'Validación de horario, zona, canal y días. Desactivar o archivar impide nuevos envíos y los reintentos no duplican avisos.' },
+      { code: 'RF-07', t: 'Recomendaciones', d: 'Se muestran evidencia, ventana, versión y limitaciones. Aceptar dos veces no duplica el hábito y cancelar no consume la propuesta.' },
+      { code: 'RF-10', t: 'Derechos de dato', d: 'Exportar exige identidad verificada y caducidad; la eliminación sigue un estado trazable por almacén, derivados y copias.' },
+      { code: 'RN-P13', t: 'Correcciones auditables', d: 'Deshacer crea una corrección auditable y recalcula derivados. La ausencia de registro no equivale a un cero explícito.' }
+    ],
+    metrics: [
+      { v: 'Fricción', d: 'Tiempo y pasos hasta dejar registrado el avance diario confirmado.' },
+      { v: 'Duplicados', d: 'Avisos o registros repetidos por reintento. El objetivo declarado es cero.' },
+      { v: 'Conflictos', d: 'Ediciones concurrentes obsoletas resueltas de forma visible, sin pérdida de progreso.' }
+    ],
+    risks: [
+      { t: 'Fatiga de notificaciones', d: 'Demasiados avisos erosionan la confianza y empujan a silenciar la aplicación. Mitigación: horarios elegidos por la persona, deduplicación por ocurrencia y canal, y respeto por pausa y archivo.' },
+      { t: 'Confianza mal calibrada', d: 'Una recomendación sin evidencia visible se percibe como invasiva. Mitigación: abstención explicada, trazabilidad de cada sugerencia y feedback registrado.' },
+      { t: 'Exceso de opciones', d: 'Configurar permisos, horarios y zonas puede convertir el registro en un trámite. Mitigación: valores por defecto razonables y el registro manual siempre disponible.' }
+    ],
+    related: ['propuesta', 'canales', 'ingresos'],
+    paths: ['docs/requerimientos/catalogo.md', 'docs/requerimientos/reglas-negocio.md', 'docs/diseno/README.md']
+  };
+
+  BLOCKS.ingresos = {
+    tag: 'Monetización',
+    accent: '#F59E0B',
+    kicker: 'Cómo se sostiene el proyecto',
+    title: 'Fuentes de Ingreso',
+    lead: 'El modelo propone una capa gratuita que permite probar la propuesta de valor y una suscripción premium que financia el coste de la analítica y de la inferencia. Es una hipótesis de negocio de la práctica, no una política comercial aprobada: precios, catálogo de planes y criterios de elegibilidad siguen pendientes de decisión.',
+    chips: ['Freemium', 'Suscripción premium', 'Segmento institucional'],
+    pillars: [
+      { h: 'Capa gratuita', p: 'Acceso al núcleo del producto: hábitos, registros, rachas y métricas básicas. Su función es la adquisición y la prueba de la propuesta de valor sin fricción de pago.' },
+      { h: 'Suscripción premium', p: 'Funciones avanzadas: analítica detallada, recomendaciones asistidas por IA, sincronización multi-dispositivo y exportación. Es el bloque que financia la infraestructura del servicio.' },
+      { h: 'Segmento institucional', p: 'Escuelas, empresas o programas de bienestar que consumen el servicio para grupos gestionados, con métricas agregadas y sin acceso a rutinas individuales.' },
+      { h: 'Modelo y catálogo por definir', p: 'Planes, precios, ventanas de elegibilidad y estados de suscripción son parámetros versionados pendientes. Los valores usados en la demostración son hipótesis, no decisiones de producto.' }
+    ],
+    refs: [
+      { code: 'RN-P21', t: 'Parámetros por cerrar', d: 'Máximo de sugerencias, confianza y caducidad están pendientes de evaluación. Los siete días, 80% y 21 días de la demostración son hipótesis.' },
+      { code: 'RF-09', t: 'Administración', d: 'Cada mutación exige permiso, motivo y auditoría. La gestión de catálogos y de modelos corresponde al rol de administración.' },
+      { code: 'README', t: 'Estado del proyecto', d: 'Quantify Core se encuentra en fase de definición. No hay ingresos, contratos ni servicios implementados en esta versión.' },
+      { code: 'P05', t: 'Políticas de suscripción', d: 'El rol de administración gestiona las políticas freemium frente a premium como parte de la operación del servicio.' }
+    ],
+    metrics: [
+      { v: 'Conversión', d: 'Usuarios que pasan de la capa gratuita a la suscripción tras activar un hábito.' },
+      { v: 'Retención', d: 'Suscripciones activas renovadas por periodo, segmentadas por canal de adquisición.' },
+      { v: 'Margen', d: 'Ingreso recurrente frente al coste variable de infraestructura e inferencia por usuario.' }
+    ],
+    risks: [
+      { t: 'Coste variable de la IA', d: 'La inferencia y el almacenamiento crecen con el uso, no con el número de cuentas. Mitigación: medir el coste por recomendación servida y revisarlo antes de fijar el precio.' },
+      { t: 'Promesa comercial prematura', d: 'Presentar precios o beneficios premium como decisiones contradice el estado real del proyecto. Mitigación: describir el modelo como propuesta y mantener la decisión en el registro de pendientes.' },
+      { t: 'Ingreso concentrado en un segmento', d: 'Depender de un único canal de pago aumenta la sensibilidad a cualquier cambio comercial. Mitigación: diversificar la captación y no activar planes antes de cerrar la política de precios.' }
+    ],
+    related: ['segmentos', 'relacion', 'costos'],
+    paths: ['docs/arquitectura/decisiones-pendientes.md', 'docs/Practica05/README.md', 'README.md']
+  };
+
+  BLOCKS.recursos = {
+    tag: 'Recursos',
+    accent: '#34D399',
+    kicker: 'Con qué se construye',
+    title: 'Recursos Clave',
+    lead: 'El modelo se sostiene sobre un equipo de ingeniería pequeño, una base tecnológica definida y contratos compartidos entre web, móvil y servicios. El activo más escaso no es el cómputo: es el tiempo de ingeniería y la disciplina de contrato que mantiene alineados al cliente, la API y la analítica.',
+    chips: ['Equipo', 'Infraestructura', 'Contratos', 'Diseño'],
+    pillars: [
+      { h: 'Equipo de ingeniería', p: 'Cuatro integrantes con roles de líder de proyecto, desarrollo frontend, desarrollo backend y administración de datos. La capacidad real de entrega depende de cuánto contexto comparte el equipo, no solo de su tamaño.' },
+      { h: 'Base tecnológica', p: 'React con TypeScript y Vite para web; Flutter para móvil; NestJS sobre Node.js para la API; Python y FastAPI para analítica. PostgreSQL para lo transaccional, MongoDB para eventos, Redis para caché y trabajos, y Keycloak para la identidad.' },
+      { h: 'Contratos y reglas compartidos', p: 'Especificaciones OpenAPI, eventos versionados y reglas de negocio documentadas. Los clientes no mantienen DTO incompatibles: un cambio de contrato se revisa, se versiona y se prueba.' },
+      { h: 'Experiencia y diseño', p: 'Tokens de diseño documentados, accesibilidad verificable y una interfaz que no dependa del color para comunicar estados. Los mockups académicos no se trasladan como identidad de producto.' }
+    ],
+    refs: [
+      { code: 'README', t: 'Stack tecnológico base', d: 'La base propuesta define web, móvil, API, analítica, almacenes de datos, identidad central y observabilidad.' },
+      { code: 'RNF-08', t: 'Mantenibilidad', d: 'Un contrato y reglas de negocio compartidos por los clientes, con generación o validación de tipos y pruebas de compatibilidad.' },
+      { code: 'RNF-10', t: 'Reproducibilidad', d: 'Herramientas, versiones, variables y comandos documentados para levantar la entrega desde un clon limpio con datos sintéticos.' },
+      { code: 'TOKENS', t: 'Tokens de diseño', d: 'La paleta canónica de identidad en Obsidian, Laser Blue y neutros, con la regla de que el color nunca es el único medio para comunicar un estado.' }
+    ],
+    metrics: [
+      { v: 'Cobertura', d: 'Reglas de negocio con prueba automatizada asociada frente al total de reglas activas.' },
+      { v: 'Contratos', d: 'Cambios de contrato revisados, versionados y validados contra los clientes que los consumen.' },
+      { v: 'Entrega', d: 'Capacidad del equipo de cerrar un incremento completo y documentado por periodo.' }
+    ],
+    risks: [
+      { t: 'Equipo pequeño con carga concentrada', d: 'Una ausencia puede detener un frente completo. Mitigación: documentar el contexto, repartir la propiedad del código y evitar dependencias de una sola persona.' },
+      { t: 'Contexto compartido insuficiente', d: 'La documentación académica no sustituye a la arquitectura ejecutable. Mitigación: registrar las decisiones pendientes y cerrar el contrato mínimo antes de ampliar el alcance.' },
+      { t: 'Alcance mayor que la capacidad', d: 'La propuesta de V2.0 puede exceder lo que el equipo sostiene con calidad. Mitigación: aplicar la puerta de aceptación por fases en lugar de construir todo en paralelo.' }
+    ],
+    related: ['actividades', 'socios', 'propuesta', 'costos'],
+    paths: ['README.md', 'packages/design-tokens/README.md', 'packages/contracts/README.md']
+  };
+
+  BLOCKS.actividades = {
+    tag: 'Operación',
+    accent: '#6366F1',
+    kicker: 'Qué hay que hacer todos los días',
+    title: 'Actividades Clave',
+    lead: 'Las actividades son deliberadamente pocas y repetibles: construir el producto, mantener el motor de reglas, cuidar la analítica y sostener la operación. Cada una deja una salida verificable, porque una actividad que no deja evidencia no es una actividad del modelo: es una intención.',
+    chips: ['Construcción', 'Motor de reglas', 'Analítica responsable', 'Operación'],
+    pillars: [
+      { h: 'Construcción de producto', p: 'Implementar el recorrido principal de punta a punta: acceso, perfil, hábito, registro y métrica, con la puerta de aceptación documentada antes de ampliar el alcance.' },
+      { h: 'Motor de reglas versionado', p: 'Cumplimiento, rachas y agregados se calculan con reglas que llevan versión. Un cambio de regla conserva el histórico, invalida lo afectado y puede dejar un recálculo pendiente visible.' },
+      { h: 'Analítica e IA responsable', p: 'Construir una línea base estadística antes de los modelos complejos. Evaluar desempeño, sesgos y escenarios fuera de distribución, y documentar la abstención antes de publicar una función predictiva.' },
+      { h: 'Operación, soporte y observabilidad', p: 'Trazas correlacionadas, alertas con responsable, copias de seguridad con ejercicio de restauración y un procedimiento documentado de respuesta a incidentes.' }
+    ],
+    refs: [
+      { code: 'RN-P18', t: 'Agregados con trazabilidad', d: 'Cada agregado conserva ventana, zona, versión de reglas y fecha de cálculo. Una corrección invalida los agregados afectados.' },
+      { code: 'RF-09', t: 'Administración', d: 'Suspender cuentas o modificar catálogos exige permiso y motivo auditado, sin dejar el servicio sin un administrador habilitado.' },
+      { code: 'RNF-09', t: 'Observabilidad', d: 'Trazar fallos de solicitudes y trabajos sin exponer datos personales, con alertas con responsable y procedimiento de atención.' },
+      { code: 'README', t: 'Orden de entrega', d: 'El roadmap va de definición a núcleo verificable, experiencia móvil, telemetría, analítica con IA y preparación operativa.' }
+    ],
+    metrics: [
+      { v: 'Entregas', d: 'Incrementos completos con pruebas y documentación, frente a los planificados.' },
+      { v: 'Recálculo', d: 'Tiempo entre una corrección y la actualización de los agregados derivados.' },
+      { v: 'Abstención', d: 'Sugerencias no emitidas por datos insuficientes, sobre el total de solicitudes de inferencia.' }
+    ],
+    risks: [
+      { t: 'Sobreingeniería temprana', d: 'Construir infraestructura antes de tener el recorrido principal probado retrasa la evidencia. Mitigación: la puerta de aceptación del primer flujo como criterio de avance.' },
+      { t: 'Reglas que cambian sin versión', d: 'Un ajuste silencioso de la fórmula de rachas invalida el histórico que la persona ya leyó. Mitigación: versionar la regla, conservar la vigencia por fecha y recalcular de forma explícita.' },
+      { t: 'Dependencia de una sola línea base', d: 'Sin estadística de partida, un modelo complejo no es evaluable. Mitigación: línea base estadística antes de cualquier modelo con capacidad predictiva.' }
+    ],
+    related: ['recursos', 'propuesta', 'costos'],
+    paths: ['docs/requerimientos/reglas-negocio.md', 'docs/requerimientos/aceptacion.md', 'README.md']
+  };
+
+  BLOCKS.socios = {
+    tag: 'Alianzas',
+    accent: '#A5ABFB',
+    kicker: 'Con quién se cuenta',
+    title: 'Socios Clave',
+    lead: 'El proyecto se apoya en su institución formadora, en los proveedores de infraestructura y en la identidad central, y suma a las personas que aceptan probar el sistema con sus datos. Cada alianza reduce un riesgo distinto: capacidad, operación o validación.',
+    chips: ['Institución académica', 'Nube e infraestructura', 'Identidad', 'Comunidad'],
+    pillars: [
+      { h: 'Institución académica', p: 'La Universidad Tecnológica de Xicotepec de Juárez aporta el marco de formación, el equipo y el acceso a casos de estudio y revisión. Es la contraparte que hace auditable el proceso, no un cliente comercial.' },
+      { h: 'Proveedores de nube e infraestructura', p: 'Alojamiento, bases de datos, caché y entrega de notificaciones. Cada dependencia técnica tiene su alternativa y su coste evaluado antes de comprometer el diseño.' },
+      { h: 'Identidad y federación', p: 'Keycloak como proveedor de identidad con OpenID Connect y Authorization Code con PKCE, con Google como identidad federada opcional. La API no guarda contraseñas de la persona.' },
+      { h: 'Comunidad y casos de uso', p: 'Personas que prueban la herramienta y aportan la retroalimentación cualitativa que ordena las prioridades. Participar exige consentimiento explícito y no implica acceso a datos de terceros.' }
+    ],
+    refs: [
+      { code: 'RF-01', t: 'Identidad y acceso', d: 'El registro y la recuperación siguen a Keycloak; el usuario no puede asignarse a sí mismo un rol administrativo.' },
+      { code: 'README', t: 'Decisiones pendientes', d: 'El alojamiento de Keycloak, el proveedor de objetos, el servicio de notificaciones y el modelo de despliegue siguen abiertos.' },
+      { code: 'RNF-07', t: 'Recuperación', d: 'Ejercicio de restauración en entorno aislado, con RPO y RTO medidos frente a objetivos aún por aprobar.' },
+      { code: 'P05', t: 'Soporte del equipo', d: 'La institución aporta el equipo de cuatro integrantes con roles diferenciados de liderazgo, frontend, backend y datos.' }
+    ],
+    metrics: [
+      { v: 'Acuerdos', d: 'Convenios o condiciones formalizadas con cada aliado antes de depender de su servicio.' },
+      { v: 'Tiempo de soporte', d: 'Plazo real de respuesta de cada proveedor frente al acordado.' },
+      { v: 'Alternativas', d: 'Dependencias críticas que cuentan con una ruta de sustitución documentada.' }
+    ],
+    risks: [
+      { t: 'Dependencia de terceros', d: 'Alojamiento, identidad y notificaciones dependen de servicios ajenos. Mitigación: documentar la alternativa de cada dependencia crítica antes de comprometer el diseño.' },
+      { t: 'Confusión entre aliado y cliente', d: 'La institución no es un cliente comercial y su papel no genera ingreso. Mitigación: describir en el modelo que es una contraparte académica, no una fuente de ingresos.' },
+      { t: 'Proveedor biométrico sin definir', d: 'El SDK, el protocolo y el modelo de amenazas de Wear OS siguen pendientes. Mitigación: no comprometer el roadmap de telemetría hasta cerrar la prueba técnica.' }
+    ],
+    related: ['recursos', 'canales', 'costos'],
+    paths: ['docs/arquitectura/decisiones-pendientes.md', 'docs/seguridad/README.md', 'docs/arquitectura/README.md']
+  };
+
+  BLOCKS.costos = {
+    tag: 'Finanzas',
+    accent: '#8A99AD',
+    kicker: 'En qué se va el dinero',
+    title: 'Estructura de Costos',
+    lead: 'Los costos se concentran en cuatro frentes: infraestructura, cómputo e inferencia de IA, herramientas de desarrollo y difusión. Con los precios de mercado consultados, la lectura es clara: el costo variable es pequeño y el fijo domina. La inferencia de IA cuesta alrededor de US$0.34 por usuario premium al mes, mientras el tiempo de las cuatro personas del equipo equivale a unos US$7,000 mensuales. El modelo deja de ser sano si el costo por usuario activo crece más rápido que el ingreso, así que la analítica y el consumo de APIs se miden como parte del producto y no como un gasto invisible.',
+    chips: ['Precios de mercado', 'Costo variable', 'Costo fijo', 'Punto de equilibrio'],
+    pillars: [
+      { h: 'Inferencia de IA: el costo variable', p: 'Con 90 llamadas al mes por usuario (3 sugerencias al día, 2,000 tokens de entrada y 600 de salida por llamada), Gemini 3.8 Flash cuesta US$0.34 por usuario premium al mes: US$0.135 de entrada y US$0.20 de salida. El costo marginal de la IA no es el riesgo del modelo; el de subir de modelo sin medirlo, sí: el mismo volumen con gpt-5.6-sol costaría US$1.80 por usuario.' },
+      { h: 'Infraestructura: el costo fijo del servicio', p: 'Cómputo y alojamiento: US$17.55 al mes por una máquina Fly.io shared-cpu-8x de 2 GB, o US$25 al mes en Render Standard con 2 GB. Base de datos y autenticación: US$25 al mes en Supabase Pro con 100,000 usuarios activos mensuales. Objetos y respaldos: US$0.015 por GB-mes en Cloudflare R2. Push sin cargo en Firebase Cloud Messaging. Infraestructura total del piloto: US$69 al mes.' },
+      { h: 'Equipo: la partida dominante', p: 'Costo de oportunidad del tiempo de las cuatro personas del equipo. PayScale sitúa el salario base promedio de un desarrollador de software en México en MX$388,000 anuales, es decir MX$32,333 al mes por persona y US$6,998 al mes para las cuatro. No es un desembolso en efectivo del proyecto, pero es el costo que decide si el modelo se sostiene.' },
+      { h: 'Difusión y costos que aún no se han medido', p: 'Google Play cobra una tarifa de servicio del 15% sobre las transacciones procesadas con su sistema de facturación: reduce el ingreso, no el costo. El costo de adquisición, el proveedor de correo y notificaciones y las licencias de Wear OS siguen sin decidir (D-05), así que no se fija un costo de adquisición sin datos de campañas reales.' }
+    ],
+    tables: [
+      {
+        title: 'Costo mensual estimado · escenario piloto con 1,000 suscriptores premium',
+        note: 'Precios de referencia consultados el 21 de octubre de 2026 en las páginas oficiales de OpenAI (developers.openai.com/api/docs/pricing), Google Gemini (ai.google.dev/gemini-api/docs/pricing), Fly.io, Render, Supabase, Neon, MongoDB Atlas, Cloudflare R2, Firebase, Google Workspace y Google Play. Salario de referencia de PayScale México (MX$388,000 anuales base promedio para desarrollador de software). Tipo de cambio de referencia: 1 USD = MX$18.4823 (Frankfurter, tasas de referencia del BCE, 21 de octubre de 2026).',
+        head: ['Partida', 'Base de cálculo', 'MXN/mes', 'USD/mes'],
+        num: [2, 3],
+        rows: [
+          ['Inferencia de IA', 'Gemini 3.8 Flash: 90 llamadas al mes por usuario (3 al día), 180,000 tokens de entrada y 54,000 de salida', '6,238', '337.50'],
+          ['Infraestructura fija', '2 máquinas Fly.io shared-cpu-8x de 2 GB (US$35.10) + Supabase Pro (US$25) + R2 100 GB (US$1.50) + dominio (US$1) + Workspace (US$6.82)', '1,283', '69.42'],
+          ['Equipo (4 personas)', 'Costo de oportunidad del tiempo: MX$32,333 al mes por persona según PayScale México', '129,333', '6,997.69'],
+          ['*Total del mes', 'Suma de las tres partidas del escenario piloto', '136,854', '7,404.61'],
+          ['Costo por usuario premium', 'Total del mes dividido entre 1,000 suscriptores premium', '137', '7.40']
+        ]
+      },
+      {
+        title: 'Costo de la inferencia: comparación de modelos de referencia',
+        note: 'Los cinco escenarios usan los mismos supuestos: 3 sugerencias al día, 2,000 tokens de entrada y 600 de salida por llamada, 90 llamadas al mes por usuario premium. Gemini ofrece un 50% de descuento en su API por lotes, útil para el recálculo nocturno de agregados.',
+        compact: true,
+        head: ['Modelo de referencia', 'US$ por 1M tokens (entrada / salida)', 'US$ por usuario/mes', 'US$ al mes con 1,000 / 10,000 premium'],
+        num: [1, 2, 3],
+        rows: [
+          ['Gemini 3.8 Flash', '0.75 / 3.75', '0.34', '337.50 / 3,375.00'],
+          ['Gemini 3.8 Flash en lote (-50%)', '0.375 / 1.875', '0.17', '168.75 / 1,687.50'],
+          ['Gemini 3.1 Flash-Lite', '0.25 / 1.50', '0.13', '126.00 / 1,260.00'],
+          ['OpenAI o4-mini', '2.00 / 8.00', '0.79', '792.00 / 7,920.00'],
+          ['OpenAI gpt-5.6-sol', '4.00 / 20.00', '1.80', '1,800.00 / 18,000.00']
+        ]
+      },
+      {
+        title: 'Unidad económica con una suscripción de referencia de MX$99 al mes',
+        note: 'El precio de MX$99 al mes, el volumen de 1,000 o 10,000 suscriptores y las 90 llamadas mensuales por usuario son hipótesis de trabajo para dimensionar el modelo: el catálogo de planes, los precios y el máximo de sugerencias siguen pendientes de decisión (RN-P21).',
+        head: ['Concepto', 'Valor', 'Cómo se obtiene'],
+        rows: [
+          ['Precio de referencia por usuario premium', 'MX$99 al mes (US$5.36)', 'Hipótesis de trabajo, no un precio aprobado'],
+          ['Tarifa de servicio de Google Play', '15%', 'Sobre las transacciones procesadas con el sistema de facturación de Google Play'],
+          ['Ingreso neto por usuario premium', 'MX$84.15 (US$4.55)', 'Precio de referencia menos la tarifa de la tienda'],
+          ['Costo variable por usuario premium', 'US$0.41', 'Inferencia de IA US$0.34 más almacenamiento y salida marginales US$0.07'],
+          ['Margen de contribución por usuario', 'US$4.14 (91%)', 'Ingreso neto menos costo variable'],
+          ['Costo fijo mensual', 'US$7,067', 'Equipo US$6,998 más infraestructura US$69'],
+          ['*Punto de equilibrio', '≈1,700 suscriptores premium', 'Costo fijo dividido entre el margen de contribución'],
+          ['Costo por usuario premium con 1,000 suscriptores', 'US$7.40', 'El costo fijo aún no se reparte: el ingreso no cubre el modelo'],
+          ['Costo por usuario premium con 10,000 suscriptores', 'US$1.05', 'Con el costo fijo repartido, el margen de contribución sigue en 91%'],
+          ['Precio de equilibrio con 10,000 suscriptores', 'MX$23 al mes', 'Precio bruto que cubre el costo total por usuario']
+        ]
+      }
+    ],
+    refs: [
+      { code: 'RN-P21', t: 'Parámetros por cerrar', d: 'Máximo de sugerencias, confianza y caducidad siguen pendientes de evaluación. Los precios y volúmenes de esta ficha son hipótesis de trabajo, no decisiones comerciales.' },
+      { code: 'README', t: 'Propiedad de los datos', d: 'Cada dominio de datos tiene un almacén propuesto y un propósito: identidad, negocio transaccional, eventos, caché y objetos.' },
+      { code: 'RNF-06', t: 'Rendimiento', d: 'Medir latencia y capacidad del flujo prioritario antes de fijar objetivos, con un perfil reproducible y datos sintéticos.' },
+      { code: 'RNF-07', t: 'Recuperación', d: 'Copias de seguridad cifradas con ejercicios de restauración; RPO y RTO medidos frente a objetivos pendientes de aprobar.' },
+      { code: 'DECIS.', t: 'Decisiones pendientes', d: 'Monetización, proveedores y objetivos de servicio siguen abiertos. Hoy el costo es una hipótesis de planificación, no un compromiso.' }
+    ],
+    metrics: [
+      { v: 'US$7.40', d: 'Costo total por usuario premium con 1,000 suscriptores; baja a US$1.05 con 10,000. Lo que no se reparte es el costo fijo.' },
+      { v: 'US$0.34', d: 'Costo variable de inferencia de IA por usuario premium al mes con Gemini 3.8 Flash y 90 llamadas mensuales.' },
+      { v: '≈1,700', d: 'Suscriptores premium necesarios para cubrir el costo fijo con una suscripción de referencia de MX$99 al mes.' }
+    ],
+    risks: [
+      { t: 'El costo fijo no alcanza a repartirse', d: 'El tiempo del equipo equivale a más del 90% del costo mensual del piloto. Con 1,000 suscriptores premium el ingreso de referencia no cubre el modelo. Mitigación: fijar precio y volumen mínimo antes de comprometer gasto, y medir conversión y retención reales antes de ampliar la infraestructura.' },
+      { t: 'El precio de la IA puede cambiar', d: 'La inferencia se cotiza por token y el modelo elegido mueve el costo variable de US$0.34 a US$1.80 por usuario al mes según el proveedor. Mitigación: mantener la abstracción de modelos, usar el procesamiento por lotes para el recálculo nocturno y un umbral de abstención antes de servir una recomendación.' },
+      { t: 'Costos que todavía no se han medido', d: 'Adquisición, proveedor de correo y notificaciones y licencias de Wear OS siguen abiertos. Mitigación: no fijar un costo de adquisición ni un margen sin datos de campañas reales, y dejar cada cifra en el registro de decisiones pendientes.' }
+    ],
+    related: ['ingresos', 'recursos', 'actividades'],
+    paths: ['docs/arquitectura/decisiones-pendientes.md', 'docs/despliegue/README.md', 'README.md']
+  };
+
+  /* ------------------------------------------------------------------ */
+  /* Renderizado de la ficha ampliada                                     */
+  /* ------------------------------------------------------------------ */
   var overlay = document.getElementById('qc-modal-overlay');
+  var panel = document.getElementById('qc-modal');
   var content = document.getElementById('qc-modal-content');
-  document.getElementById('qc-modal-close').addEventListener('click', function () { overlay.style.display = 'none'; });
-  overlay.addEventListener('click', function (e) { if (e.target === overlay) overlay.style.display = 'none'; });
-  // Escape de alta prioridad para cerrar el modal
-  window.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && overlay.style.display === 'flex') {
+  var tagEl = document.getElementById('qc-m-tag');
+  var stepEl = document.getElementById('qc-m-step');
+  var railEl = document.getElementById('qc-m-rail');
+  var prevBtn = document.getElementById('qc-m-prev');
+  var nextBtn = document.getElementById('qc-m-next');
+  var closeBtn = document.getElementById('qc-modal-close');
+  var lastFocused = null;
+  var currentIndex = 0;
+
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+  function listPillars(items) {
+    var out = '';
+    for (var i = 0; i < items.length; i++) {
+      out += '<article class="qc-pillar"><h4>' + items[i].h + '</h4><p>' + items[i].p + '</p></article>';
+    }
+    return out;
+  }
+
+  /* Tablas de datos opcionales. Una fila cuyo primer campo empieza con "*"
+     se dibuja como total; `num` lista las columnas numéricas (alineadas a
+     la derecha). */
+  function listTables(tables) {
+    if (!tables || !tables.length) return '';
+    var out = '';
+    for (var i = 0; i < tables.length; i++) {
+      var t = tables[i];
+      var num = t.num || [];
+      var head = '';
+      for (var h = 0; h < t.head.length; h++) {
+        head += '<th scope="col"' + (num.indexOf(h) >= 0 ? ' class="qc-num"' : '') + '>' + t.head[h] + '</th>';
+      }
+      var body = '';
+      for (var r = 0; r < t.rows.length; r++) {
+        var row = t.rows[r];
+        var isTotal = row.length > 0 && row[0].charAt(0) === '*';
+        body += '<tr' + (isTotal ? ' class="qc-total"' : '') + '>';
+        for (var c = 0; c < row.length; c++) {
+          var cell = row[c];
+          if (isTotal && c === 0) cell = cell.substring(1);
+          var cls = num.indexOf(c) >= 0 ? ' class="qc-num"' : '';
+          body += (c === 0)
+            ? '<th scope="row"' + cls + '>' + cell + '</th>'
+            : '<td' + cls + '>' + cell + '</td>';
+        }
+        body += '</tr>';
+      }
+      out += '<section class="qc-block">' +
+        '<h3>' + t.title + '</h3>' +
+        '<div class="qc-tablewrap"><table class="qc-table' + (t.compact ? ' qc-table--compact' : '') + '">' +
+          '<thead><tr>' + head + '</tr></thead>' +
+          '<tbody>' + body + '</tbody>' +
+        '</table></div>' +
+        (t.note ? '<p class="qc-note">' + t.note + '</p>' : '') +
+        '</section>';
+    }
+    return out;
+  }
+
+  function listRefs(items) {
+    var out = '';
+    for (var i = 0; i < items.length; i++) {
+      out += '<li><code>' + items[i].code + '</code><div><b>' + items[i].t + '</b><span>' + items[i].d + '</span></div></li>';
+    }
+    return out;
+  }
+
+  function listMetrics(items) {
+    var out = '';
+    for (var i = 0; i < items.length; i++) {
+      out += '<li><b>' + items[i].v + '</b><span>' + items[i].d + '</span></li>';
+    }
+    return out;
+  }
+
+  function listRisks(items) {
+    var out = '';
+    for (var i = 0; i < items.length; i++) {
+      out += '<li><b>' + items[i].t + '</b>' + items[i].d + '</li>';
+    }
+    return out;
+  }
+
+  function listRelated(ids) {
+    var out = '';
+    for (var i = 0; i < ids.length; i++) {
+      out += '<button type="button" data-goto="' + ids[i] + '">' + BLOCKS[ids[i]].title + '</button>';
+    }
+    return out;
+  }
+
+  function listPaths(items) {
+    var out = '';
+    for (var i = 0; i < items.length; i++) {
+      out += '<li>' + items[i] + '</li>';
+    }
+    return out;
+  }
+
+  function renderRail(index) {
+    railEl.innerHTML = '';
+    for (var i = 0; i < ORDER.length; i++) {
+      var btn = document.createElement('button');
+      var b = BLOCKS[ORDER[i]];
+      btn.type = 'button';
+      btn.title = b.title + ' · ' + b.tag;
+      btn.setAttribute('aria-label', 'Bloque ' + (i + 1) + ' de ' + ORDER.length + ': ' + b.title);
+      if (i < index) btn.className = 'is-done';
+      if (i === index) { btn.className = 'is-current'; btn.setAttribute('aria-current', 'true'); }
+      btn.addEventListener('click', (function (id) {
+        return function () { open(id); };
+      })(ORDER[i]));
+      railEl.appendChild(btn);
+    }
+  }
+
+  function render(id, index) {
+    var b = BLOCKS[id];
+    var chips = '';
+    for (var i = 0; i < b.chips.length; i++) chips += '<li>' + b.chips[i] + '</li>';
+
+    panel.style.setProperty('--qc-accent', b.accent);
+    tagEl.textContent = b.tag;
+    stepEl.textContent = 'Bloque ' + pad(index + 1) + ' de ' + pad(ORDER.length);
+
+    content.innerHTML =
+      '<section class="qc-hero">' +
+        '<div class="qc-hero__text">' +
+          '<p class="qc-hero__kicker">Bloque ' + pad(index + 1) + ' · ' + b.kicker + '</p>' +
+          '<h2 id="qc-m-title">' + b.title + '</h2>' +
+          '<p class="qc-hero__lead">' + b.lead + '</p>' +
+          '<ul class="qc-chips">' + chips + '</ul>' +
+        '</div>' +
+        '<figure class="qc-hero__art">' + ART[id] + '</figure>' +
+      '</section>' +
+      '<div class="qc-cols">' +
+        '<div class="qc-main">' +
+          '<section class="qc-block">' +
+            '<h3>En qué consiste este bloque</h3>' +
+            '<div class="qc-pillars">' + listPillars(b.pillars) + '</div>' +
+          '</section>' +
+          listTables(b.tables) +
+          '<section class="qc-block">' +
+            '<h3>Trazabilidad en el proyecto</h3>' +
+            '<ul class="qc-refs">' + listRefs(b.refs) + '</ul>' +
+          '</section>' +
+        '</div>' +
+        '<aside class="qc-side">' +
+          '<section class="qc-panel"><h3>Indicadores del bloque</h3><ul class="qc-metrics">' + listMetrics(b.metrics) + '</ul></section>' +
+          '<section class="qc-panel"><h3>Riesgos y mitigación</h3><ul class="qc-risks">' + listRisks(b.risks) + '</ul></section>' +
+          '<section class="qc-panel"><h3>Bloques relacionados</h3><div class="qc-related">' + listRelated(b.related) + '</div></section>' +
+          '<section class="qc-panel"><h3>Fuentes en el repositorio</h3><ul class="qc-sources">' + listPaths(b.paths) + '</ul></section>' +
+        '</aside>' +
+      '</div>' +
+      '<p class="qc-foot">' +
+        '<span>Ficha descriptiva del modelo de negocio propuesto de Quantify Core. Describe la intención del proyecto y su trazabilidad documental, no un servicio ya implementado.</span>' +
+        '<span><kbd>&larr;</kbd><kbd>&rarr;</kbd> recorrer bloques · <kbd>Esc</kbd> cerrar</span>' +
+      '</p>';
+  }
+
+  function open(id) {
+    if (!BLOCKS[id]) return;
+    var index = ORDER.indexOf(id);
+    if (index < 0) return;
+    currentIndex = index;
+    render(id, index);
+    renderRail(index);
+    overlay.classList.add('is-open');
+    content.scrollTop = 0;
+    prevBtn.disabled = index === 0;
+    nextBtn.disabled = index === ORDER.length - 1;
+    var heading = content.querySelector('#qc-m-title');
+    if (heading) {
+      heading.setAttribute('tabindex', '-1');
+      heading.focus({ preventScroll: true });
+    }
+  }
+
+  function close() {
+    overlay.classList.remove('is-open');
+    if (lastFocused && lastFocused.focus) lastFocused.focus();
+  }
+
+  function step(delta) {
+    var next = currentIndex + delta;
+    if (next < 0 || next >= ORDER.length) return;
+    open(ORDER[next]);
+  }
+
+  /* Navegación por teclado y foco contenido en el diálogo */
+  document.addEventListener('keydown', function (e) {
+    if (!overlay.classList.contains('is-open')) return;
+    if (e.key === 'Escape') {
       e.preventDefault();
       e.stopPropagation();
-      overlay.style.display = 'none';
+      close();
+      return;
     }
+    if (e.key === 'ArrowRight') { e.preventDefault(); step(1); return; }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); return; }
+    if (e.key !== 'Tab') return;
+    var focusables = panel.querySelectorAll('button:not(:disabled), [href], [tabindex]:not([tabindex="-1"])');
+    if (!focusables.length) return;
+    var first = focusables[0];
+    var last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   }, true);
+
+  closeBtn.addEventListener('click', close);
+  prevBtn.addEventListener('click', function () { step(-1); });
+  nextBtn.addEventListener('click', function () { step(1); });
+  overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
+
+  content.addEventListener('click', function (e) {
+    var trigger = e.target && e.target.closest ? e.target.closest('[data-goto]') : null;
+    if (trigger) open(trigger.getAttribute('data-goto'));
+  });
+
   document.querySelectorAll('g[data-node-id]').forEach(function (g) {
     g.style.cursor = 'pointer';
     g.addEventListener('click', function () {
-      var d = info[g.getAttribute('data-node-id')];
-      if (!d) return;
+      var id = g.getAttribute('data-node-id');
+      if (!BLOCKS[id]) return;
       if (window.Archify && Archify.focus && Archify.focus.clear) { Archify.focus.clear(); }
       if (document.activeElement && document.activeElement.blur) { document.activeElement.blur(); }
-      content.innerHTML = '<span class="qc-tag">' + d.tag + '</span><h2>' + d.title + '</h2>' + d.body;
-      overlay.style.display = 'flex';
+      lastFocused = g;
+      open(id);
     });
   });
 })();
