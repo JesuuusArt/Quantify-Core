@@ -1,17 +1,112 @@
-# Modelo conceptual de datos
+# Modelo conceptual y relacional de datos
 
-**Estado:** propuesta para diseñar migraciones y contratos. Los nombres lógicos siguientes no son tablas existentes. El contrato público JSON usa `camelCase`; al crear SQL se usarán nombres `snake_case`. Las cardinalidades y restricciones se prueban antes de cerrar el esquema físico.
+**Estado:** esquema relacional físico de entidades core (P0) implementado y verificado en PostgreSQL ([schema.sql](../../services/api/src/database/schema.sql)). Las entidades de telemetría y biometría continúan en fase de diseño. El contrato público JSON usa `camelCase` y el esquema físico SQL usa `snake_case`.
 
 ```mermaid
 erDiagram
-    PROFILE ||--o{ CONSENT : concede
-    PROFILE ||--o{ HABIT : posee
-    HABIT ||--o{ HABIT_REVISION : versiona
-    HABIT ||--o{ CHECK_IN : registra
-    CHECK_IN ||--o{ CHECK_IN_REVISION : corrige
-    PROFILE ||--o{ DEVICE : vincula
-    DEVICE ||--o{ SIGNAL_BATCH : origina
-    PROFILE ||--o{ RECOMMENDATION : recibe
+    PROFILES ||--o{ USER_CONSENTS : "concede (1:N)"
+    PROFILES ||--o{ HABITS : "posee (1:N)"
+    PROFILES ||--o{ CHECK_INS : "registra (1:N)"
+    PROFILES ||--o{ IDEMPOTENCY_KEYS : "restringe (1:N)"
+    HABITS ||--o{ HABIT_REVISIONS : "versiona meta/frecuencia (1:N)"
+    HABITS ||--o{ CHECK_INS : "consolida por fecha (1:N)"
+    CHECK_INS ||--o{ CHECK_IN_REVISIONS : "audita correcciones (1:N)"
+
+    PROFILES {
+        uuid id PK
+        varchar keycloak_id UK
+        varchar email UK
+        varchar time_zone
+        varchar status
+        text_array roles
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    USER_CONSENTS {
+        uuid id PK
+        uuid profile_id FK
+        varchar purpose
+        varchar source
+        varchar text_version
+        boolean is_granted
+        timestamptz granted_at
+        timestamptz revoked_at
+    }
+
+    HABITS {
+        uuid id PK
+        uuid profile_id FK
+        varchar name
+        varchar unit
+        varchar time_zone
+        varchar status
+        integer current_version
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    HABIT_REVISIONS {
+        uuid id PK
+        uuid habit_id FK
+        integer version
+        numeric target_value
+        varchar unit
+        int_array weekdays
+        date effective_from
+        varchar time_zone
+        timestamptz created_at
+    }
+
+    CHECK_INS {
+        uuid id PK
+        uuid habit_id FK
+        uuid profile_id FK
+        date business_date
+        varchar time_zone
+        numeric current_value
+        varchar progress_status
+        integer current_version
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    CHECK_IN_REVISIONS {
+        uuid id PK
+        uuid check_in_id FK
+        integer version
+        uuid client_event_id
+        numeric value
+        timestamptz occurred_at
+        timestamptz recorded_at
+        varchar time_zone
+        uuid actor_id FK
+        varchar origin
+        text correction_reason
+    }
+
+    IDEMPOTENCY_KEYS {
+        uuid id PK
+        uuid profile_id FK
+        varchar idempotency_key
+        varchar operation
+        varchar request_hash
+        integer response_status_code
+        jsonb response_body
+        timestamptz created_at
+        timestamptz expires_at
+    }
+
+    OUTBOX_EVENTS {
+        uuid id PK
+        varchar aggregate_type
+        uuid aggregate_id
+        varchar event_type
+        jsonb payload
+        varchar trace_id
+        timestamptz created_at
+        timestamptz published_at
+    }
 ```
 
 ## Propiedad y ubicación propuestas

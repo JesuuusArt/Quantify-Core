@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quantify Core · Diagrama Visual del Modelo Relacional (Archify Spec)</title>
+  <style>
+    :root {
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', Menlo, Consolas, monospace;
+      
+      --bg: #0B0F17;
+      --bg-surface: #111827;
+      --bg-card: #182234;
+      --bg-card-hover: #1E2D44;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.16);
+      
+      --text: #F3F4F6;
+      --text-muted: #9CA3AF;
+      --text-dim: #6B7280;
+      
+      --primary: #3B82F6;
+      --primary-glow: rgba(59, 130, 246, 0.25);
+      --accent-cyan: #06B6D4;
+      --accent-emerald: #10B981;
+      --accent-amber: #F59E0B;
+      --accent-purple: #8B5CF6;
+      --accent-rose: #F43F5E;
+      
+      --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+      --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    [data-theme="light"] {
+      --bg: #F8FAFC;
+      --bg-surface: #FFFFFF;
+      --bg-card: #F1F5F9;
+      --bg-card-hover: #E2E8F0;
+      --border: rgba(0, 0, 0, 0.08);
+      --border-strong: rgba(0, 0, 0, 0.15);
+      
+      --text: #0F172A;
+      --text-muted: #475569;
+      --text-dim: #94A3B8;
+      
+      --primary: #2563EB;
+      --primary-glow: rgba(37, 99, 235, 0.15);
+      --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Top Navbar */
+    header {
+      background: rgba(17, 24, 39, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    [data-theme="light"] header { background: rgba(255, 255, 255, 0.85); }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #2563EB, #06B6D4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: white;
+      font-size: 16px;
+      box-shadow: 0 0 12px var(--primary-glow);
+    }
+    .brand-title {
+      font-weight: 700;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
+    }
+    .badge-primary {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60A5FA;
+      border-color: rgba(59, 130, 246, 0.3);
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tab-btn:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .tab-btn.active {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60A5FA;
+      border-color: rgba(59, 130, 246, 0.3);
+    }
+
+    .btn-icon {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-icon:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--border-strong);
+    }
+
+    /* Sub-bar / Legend */
+    .sub-bar {
+      padding: 10px 24px;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 12px;
+    }
+    .legend-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+    .tag-pk { color: var(--accent-amber); font-weight: 700; }
+    .tag-fk { color: var(--accent-cyan); font-weight: 700; }
+    .tag-uk { color: var(--accent-purple); font-weight: 700; }
+    .tag-chk { color: var(--accent-emerald); font-weight: 700; }
+
+    .search-input {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      outline: none;
+      width: 220px;
+      transition: var(--transition);
+    }
+    .search-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 8px var(--primary-glow);
+    }
+
+    /* Main Content Canvas */
+    main {
+      flex: 1;
+      padding: 32px 24px;
+      max-width: 1600px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* View: ERD Grid */
+    .erd-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 24px;
+      align-items: start;
+    }
+
+    .table-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      position: relative;
+    }
+    .table-card:hover {
+      border-color: var(--border-strong);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+    .table-card.highlight {
+      border-color: var(--primary);
+      box-shadow: 0 0 20px var(--primary-glow);
+    }
+
+    .card-header {
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .table-title {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .table-desc {
+      font-size: 11px;
+      color: var(--text-dim);
+      padding: 6px 16px 8px;
+      background: rgba(0, 0, 0, 0.15);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .columns-list {
+      list-style: none;
+    }
+    .col-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 16px;
+      font-size: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      font-family: var(--font-mono);
+      transition: background 0.15s ease;
+    }
+    .col-row:last-child { border-bottom: none; }
+    .col-row:hover { background: rgba(255, 255, 255, 0.04); }
+
+    .col-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .col-name {
+      font-weight: 600;
+      color: var(--text);
+    }
+    .col-type {
+      color: var(--text-dim);
+      font-size: 11px;
+    }
+
+    .chip {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+    .chip-pk { background: rgba(245, 158, 11, 0.2); color: var(--accent-amber); border: 1px solid rgba(245, 158, 11, 0.4); }
+    .chip-fk { background: rgba(6, 182, 212, 0.2); color: var(--accent-cyan); border: 1px solid rgba(6, 182, 212, 0.4); }
+    .chip-uk { background: rgba(139, 92, 246, 0.2); color: var(--accent-purple); border: 1px solid rgba(139, 92, 246, 0.4); }
+    .chip-chk { background: rgba(16, 185, 129, 0.2); color: var(--accent-emerald); border: 1px solid rgba(16, 185, 129, 0.4); }
+
+    .card-footer {
+      padding: 8px 16px;
+      background: rgba(0, 0, 0, 0.2);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    .inspect-btn {
+      background: transparent;
+      border: none;
+      color: #60A5FA;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .inspect-btn:hover { text-decoration: underline; }
+
+    /* View: Workflow Swimlanes (Archify) */
+    .archify-lanes {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .lane-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+    }
+    .lane-title {
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--accent-cyan);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .lane-nodes {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .archify-node {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      min-width: 240px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: var(--transition);
+    }
+    .archify-node:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+    .node-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .node-title {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .node-detail {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* View: Rules Table */
+    .rules-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .rules-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      text-align: left;
+    }
+    .rules-table th {
+      background: rgba(0, 0, 0, 0.2);
+      padding: 12px 16px;
+      font-weight: 700;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .rules-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .rules-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Side Inspector Drawer */
+    .drawer-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .drawer-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .drawer {
+      position: fixed;
+      top: 0;
+      right: -520px;
+      width: 500px;
+      max-width: 90vw;
+      height: 100%;
+      background: var(--bg-surface);
+      border-left: 1px solid var(--border);
+      z-index: 101;
+      box-shadow: var(--shadow-lg);
+      transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+    }
+    .drawer.open {
+      right: 0;
+    }
+    .drawer-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .drawer-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .code-block {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      overflow-x: auto;
+      color: #A5F3FC;
+      line-height: 1.5;
+    }
+
+    /* Utility */
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <div class="brand-logo">QC</div>
+      <div>
+        <div class="brand-title">
+          Quantify Core
+          <span class="badge badge-primary">P0 · Modelo Relacional</span>
+          <span class="badge">PostgreSQL 16</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-controls">
+      <button class="tab-btn active" id="tabErd" onclick="switchView('erd')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        Diagrama ERD
+      </button>
+      <button class="tab-btn" id="tabArchify" onclick="switchView('archify')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20M7 5l5 7-5 7M17 5l5 7-5 7"/></svg>
+        Lanes de Archify
+      </button>
+      <button class="tab-btn" id="tabRules" onclick="switchView('rules')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Reglas Blindadas
+      </button>
+
+      <button class="btn-icon" onclick="toggleTheme()" title="Alternar tema claro/oscuro">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Sub-bar & Legend -->
+  <div class="sub-bar">
+    <div class="legend-group">
+      <span class="legend-item"><span class="chip chip-pk">PK</span> Clave Primaria (UUID v4)</span>
+      <span class="legend-item"><span class="chip chip-fk">FK</span> Clave Foránea (Relacional)</span>
+      <span class="legend-item"><span class="chip chip-uk">UK</span> Restricción Unicidad</span>
+      <span class="legend-item"><span class="chip chip-chk">CHK</span> Regla de Negocio CHECK</span>
+    </div>
+
+    <div>
+      <input type="text" class="search-input" id="tableSearch" placeholder="Filtrar tablas o campos..." oninput="filterTables(this.value)" />
+    </div>
+  </div>
+
+  <!-- Main View -->
+  <main>
+
+    <!-- 1. VISTA: ERD GRID -->
+    <div id="viewErd" class="erd-container">
+      
+      <!-- profiles -->
+      <div class="table-card" id="card_profiles">
+        <div class="card-header">
+          <div class="table-title">
+            <span style="color:#60A5FA;">●</span> profiles
+          </div>
+          <span class="badge">RF-01 / RF-02</span>
+        </div>
+        <div class="table-desc">Perfil de usuario propio vinculado a Keycloak (sin contraseñas).</div>
+        <ul class="columns-list">
+          <li class="col-row"><div class="col-left"><span class="chip chip-pk">PK</span><span class="col-name">id</span></div><span class="col-type">UUID</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-uk">UK</span><span class="col-name">keycloak_id</span></div><span class="col-type">VARCHAR(64)</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-uk">UK</span><span class="chip chip-chk">CHK</span><span class="col-name">email</span></div><span class="col-type">VARCHAR(255)</span></li>
+          <li class="col-row"><div class="col-left"><span class="col-name">time_zone</span></div><span class="col-type">VARCHAR(50)</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-chk">CHK</span><span class="col-name">status</span></div><span class="col-type">active / suspended</span></li>
+          <li class="col-row"><div class="col-left"><span class="col-name">roles</span></div><span class="col-type">TEXT[] (user, admin)</span></li>
+          <li class="col-row"><div class="col-left"><span class="col-name">created_at</span></div><span class="col-type">TIMESTAMPTZ</span></li>
+        </ul>
+        <div class="card-footer">
+          <span>Relaciones: 4 hijas</span>
+          <button class="inspect-btn" onclick="inspectTable('profiles')">Inspeccionar SQL →</button>
+        </div>
+      </div>
+
+      <!-- user_consents -->
+      <div class="table-card" id="card_user_consents">
+        <div class="card-header">
+          <div class="table-title">
+            <span style="color:#06B6D4;">●</span> user_consents
+          </div>
+          <span class="badge">RF-02 / RN-P02</span>
+        </div>
+        <div class="table-desc">Consentimiento granular obligatorio para IA, push y biometría.</div>
+        <ul class="columns-list">
+          <li class="col-row"><div class="col-left"><span class="chip chip-pk">PK</span><span class="col-name">id</span></div><span class="col-type">UUID</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-fk">FK</span><span class="chip chip-uk">UK</span><span class="col-name">profile_id</span></div><span class="col-type">UUID → profiles</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-uk">UK</span><span class="col-name">purpose</span></div><span class="col-type">ai, biometric, push</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-uk">UK</span><span class="col-name">source</span></div><span class="col-type">VARCHAR(50)</span></li>
+          <li class="col-row"><div class="col-left"><span class="col-name">text_version</span></div><span class="col-type">VARCHAR(20)</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-chk">CHK</span><span class="col-name">is_granted</span></div><span class="col-type">BOOLEAN</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-chk">CHK</span><span class="col-name">revoked_at</span></div><span class="col-type">TIMESTAMPTZ</span></li>
+        </ul>
+        <div class="card-footer">
+          <span>Coherencia revocado/activo</span>
+          <button class="inspect-btn" onclick="inspectTable('user_consents')">Inspeccionar SQL →</button>
+        </div>
+      </div>
+
+      <!-- habits -->
+      <div class="table-card" id="card_habits">
+        <div class="card-header">
+          <div class="table-title">
+            <span style="color:#10B981;">●</span> habits
+          </div>
+          <span class="badge">RF-03 / RN-P03</span>
+        </div>
+        <div class="table-desc">Cabecera del hábito personal. El archivo conserva el historial.</div>
+        <ul class="columns-list">
+          <li class="col-row"><div class="col-left"><span class="chip chip-pk">PK</span><span class="col-name">id</span></div><span class="col-type">UUID</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-fk">FK</span><span class="chip chip-uk">UK</span><span class="col-name">profile_id</span></div><span class="col-type">UUID → profiles</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-uk">UK</span><span class="chip chip-chk">CHK</span><span class="col-name">name</span></div><span class="col-type">VARCHAR(60) [≥3 chars]</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-chk">CHK</span><span class="col-name">unit</span></div><span class="col-type">VARCHAR(30)</span></li>
+          <li class="col-row"><div class="col-left"><span class="col-name">time_zone</span></div><span class="col-type">VARCHAR(50)</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-chk">CHK</span><span class="col-name">status</span></div><span class="col-type">active, paused, archived</span></li>
+          <li class="col-row"><div class="col-left"><span class="col-name">current_version</span></div><span class="col-type">INT [≥1]</span></li>
+        </ul>
+        <div class="card-footer">
+          <span>Unicidad por (profile, name)</span>
+          <button class="inspect-btn" onclick="inspectTable('habits')">Inspeccionar SQL →</button>
+        </div>
+      </div>
+
+      <!-- habit_revisions -->
+      <div class="table-card" id="card_habit_revisions">
+        <div class="card-header">
+          <div class="table-title">
+            <span style="color:#10B981;">●</span> habit_revisions
+          </div>
+          <span class="badge">RF-03 / RN-P04</span>
+        </div>
+        <div class="table-desc">Configuración versionada inmutable de metas, unidades y días.</div>
+        <ul class="columns-list">
+          <li class="col-row"><div class="col-left"><span class="chip chip-pk">PK</span><span class="col-name">id</span></div><span class="col-type">UUID</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-fk">FK</span><span class="chip chip-uk">UK</span><span class="col-name">habit_id</span></div><span class="col-type">UUID → habits</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-uk">UK</span><span class="col-name">version</span></div><span class="col-type">INT [≥1]</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-chk">CHK</span><span class="col-name">target_value</span></div><span class="col-type">NUMERIC(10,2) [>0]</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-chk">CHK</span><span class="col-name">weekdays</span></div><span class="col-type">INT[] [1..7 (Lun..Dom)]</span></li>
+          <li class="col-row"><div class="col-left"><span class="col-name">effective_from</span></div><span class="col-type">DATE (Vigencia de negocio)</span></li>
+          <li class="col-row"><div class="col-left"><span class="col-name">time_zone</span></div><span class="col-type">VARCHAR(50)</span></li>
+        </ul>
+        <div class="card-footer">
+          <span>Unicidad por (habit_id, version)</span>
+          <button class="inspect-btn" onclick="inspectTable('habit_revisions')">Inspeccionar SQL →</button>
+        </div>
+      </div>
+
+      <!-- check_ins -->
+      <div class="table-card" id="card_check_ins">
+        <div class="card-header">
+          <div class="table-title">
+            <span style="color:#F59E0B;">●</span> check_ins
+          </div>
+          <span class="badge">RF-04 / RN-P11</span>
+        </div>
+        <div class="table-desc">Consolidado diario absoluto por hábito y fecha de negocio.</div>
+        <ul class="columns-list">
+          <li class="col-row"><div class="col-left"><span class="chip chip-pk">PK</span><span class="col-name">id</span></div><span class="col-type">UUID</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-fk">FK</span><span class="chip chip-uk">UK</span><span class="col-name">habit_id</span></div><span class="col-type">UUID → habits</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-fk">FK</span><span class="col-name">profile_id</span></div><span class="col-type">UUID → profiles</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-uk">UK</span><span class="col-name">business_date</span></div><span class="col-type">DATE</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-chk">CHK</span><span class="col-name">current_value</span></div><span class="col-type">NUMERIC(10,2) [≥0]</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-chk">CHK</span><span class="col-name">progress_status</span></div><span class="col-type">zero, partial, completed</span></li>
+          <li class="col-row"><div class="col-left"><span class="col-name">current_version</span></div><span class="col-type">INT [≥1]</span></li>
+        </ul>
+        <div class="card-footer">
+          <span>Sin duplicados por fecha</span>
+          <button class="inspect-btn" onclick="inspectTable('check_ins')">Inspeccionar SQL →</button>
+        </div>
+      </div>
+
+      <!-- check_in_revisions -->
+      <div class="table-card" id="card_check_in_revisions">
+        <div class="card-header">
+          <div class="table-title">
+            <span style="color:#F59E0B;">●</span> check_in_revisions
+          </div>
+          <span class="badge">RF-04 / RN-P13</span>
+        </div>
+        <div class="table-desc">Auditoría inmutable de cada avance reportado y correcciones.</div>
+        <ul class="columns-list">
+          <li class="col-row"><div class="col-left"><span class="chip chip-pk">PK</span><span class="col-name">id</span></div><span class="col-type">UUID</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-fk">FK</span><span class="chip chip-uk">UK</span><span class="col-name">check_in_id</span></div><span class="col-type">UUID → check_ins</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-uk">UK</span><span class="col-name">version</span></div><span class="col-type">INT [≥1]</span></li>
+          <li class="col-row"><div class="col-left"><span class="col-name">client_event_id</span></div><span class="col-type">UUID (Deduplicación evento)</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-chk">CHK</span><span class="col-name">value</span></div><span class="col-type">NUMERIC(10,2)</span></li>
+          <li class="col-row"><div class="col-left"><span class="col-name">occurred_at</span></div><span class="col-type">TIMESTAMPTZ (UTC evento)</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-fk">FK</span><span class="col-name">actor_id</span></div><span class="col-type">UUID → profiles</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-chk">CHK</span><span class="col-name">correction_reason</span></div><span class="col-type">TEXT (Obligatorio en v>1)</span></li>
+        </ul>
+        <div class="card-footer">
+          <span>Motivo forzoso en corrección</span>
+          <button class="inspect-btn" onclick="inspectTable('check_in_revisions')">Inspeccionar SQL →</button>
+        </div>
+      </div>
+
+      <!-- idempotency_keys -->
+      <div class="table-card" id="card_idempotency_keys">
+        <div class="card-header">
+          <div class="table-title">
+            <span style="color:#8B5CF6;">●</span> idempotency_keys
+          </div>
+          <span class="badge">RNF-02 / RN-P14</span>
+        </div>
+        <div class="table-desc">Garantiza idempotencia ante reintentos de red o colas offline.</div>
+        <ul class="columns-list">
+          <li class="col-row"><div class="col-left"><span class="chip chip-pk">PK</span><span class="col-name">id</span></div><span class="col-type">UUID</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-fk">FK</span><span class="chip chip-uk">UK</span><span class="col-name">profile_id</span></div><span class="col-type">UUID → profiles</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-uk">UK</span><span class="col-name">operation</span></div><span class="col-type">VARCHAR(50)</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-uk">UK</span><span class="col-name">idempotency_key</span></div><span class="col-type">VARCHAR(128)</span></li>
+          <li class="col-row"><div class="col-left"><span class="col-name">request_hash</span></div><span class="col-type">VARCHAR(64) SHA-256</span></li>
+          <li class="col-row"><div class="col-left"><span class="col-name">response_body</span></div><span class="col-type">JSONB</span></li>
+          <li class="col-row"><div class="col-left"><span class="chip chip-chk">CHK</span><span class="col-name">expires_at</span></div><span class="col-type">TIMESTAMPTZ [> created]</span></li>
+        </ul>
+        <div class="card-footer">
+          <span>Unicidad (profile, op, key)</span>
+          <button class="inspect-btn" onclick="inspectTable('idempotency_keys')">Inspeccionar SQL →</button>
+        </div>
+      </div>
+
+      <!-- outbox_events -->
+      <div class="table-card" id="card_outbox_events">
+        <div class="card-header">
+          <div class="table-title">
+            <span style="color:#8B5CF6;">●</span> outbox_events
+          </div>
+          <span class="badge">RNF-02 / Outbox</span>
+        </div>
+        <div class="table-desc">Patrón Outbox para despachar eventos sin romper transacciones ACID.</div>
+        <ul class="columns-list">
+          <li class="col-row"><div class="col-left"><span class="chip chip-pk">PK</span><span class="col-name">id</span></div><span class="col-type">UUID</span></li>
+          <li class="col-row"><div class="col-left"><span class="col-name">aggregate_type</span></div><span class="col-type">VARCHAR(50) [Habit, CheckIn]</span></li>
+          <li class="col-row"><div class="col-left"><span class="col-name">aggregate_id</span></div><span class="col-type">UUID</span></li>
+          <li class="col-row"><div class="col-left"><span class="col-name">event_type</span></div><span class="col-type">VARCHAR(100)</span></li>
+          <li class="col-row"><div class="col-left"><span class="col-name">payload</span></div><span class="col-type">JSONB</span></li>
+          <li class="col-row"><div class="col-left"><span class="col-name">created_at</span></div><span class="col-type">TIMESTAMPTZ</span></li>
+          <li class="col-row"><div class="col-left"><span class="col-name">published_at</span></div><span class="col-type">TIMESTAMPTZ (NULL = pend.)</span></li>
+        </ul>
+        <div class="card-footer">
+          <span>Índice parcial unpublished</span>
+          <button class="inspect-btn" onclick="inspectTable('outbox_events')">Inspeccionar SQL →</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 2. VISTA: ARCHIFY LANES -->
+    <div id="viewArchify" class="archify-lanes hidden">
+      
+      <!-- Lane 1 -->
+      <div class="lane-box">
+        <div class="lane-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/></svg>
+          Lane 1: Identidad & Consentimientos Granulares (RF-01 / RF-02)
+        </div>
+        <div class="lane-nodes">
+          <div class="archify-node">
+            <div class="node-header">
+              <span class="node-title">profiles</span>
+              <span class="chip chip-pk">Core Entity</span>
+            </div>
+            <div class="node-detail">Sujeto Keycloak, zona horaria IANA, estado y roles. La contraseña vive en el IdP.</div>
+          </div>
+          <div class="archify-node">
+            <div class="node-header">
+              <span class="node-title">user_consents</span>
+              <span class="chip chip-chk">RN-P02</span>
+            </div>
+            <div class="node-detail">Autorización individual por finalidad (IA, biometría, telemetría) con versión y fecha de revocación.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lane 2 -->
+      <div class="lane-box">
+        <div class="lane-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          Lane 2: Gestión & Versionado de Hábitos (RF-03)
+        </div>
+        <div class="lane-nodes">
+          <div class="archify-node">
+            <div class="node-header">
+              <span class="node-title">habits</span>
+              <span class="chip chip-chk">RN-P03</span>
+            </div>
+            <div class="node-detail">Estados active/paused/archived. Archivar retira de la rutina pero NUNCA borra el histórico.</div>
+          </div>
+          <div class="archify-node">
+            <div class="node-header">
+              <span class="node-title">habit_revisions</span>
+              <span class="chip chip-chk">RN-P04</span>
+            </div>
+            <div class="node-detail">Cambios de meta o frecuencia guardan fecha efectiva (effective_from) sin modificar el pasado.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lane 3 -->
+      <div class="lane-box">
+        <div class="lane-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Lane 3: Consolidado Diario & Auditoría de Check-ins (RF-04)
+        </div>
+        <div class="lane-nodes">
+          <div class="archify-node">
+            <div class="node-header">
+              <span class="node-title">check_ins</span>
+              <span class="chip chip-uk">RN-P11</span>
+            </div>
+            <div class="node-detail">Un solo resultado absoluto por (habit_id, business_date). Evita carreras e inconsistencias.</div>
+          </div>
+          <div class="archify-node">
+            <div class="node-header">
+              <span class="node-title">check_in_revisions</span>
+              <span class="chip chip-chk">RN-P13</span>
+            </div>
+            <div class="node-detail">Historial inmutable de cada avance reportado; versión > 1 exige motivo justificado.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lane 4 -->
+      <div class="lane-box">
+        <div class="lane-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+          Lane 4: Consistencia, Idempotencia & Outbox (RNF-02)
+        </div>
+        <div class="lane-nodes">
+          <div class="archify-node">
+            <div class="node-header">
+              <span class="node-title">idempotency_keys</span>
+              <span class="chip chip-uk">RN-P14</span>
+            </div>
+            <div class="node-detail">Misma clave y parámetros devuelve el resultado previo. Evita doble progreso por reintento de red.</div>
+          </div>
+          <div class="archify-node">
+            <div class="node-header">
+              <span class="node-title">outbox_events</span>
+              <span class="chip chip-chk">Outbox Pattern</span>
+            </div>
+            <div class="node-detail">Despacho asíncrono garantizado hacia workers y servicio analítico de Python.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 3. VISTA: REGLAS BLINDADAS -->
+    <div id="viewRules" class="rules-card hidden">
+      <table class="rules-table">
+        <thead>
+          <tr>
+            <th>Regla / Requisito</th>
+            <th>Condición Lógica ("Si pasa esto...")</th>
+            <th>Comportamiento Imposible ("...eso NO puede pasar")</th>
+            <th>Restricción SQL Implementada</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>RN-P02</strong><br><span class="badge">Consentimiento</span></td>
+            <td>El usuario revoca un consentimiento previamente concedido (`is_granted = FALSE`).</td>
+            <td>NO puede tener `revoked_at` en NULL, ni tampoco quedar en fecha revocada si está activo.</td>
+            <td><code class="col-type">chk_consent_revocation_coherence</code></td>
+          </tr>
+          <tr>
+            <td><strong>RN-P13</strong><br><span class="badge">Corrección Auditable</span></td>
+            <td>El usuario o cliente edita un avance de un día anterior creando versión 2 o superior.</td>
+            <td>NO puede guardarse la corrección sin un motivo de justificación de texto no vacío.</td>
+            <td><code class="col-type">chk_correction_reason_required</code></td>
+          </tr>
+          <tr>
+            <td><strong>RN-P11</strong><br><span class="badge">Check-in Diario</span></td>
+            <td>Un reintento de red o segundo dispositivo intenta registrar avance para la misma fecha.</td>
+            <td>NO puede crear un segundo registro; la base rechaza el duplicado y exige actualizar la tupla.</td>
+            <td><code class="col-type">uq_habit_business_date UNIQUE</code></td>
+          </tr>
+          <tr>
+            <td><strong>RN-P03</strong><br><span class="badge">Hábitos Propios</span></td>
+            <td>El usuario crea un hábito en su cuenta.</td>
+            <td>NO puede crear dos hábitos activos con el mismo nombre en su perfil.</td>
+            <td><code class="col-type">uq_profile_habit_name UNIQUE</code></td>
+          </tr>
+          <tr>
+            <td><strong>RN-P12</strong><br><span class="badge">Metas e Integridad</span></td>
+            <td>Definición o actualización de metas y avances diarios.</td>
+            <td>La meta NO puede ser 0 ni negativa. El progreso diario reportado NO puede ser menor a 0.</td>
+            <td><code class="col-type">CHECK (target_value > 0 AND current_value >= 0)</code></td>
+          </tr>
+          <tr>
+            <td><strong>RN-P09</strong><br><span class="badge">Agenda Semanal</span></td>
+            <td>Configuración de días de frecuencia para un hábito.</td>
+            <td>NO puede crearse un hábito sin días (array vacío) ni con números fuera del rango 1 a 7.</td>
+            <td><code class="col-type">CHECK (weekdays &lt;@ ARRAY[1,2,3,4,5,6,7])</code></td>
+          </tr>
+          <tr>
+            <td><strong>RN-P14</strong><br><span class="badge">Idempotencia</span></td>
+            <td>Un comando de escritura llega con la misma clave para el mismo usuario y operación.</td>
+            <td>NO puede procesar una segunda inserción; se devuelve la respuesta previa duradera.</td>
+            <td><code class="col-type">uq_profile_operation_idempotency UNIQUE</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <!-- Side Inspector Drawer -->
+  <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+  <div class="drawer" id="sideDrawer">
+    <div class="drawer-header">
+      <div>
+        <h3 id="drawerTitle" style="font-family: var(--font-mono); font-size: 16px;">profiles</h3>
+        <p id="drawerSubtitle" style="font-size: 12px; color: var(--text-muted);">Definición DDL y restricciones</p>
+      </div>
+      <button class="btn-icon" onclick="closeDrawer()">✕</button>
+    </div>
+    <div class="drawer-body">
+      <div>
+        <h4 style="font-size: 13px; font-weight: 700; margin-bottom: 8px;">Propósito en el Negocio</h4>
+        <p id="drawerPurpose" style="font-size: 12px; color: var(--text-muted); line-height: 1.5;"></p>
+      </div>
+
+      <div>
+        <h4 style="font-size: 13px; font-weight: 700; margin-bottom: 8px;">Código SQL DDL (PostgreSQL 16)</h4>
+        <pre class="code-block" id="drawerSql"></pre>
+      </div>
+
+      <div>
+        <h4 style="font-size: 13px; font-weight: 700; margin-bottom: 8px;">Semilla Sintética de Ejemplo (Demo)</h4>
+        <pre class="code-block" id="drawerSeed" style="color: #FDE68A;"></pre>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Tab switching
+    function switchView(view) {
+      document.getElementById('viewErd').classList.add('hidden');
+      document.getElementById('viewArchify').classList.add('hidden');
+      document.getElementById('viewRules').classList.add('hidden');
+
+      document.getElementById('tabErd').classList.remove('active');
+      document.getElementById('tabArchify').classList.remove('active');
+      document.getElementById('tabRules').classList.remove('active');
+
+      if (view === 'erd') {
+        document.getElementById('viewErd').classList.remove('hidden');
+        document.getElementById('tabErd').classList.add('active');
+      } else if (view === 'archify') {
+        document.getElementById('viewArchify').classList.remove('hidden');
+        document.getElementById('tabArchify').classList.add('active');
+      } else if (view === 'rules') {
+        document.getElementById('viewRules').classList.remove('hidden');
+        document.getElementById('tabRules').classList.add('active');
+      }
+    }
+
+    // Theme Toggle
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+    }
+
+    // Filter tables
+    function filterTables(query) {
+      const q = query.toLowerCase().trim();
+      const cards = document.querySelectorAll('.table-card');
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (text.includes(q)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Drawer details dictionary
+    const tableMetadata = {
+      profiles: {
+        title: "profiles",
+        subtitle: "RF-01 / RF-02 · Perfil Transaccional Propio",
+        purpose: "Guarda la cuenta interna en PostgreSQL. La identidad, contraseñas y tokens son administrados exclusivamente por Keycloak. No expone contraseñas y mantiene aislamiento por usuario.",
+        sql: `CREATE TABLE profiles (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    keycloak_id VARCHAR(64) UNIQUE NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    time_zone VARCHAR(50) NOT NULL DEFAULT 'UTC',
+    status VARCHAR(20) NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'suspended')),
+    roles TEXT[] NOT NULL DEFAULT ARRAY['user'],
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+);`,
+        seed: `INSERT INTO profiles (id, keycloak_id, email, time_zone, status, roles)
+VALUES ('a0000000-0000-0000-0000-000000000001', 'kc-user-sub-001', 
+        'demo.estudiante1@quantify.internal', 'America/Mexico_City', 'active', ARRAY['user']);`
+      },
+      user_consents: {
+        title: "user_consents",
+        subtitle: "RF-02 / RN-P02 · Consentimientos Explícitos",
+        purpose: "Cumplimiento normativo y de privacidad. Cada finalidad (IA, biometría, telemetría) requiere un consentimiento separado con versión legal y fecha trazable de revocación.",
+        sql: `CREATE TABLE user_consents (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    profile_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
+    purpose VARCHAR(50) NOT NULL CHECK (purpose IN ('ai_recommendations', 'biometric_data', 'push_notifications', 'telemetry')),
+    source VARCHAR(50) NOT NULL,
+    text_version VARCHAR(20) NOT NULL,
+    is_granted BOOLEAN NOT NULL DEFAULT TRUE,
+    granted_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    revoked_at TIMESTAMPTZ,
+    CONSTRAINT chk_consent_revocation_coherence CHECK (
+        (is_granted = TRUE AND revoked_at IS NULL) OR
+        (is_granted = FALSE AND revoked_at IS NOT NULL)
+    ),
+    CONSTRAINT uq_profile_purpose_source UNIQUE (profile_id, purpose, source)
+);`,
+        seed: `INSERT INTO user_consents (profile_id, purpose, source, text_version, is_granted)
+VALUES ('a0000000-0000-0000-0000-000000000001', 'ai_recommendations', 'web_onboarding_v1', 'v1.0.0', TRUE);`
+      },
+      habits: {
+        title: "habits",
+        subtitle: "RF-03 / RN-P03 · Entidad Cabecera de Hábito",
+        purpose: "Entidad raíz del hábito. Estados: active, paused y archived. Archivar no borra ningún registro del historial.",
+        sql: `CREATE TABLE habits (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    profile_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
+    name VARCHAR(60) NOT NULL CHECK (char_length(trim(name)) >= 3),
+    unit VARCHAR(30) NOT NULL CHECK (char_length(trim(unit)) >= 1),
+    time_zone VARCHAR(50) NOT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'paused', 'archived')),
+    current_version INT NOT NULL DEFAULT 1 CHECK (current_version >= 1),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT uq_profile_habit_name UNIQUE (profile_id, name)
+);`,
+        seed: `INSERT INTO habits (id, profile_id, name, unit, time_zone, status, current_version)
+VALUES ('b0000000-0000-0000-0000-000000000001', 'a0000000-0000-0000-0000-000000000001',
+        'Lectura Técnica Diaria', 'páginas', 'America/Mexico_City', 'active', 1);`
+      },
+      habit_revisions: {
+        title: "habit_revisions",
+        subtitle: "RF-03 / RN-P04 · Historial de Metas Versionadas",
+        purpose: "Inmutabilidad histórica. Modificar la meta o frecuencia crea una revisión desde una fecha efectiva; los días anteriores conservan sus reglas originales para evaluar rachas con fidelidad.",
+        sql: `CREATE TABLE habit_revisions (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    habit_id UUID NOT NULL REFERENCES habits(id) ON DELETE CASCADE,
+    version INT NOT NULL CHECK (version >= 1),
+    target_value NUMERIC(10,2) NOT NULL CHECK (target_value > 0),
+    unit VARCHAR(30) NOT NULL,
+    weekdays INT[] NOT NULL CHECK (
+        cardinality(weekdays) >= 1 AND 
+        cardinality(weekdays) <= 7 AND
+        weekdays <@ ARRAY[1,2,3,4,5,6,7]
+    ),
+    effective_from DATE NOT NULL,
+    time_zone VARCHAR(50) NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT uq_habit_version UNIQUE (habit_id, version)
+);`,
+        seed: `INSERT INTO habit_revisions (habit_id, version, target_value, unit, weekdays, effective_from, time_zone)
+VALUES ('b0000000-0000-0000-0000-000000000001', 1, 20.00, 'páginas', ARRAY[1,2,3,4,5,6,7], '2026-10-01', 'America/Mexico_City');`
+      },
+      check_ins: {
+        title: "check_ins",
+        subtitle: "RF-04 / RN-P11 · Consolidado Diario Absoluto",
+        purpose: "Existe un único resultado por hábito y fecha de negocio. El cliente envía el valor acumulado del día (no un incremento relativo), garantizando idempotencia ante reintentos.",
+        sql: `CREATE TABLE check_ins (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    habit_id UUID NOT NULL REFERENCES habits(id) ON DELETE CASCADE,
+    profile_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
+    business_date DATE NOT NULL,
+    time_zone VARCHAR(50) NOT NULL,
+    current_value NUMERIC(10,2) NOT NULL DEFAULT 0.00 CHECK (current_value >= 0),
+    progress_status VARCHAR(20) NOT NULL DEFAULT 'zero' CHECK (progress_status IN ('zero', 'partial', 'completed')),
+    current_version INT NOT NULL DEFAULT 1 CHECK (current_version >= 1),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT uq_habit_business_date UNIQUE (habit_id, business_date)
+);`,
+        seed: `INSERT INTO check_ins (id, habit_id, profile_id, business_date, time_zone, current_value, progress_status)
+VALUES ('c0000000-0000-0000-0000-000000000001', 'b0000000-0000-0000-0000-000000000001',
+        'a0000000-0000-0000-0000-000000000001', '2026-10-18', 'America/Mexico_City', 20.00, 'completed');`
+      },
+      check_in_revisions: {
+        title: "check_in_revisions",
+        subtitle: "RF-04 / RN-P13 · Trazabilidad de Correcciones",
+        purpose: "Guarda cada hecho reportado por el cliente. Si la versión es > 1 (corrección tardía o ajuste), el campo correction_reason es forzoso.",
+        sql: `CREATE TABLE check_in_revisions (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    check_in_id UUID NOT NULL REFERENCES check_ins(id) ON DELETE CASCADE,
+    version INT NOT NULL CHECK (version >= 1),
+    client_event_id UUID NOT NULL,
+    value NUMERIC(10,2) NOT NULL CHECK (value >= 0),
+    occurred_at TIMESTAMPTZ NOT NULL,
+    recorded_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    time_zone VARCHAR(50) NOT NULL,
+    actor_id UUID NOT NULL REFERENCES profiles(id),
+    origin VARCHAR(30) NOT NULL DEFAULT 'manual' CHECK (origin IN ('manual', 'device', 'sync', 'admin')),
+    correction_reason TEXT,
+    CONSTRAINT uq_check_in_version UNIQUE (check_in_id, version),
+    CONSTRAINT chk_correction_reason_required CHECK (
+        (version = 1) OR 
+        (version > 1 AND correction_reason IS NOT NULL AND char_length(trim(correction_reason)) > 0)
+    )
+);`,
+        seed: `INSERT INTO check_in_revisions (check_in_id, version, client_event_id, value, occurred_at, time_zone, actor_id, origin, correction_reason)
+VALUES ('c0000000-0000-0000-0000-000000000001', 2, 'd0000000-0000-0000-0000-000000000004', 25.00,
+        NOW(), 'America/Mexico_City', 'a0000000-0000-0000-0000-000000000001', 'manual',
+        'Completé el capítulo final antes de dormir');`
+      },
+      idempotency_keys: {
+        title: "idempotency_keys",
+        subtitle: "RNF-02 / RN-P14 · Llaves de Idempotencia",
+        purpose: "Permite reintentar peticiones de red perdidas sin ejecutar dos veces la lógica ni duplicar registros. Valida la huella hash de la petición.",
+        sql: `CREATE TABLE idempotency_keys (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    profile_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
+    idempotency_key VARCHAR(128) NOT NULL,
+    operation VARCHAR(50) NOT NULL,
+    request_hash VARCHAR(64) NOT NULL,
+    response_status_code INT NOT NULL,
+    response_body JSONB NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    expires_at TIMESTAMPTZ NOT NULL,
+    CONSTRAINT uq_profile_operation_idempotency UNIQUE (profile_id, operation, idempotency_key),
+    CONSTRAINT chk_idempotency_expiry CHECK (expires_at > created_at)
+);`,
+        seed: `INSERT INTO idempotency_keys (profile_id, idempotency_key, operation, request_hash, response_status_code, response_body, expires_at)
+VALUES ('a0000000-0000-0000-0000-000000000001', 'idem-key-lectura-001', 'record_check_in', 'e3b0c44298fc...', 200, '{"status": "confirmed"}'::jsonb, NOW() + INTERVAL '7 days');`
+      },
+      outbox_events: {
+        title: "outbox_events",
+        subtitle: "RNF-02 / Patrón Transaccional Outbox",
+        purpose: "Guarda los eventos producidos dentro de la misma transacción PostgreSQL que modifica los datos. Los workers leen los eventos y los despachan de manera atómica.",
+        sql: `CREATE TABLE outbox_events (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    aggregate_type VARCHAR(50) NOT NULL,
+    aggregate_id UUID NOT NULL,
+    event_type VARCHAR(100) NOT NULL,
+    payload JSONB NOT NULL,
+    trace_id VARCHAR(64),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    published_at TIMESTAMPTZ
+);
+CREATE INDEX idx_outbox_unpublished ON outbox_events(created_at) WHERE published_at IS NULL;`,
+        seed: `INSERT INTO outbox_events (aggregate_type, aggregate_id, event_type, payload, trace_id)
+VALUES ('CheckIn', 'c0000000-0000-0000-0000-000000000001', 'check_in.progress_recorded', '{"value": 20.00}'::jsonb, 'trace-001');`
+      }
+    };
+
+    function inspectTable(tableName) {
+      const data = tableMetadata[tableName];
+      if (!data) return;
+
+      document.getElementById('drawerTitle').innerText = data.title;
+      document.getElementById('drawerSubtitle').innerText = data.subtitle;
+      document.getElementById('drawerPurpose').innerText = data.purpose;
+      document.getElementById('drawerSql').innerText = data.sql;
+      document.getElementById('drawerSeed').innerText = data.seed;
+
+      document.getElementById('drawerOverlay').classList.add('open');
+      document.getElementById('sideDrawer').classList.add('open');
+    }
+
+    function closeDrawer() {
+      document.getElementById('drawerOverlay').classList.remove('open');
+      document.getElementById('sideDrawer').classList.remove('open');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Quantify Core · Modelo Relacional de Persistencia (PostgreSQL 16)",
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    {
+      "id": "identidad",
+      "label": "Identidad & Consentimientos (RF-01 / RF-02)"
+    },
+    {
+      "id": "habitos",
+      "label": "Gestión & Versionado de Hábitos (RF-03)"
+    },
+    {
+      "id": "registros",
+      "label": "Consolidado Diario & Auditoría de Check-ins (RF-04)"
+    },
+    {
+      "id": "consistencia",
+      "label": "Idempotencia & Eventos Asíncronos (RNF-02)"
+    }
+  ],
+  "mainPath": [
+    "profiles",
+    "habits",
+    "habit_revisions",
+    "check_ins",
+    "check_in_revisions"
+  ],
+  "nodes": [
+    {
+      "id": "profiles",
+      "lane": "identidad",
+      "col": 0,
+      "type": "security",
+      "label": "profiles (Perfiles Core)",
+      "width": 210
+    },
+    {
+      "id": "user_consents",
+      "lane": "identidad",
+      "col": 1,
+      "type": "security",
+      "label": "user_consents (Consentimientos)",
+      "width": 210
+    },
+    {
+      "id": "habits",
+      "lane": "habitos",
+      "col": 1,
+      "type": "database",
+      "label": "habits (Cabecera Hábito)",
+      "width": 210
+    },
+    {
+      "id": "habit_revisions",
+      "lane": "habitos",
+      "col": 2,
+      "type": "database",
+      "label": "habit_revisions (Metas Versionadas)",
+      "width": 210
+    },
+    {
+      "id": "check_ins",
+      "lane": "registros",
+      "col": 2,
+      "type": "database",
+      "label": "check_ins (Consolidado Diario)",
+      "width": 210
+    },
+    {
+      "id": "check_in_revisions",
+      "lane": "registros",
+      "col": 3,
+      "type": "database",
+      "label": "check_in_revisions (Auditoría Corrección)",
+      "width": 210
+    },
+    {
+      "id": "idempotency_keys",
+      "lane": "consistencia",
+      "col": 1,
+      "type": "service",
+      "label": "idempotency_keys (Deduplicación)",
+      "width": 210
+    },
+    {
+      "id": "outbox_events",
+      "lane": "consistencia",
+      "col": 3,
+      "type": "service",
+      "label": "outbox_events (Transaccional Outbox)",
+      "width": 210
+    }
+  ],
+  "edges": [
+    {
+      "from": "profiles",
+      "to": "user_consents",
+      "label": "1:N (ON DELETE CASCADE)"
+    },
+    {
+      "from": "profiles",
+      "to": "habits",
+      "label": "1:N (Dueño del recurso)"
+    },
+    {
+      "from": "habits",
+      "to": "habit_revisions",
+      "label": "1:N (Versionado inmutable)"
+    },
+    {
+      "from": "habits",
+      "to": "check_ins",
+      "label": "1:N (uq_habit_business_date)"
+    },
+    {
+      "from": "profiles",
+      "to": "check_ins",
+      "label": "1:N (Aislamiento de cuenta)"
+    },
+    {
+      "from": "check_ins",
+      "to": "check_in_revisions",
+      "label": "1:N (Historial versionado)"
+    },
+    {
+      "from": "profiles",
+      "to": "idempotency_keys",
+      "label": "1:N (Control de reintentos)"
+    },
+    {
+      "from": "check_in_revisions",
+      "to": "outbox_events",
+      "label": "Disparo de evento outbox"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Integridad Relacional ACID",
+      "items": [
+        "PostgreSQL 16 garantiza consistencia y aislamiento de transacciones.",
+        "Las restricciones UNIQUE y CHECK impiden colisiones o corrupciones lógicas."
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Trazabilidad e Inmutabilidad",
+      "items": [
+        "Archivar un hábito conserva íntegro su historial histórico.",
+        "Las correcciones de avance exigen justificación explícita obligatoria."
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Idempotencia y Desacoplamiento",
+      "items": [
+        "Los reintentos de red u offline devuelven el resultado previo sin duplicar.",
+        "El patrón Outbox garantiza entrega atómica de eventos hacia workers y analítica."
+      ]
+    }
+  ]
+}
