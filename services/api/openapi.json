@@ -1,0 +1,65 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Quantify Core API",
+    "version": "1.0.0",
+    "description": "API inicial de Quantify Core con verificacion de salud (healthcheck) y documentacion interactiva."
+  },
+  "servers": [
+    {
+      "url": "/",
+      "description": "Servidor local"
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Verificar el estado del servidor",
+        "description": "Devuelve HTTP 200 y detalles del estado de salud del servicio si esta operando correctamente.",
+        "responses": {
+          "200": {
+            "description": "El servidor esta activo y funcionando",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HealthResponse": {
+        "type": "object",
+        "required": ["status", "timestamp", "uptime", "service", "version"],
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ok"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-10-23T04:00:00.000Z"
+          },
+          "uptime": {
+            "type": "number",
+            "example": 42
+          },
+          "service": {
+            "type": "string",
+            "example": "quantify-api"
+          },
+          "version": {
+            "type": "string",
+            "example": "1.0.0"
+          }
+        }
+      }
+    }
+  }
+}
