@@ -1,6 +1,46 @@
-# API principal · NestJS + TypeScript
+# API de Quantify Core con Node y Express
 
-> **Estado: especificación, sin implementación.** La API será la autoridad del dominio y de las escrituras transaccionales en PostgreSQL. [OpenAPI](../../packages/contracts/openapi.json) es un borrador de interfaces, no un servicio desplegado.
+> **Estado:** API inicial de Node.js y Express ya echa y lista para correr en local con healthcheck y openapi para la entrega del sprint 1.
+
+## Como prender y arrancar la api en tu compu
+
+Aqui se explica bien facil como prender y arrancar la api para ver que si jala todo bien sin broncas:
+
+1. Primero te metes a la carpeta de api:
+```bash
+cd services/api
+```
+
+2. Instalas las librerias y paquetes que se ocupan:
+```bash
+npm install
+```
+
+3. Copias las variables de ejemplo para tener tu archivo .env propio:
+```bash
+cp .env.example .env
+```
+Ahi biene el puerto 3000 para que prenda el server en ese puerto.
+
+4. Para prender y encender el servidor en modo desarrollo:
+```bash
+npm run dev
+```
+O si quieres prenderlo normal:
+```bash
+npm start
+```
+
+5. Para ver que si esta prendido y funcionando bien:
+- Entras a `http://localhost:3000/health` y te responde que esta todo ok y que esta vivo el servicio.
+- Entras a `http://localhost:3000/docs` para ver la documentacion de openapi con la pantallita de swagger donde salen las rutas.
+
+6. Para correr las pruebas y checar que todo pase:
+```bash
+npm test
+```
+Esto corre los test solitos y te dise si todo salio bien.
+
 
 ## Módulos y fronteras
 
